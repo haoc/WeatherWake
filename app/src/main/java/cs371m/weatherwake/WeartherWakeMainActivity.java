@@ -14,7 +14,7 @@ public class WeartherWakeMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.wearther_wake_main);
+        setContentView(R.layout.weather_wake_alarm_editor);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 //

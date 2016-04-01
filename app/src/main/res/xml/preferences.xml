@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout="@layout/weather_wake_alarm_editor">
+    <Preference
+        android:layout="@layout/weather_wake_alarm_editor">
+    </Preference>
+
+    <EditTextPreference
+    android:key="alarm_name"
+    android:summary=""
+    android:defaultValue="@string/default_alarm"
+    android:title="Alarm Name" />
+
+    <com.example.SeekbarPreference
+        android:title="Max Volume"/>
+
+    <com.example.SeekbarPreference
+        android:title="Balance" />
+
+
+</PreferenceScreen>
