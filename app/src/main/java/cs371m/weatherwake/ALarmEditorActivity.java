@@ -19,10 +19,10 @@ public class AlarmEditorActivity extends PreferenceActivity {
         setContentView(R.layout.weather_wake_alarm_editor);
     }
 
-    @Override
-    protected View onCreateView( ViewGroup parent) {
-        LayoutInflater li = (LayoutInflater)getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        return li.inflate( R.layout.seekbar_preference, parent, false);
-    }
+//    @Override
+//    protected View onCreateView( ViewGroup parent) {
+//        LayoutInflater li = (LayoutInflater)getContext().getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+//        return li.inflate( R.layout.seekbar_preference, parent, false);
+//    }
 
 }
