@@ -21,9 +21,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -38,6 +43,8 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     protected LocationListener mLocationListener;
 
     protected Button retrieveLocationButton;
+
+    private TextView mDateTime;
 
     private ProgressBar mProgressBar;
     private Boolean flag = false;
@@ -54,6 +61,22 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mProgressBar.setVisibility(View.INVISIBLE);
+
+        mDateTime = (TextView) findViewById(R.id.dateTime);
+
+        // Get day
+        String weekDay;
+        SimpleDateFormat dayFormat = new SimpleDateFormat("E", Locale.US);
+
+        Calendar calendar = Calendar.getInstance();
+        weekDay = dayFormat.format(calendar.getTime());
+
+        // Get time
+        Date currentTime = calendar.getTime();
+        DateFormat date = new SimpleDateFormat("hh:mm a");
+        String localTime = date.format(currentTime);
+
+        mDateTime.setText(weekDay + ", " + localTime);
 
     }
 
@@ -75,6 +98,8 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
             } catch (SecurityException e) {
                 Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
             }
+        } else {
+            Toast.makeText(WeatherWakeMainActivity.this, "Please turn on your GPS!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -101,7 +126,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
             Log.v(TAG, latitude);
 
     /*----------to get City-Name from coordinates ------------- */
-            String cityName=null;
+            String cityName = null;
             Geocoder gcd = new Geocoder(getBaseContext(),
                     Locale.getDefault());
             List<Address> addresses;
@@ -117,7 +142,6 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
             String s = cityName;
             retrieveLocationButton.setText(s);
-
         }
 
         public void onStatusChanged(String s, int i, Bundle b) {
