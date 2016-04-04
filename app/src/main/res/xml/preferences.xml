@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout="@layout/weather_wake_alarm_editor">
+
+    <Preference
+        android:key="alarm"
+        android:layout="@layout/time_wheel_preference"/>
+
+    <Preference
+        android:key="days_of_the_week"
+        android:layout="@layout/toggle_button_preference"/>
+
+    <EditTextPreference
+        android:key="alarm_name"
+        android:title="Alarm Name"
+        android:defaultValue="@string/default_alarm"
+        android:summary=""/>
+
+    <Preference
+        android:key="volume"
+        android:title=""
+        android:widgetLayout="@layout/seekbar_preference"
+        android:summary=""/>
+
+    <CheckBoxPreference
+        android:key="weather_pairing"
+        android:title="Weather Pairing"
+        android:summary="Use weather to choose song"
+        android:defaultValue="true"/>
+
+    <RingtonePreference
+        android:key="ringtone"
+        android:title="Ringtone"
+        android:summary="Ringtone used when not using weather pairing"/>
+
+    <ListPreference
+        android:key="snooze"
+        android:title="Snooze"
+        android:summary=""
+        android:entries="@array/snooze_times"
+        android:entryValues="@array/snooze_times_values"/>
+
+    <Preference
+        android:layout="@layout/confirm_cancel_preference"/>
+
+</PreferenceScreen>

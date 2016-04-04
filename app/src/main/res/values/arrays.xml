@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="snooze_times">
+        <item>@string/one_min</item>
+        <item>@string/five_min</item>
+        <item>@string/ten_min</item>
+        <item>@string/thirty_min</item>
+    </string-array>
+
+    <integer-array name="snooze_times_values">
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>30</item>
+    </integer-array>
+
+</resources>
