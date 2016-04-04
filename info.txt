@@ -3,6 +3,8 @@ Hao-Hsiang Chi
 hc22263
 
 Member 2:
+David Toth
+dpt336
 
 
 Member 3:
@@ -11,13 +13,18 @@ Member 3:
 Features Completed:
 - User can get current location to display as a city on a click of a button (GPS needs to be on)
 - App shows current day and time
+- User can view the default condition on the conditions activity
+- User can adjust the default condition on the condition editor activity
 
 Features Not Completed:
+- Condition editor activity does not save edits in state
 
 Extra Features Added:
 
 Code from Other Sources:
 - Get Current Location Coordintaes, City Name
 http://www.rdcworld-android.blogspot.in/2012/01/get-current-location-coordinates-city.html
+- Range seek bar widget
+https://github.com/yahoo/android-range-seek-bar
 
 Code Completed:
