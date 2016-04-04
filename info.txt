@@ -8,14 +8,16 @@ Member 2:
 Member 3:
 
 
-Features Completed
+Features Completed:
 - User can get current location to display as a city on a click of a button (GPS needs to be on)
 - App shows current day and time
 
-Features Not Completed
+Features Not Completed:
 
-Extra Features Added
+Extra Features Added:
 
-Code from Other Sources
+Code from Other Sources:
 - Get Current Location Coordintaes, City Name
 http://www.rdcworld-android.blogspot.in/2012/01/get-current-location-coordinates-city.html
+
+Code Completed:
