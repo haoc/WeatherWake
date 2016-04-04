@@ -2,7 +2,6 @@
 To show the GPS location feature, it's best to use an actual device instead of an emulator.
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
