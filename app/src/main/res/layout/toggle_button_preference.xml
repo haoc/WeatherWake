@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/alarmTimePicker">
+
+        <ToggleButton
+            android:id="@+id/monButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="@string/mon_button"
+            android:textOn="@string/mon_button"
+            android:textSize="12dp"
+            />
+
+        <ToggleButton
+            android:id="@+id/tueButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/monButton"
+            android:layout_weight="1"
+            android:textOff="@string/tue_button"
+            android:textOn="@string/tue_button"
+            android:textSize="12dp"
+            />
+
+        <ToggleButton
+            android:id="@+id/wedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tueButton"
+            android:layout_weight="1"
+            android:textOff="@string/wed_button"
+            android:textOn="@string/wed_button"
+            android:textSize="12dp"
+            />
+
+        <ToggleButton
+            android:id="@+id/thuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/wedButton"
+            android:layout_weight="1"
+            android:textOff="@string/thu_button"
+            android:textOn="@string/thu_button"
+            android:textSize="12dp"
+            />
+
+        <ToggleButton
+            android:id="@+id/friButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/thuButton"
+            android:layout_weight="1"
+            android:textOff="@string/fri_button"
+            android:textOn="@string/fri_button"
+            android:textSize="12dp"
+            />
+
+        <ToggleButton
+            android:id="@+id/satButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/friButton"
+            android:layout_weight="1"
+            android:textOff="@string/sat_button"
+            android:textOn="@string/sat_button"
+            android:textSize="12dp"
+            />
+
+
+        <ToggleButton
+            android:id="@+id/sunButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/satButton"
+            android:layout_weight="1"
+            android:textOff="@string/sun_button"
+            android:textOn="@string/sun_button"
+            android:textSize="12dp"
+            />
+
+    </LinearLayout>
+</RelativeLayout>
