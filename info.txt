@@ -8,13 +8,16 @@ dpt336
 
 
 Member 3:
-
+Michael Tsang
+met2224
 
 Features Completed:
 - User can get current location to display as a city on a click of a button (GPS needs to be on)
 - App shows current day and time
 - User can view the default condition on the conditions activity
 - User can adjust the default condition on the condition editor activity
+- Connected the activities of the app
+- Added functionality with buttons
 
 Features Not Completed:
 - Condition editor activity does not save edits in state
