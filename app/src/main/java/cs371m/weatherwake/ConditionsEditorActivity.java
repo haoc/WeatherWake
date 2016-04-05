@@ -20,6 +20,7 @@ public class ConditionsEditorActivity extends AppCompatActivity {
 
         // Setup the new range seek bar
         RangeSeekBar<Integer> tempRSB = new RangeSeekBar<Integer>(this);
+
         // Set the range
         tempRSB.setRangeValues(-30, 120);
         tempRSB.setSelectedMinValue(85);
@@ -38,7 +39,7 @@ public class ConditionsEditorActivity extends AppCompatActivity {
 
         // Add to layout
         LinearLayout precipitation_layout = (LinearLayout) findViewById(R.id.precipitationRSB);
-        precipitation_layout.addView(tempRSB);
+        precipitation_layout.addView(precipitationRSB);
 
         // Setup the new range seek bar
         RangeSeekBar<Integer> windRSB = new RangeSeekBar<Integer>(this);
@@ -49,7 +50,7 @@ public class ConditionsEditorActivity extends AppCompatActivity {
 
         // Add to layout
         LinearLayout layout = (LinearLayout) findViewById(R.id.windRSB);
-        layout.addView(tempRSB);
+        layout.addView(windRSB);
 
     }
 

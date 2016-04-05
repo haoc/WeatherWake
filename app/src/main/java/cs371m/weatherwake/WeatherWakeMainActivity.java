@@ -122,7 +122,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
         mAddWeatherSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                prepWeatherSettingActivity();
             }
         });
         
@@ -240,7 +240,6 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     }
     
     private void setBasicViewInfo() {
-       mLocation = (TextView) findViewById(R.id.location);
        mDateTime = (TextView) findViewById(R.id.dateTime);
        mTemp = (TextView) findViewById(R.id.temp);
        mArrowUp = (ImageView) findViewById(R.id.arrow_up);
@@ -268,6 +267,11 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
     private void prepAlarmEditorActivity(){
         Intent intent = new Intent(this, AlarmEditorActivity.class);
+        startActivity(intent);
+    }
+
+    private void prepWeatherSettingActivity(){
+        Intent intent = new Intent(this, WeatherSettingsActivity.class);
         startActivity(intent);
     }
 }
