@@ -5,20 +5,29 @@
     android:orientation="vertical"
     android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/location"
+    <!--<TextView-->
+        <!--android:id="@+id/location"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:text="Click to set Location"-->
+        <!--android:textSize="20dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:layout_marginLeft="10dp"/>-->
+
+    <Button
+        android:id="@+id/locationButton"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Austin"
+        android:text="Click to set Location"
         android:textSize="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"/>
+        android:layout_marginLeft="5dp" />
 
     <TextView
         android:id="@+id/dateTime"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_below="@id/location"
+        android:layout_below="@id/locationButton"
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:text="TH, 3:32 PM"
@@ -88,6 +97,13 @@
         android:layout_centerInParent="true"
         android:src="@drawable/overcast"
         />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weatherImg"
+        android:layout_centerInParent="true"/>
 
     <View
         android:id="@+id/divider"

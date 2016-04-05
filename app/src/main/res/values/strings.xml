@@ -7,4 +7,12 @@
     <string name="temperature">Temperature (F)</string>
     <string name="precipitation">Precipitation (%)</string>
     <string name="windMPH">Wind Speed (MPH)</string>
+    <string name="mon_button">MON</string>
+    <string name="tue_button">TUE</string>
+    <string name="wed_button">WED</string>
+    <string name="thu_button">THU</string>
+    <string name="fri_button">FRI</string>
+    <string name="sat_button">SAT</string>
+    <string name="sun_button">SUN</string>
+    <string name="default_alarm">Alarm 1</string>
 </resources>
