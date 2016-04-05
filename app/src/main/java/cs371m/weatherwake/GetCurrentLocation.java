@@ -28,8 +28,8 @@
 //import android.widget.ProgressBar;
 //import android.widget.Toast;
 //
-//public class GetCurrentLocation extends Activity
-//        implements OnClickListener {
+////public class GetCurrentLocation extends Activity implements LocationListener{
+//public class GetCurrentLocation extends Activity{
 //
 //    private LocationManager locationMangaer=null;
 //    private LocationListener locationListener=null;
@@ -41,124 +41,88 @@
 //    private static final String TAG = "Debug";
 //    private Boolean flag = false;
 //
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.main);
+////    @Override
+////    public void onCreate(Bundle savedInstanceState) {
+////        super.onCreate(savedInstanceState);
+////        setContentView(R.layout.main);
+////
+////
+////        //if you want to lock screen for always Portrait mode
+////        setRequestedOrientation(ActivityInfo
+////                .SCREEN_ORIENTATION_PORTRAIT);
+////
+////        pb = (ProgressBar) findViewById(R.id.progressBar1);
+////        pb.setVisibility(View.INVISIBLE);
+////
+////        editLocation = (EditText) findViewById(R.id.editTextLocation);
+////
+////        btnGetLocation = (Button) findViewById(R.id.btnLocation);
+////        btnGetLocation.setOnClickListener(this);
+////
+////        locationMangaer = (LocationManager)
+////                getSystemService(Context.LOCATION_SERVICE);
+////
+////    }
 //
 //
-//        //if you want to lock screen for always Portrait mode
-//        setRequestedOrientation(ActivityInfo
-//                .SCREEN_ORIENTATION_PORTRAIT);
 //
-//        pb = (ProgressBar) findViewById(R.id.progressBar1);
-//        pb.setVisibility(View.INVISIBLE);
+////    @Override
+////    public void onClick(View v) {
+////        flag = displayGpsStatus();
+////        if(flag) {
+////            Log.d(TAG, "GPS IS ON");
+////            mLocationListener = new MyLocationListener();
+////            mProgressBar.setVisibility(View.VISIBLE);
+////            try {
+////                mLocationManager.requestLocationUpdates(
+////                        LocationManager.GPS_PROVIDER,
+////                        MINIMUM_TIME_BETWEEN_UPDATES,
+////                        MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+////                        mLocationListener);
+////                Log.d(TAG, "requestLocationUpdates");
+////
+////            } catch (SecurityException e) {
+////                Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
+////            }
+////        } else {
+////            Toast.makeText(WeatherWakeMainActivity.this, "Please turn on your GPS!", Toast.LENGTH_LONG).show();
+////        }
+////    }
 //
-//        editLocation = (EditText) findViewById(R.id.editTextLocation);
+////    public Boolean displayGpsStatus() {
+//////        ContentResolver contentResolver = getBaseContext().getContentResolver();
+//////        boolean gpsStatus = Settings.Secure.isLocationProviderEnabled(contentResolver, LocationManager.GPS_PROVIDER);
+////
+////        boolean gpsStatus = false;
+////        LocationManager locationManager;
+////        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+////        gpsStatus = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+////
+////        if(gpsStatus) {
+////            return true;
+////        } else {
+////            return false;
+////        }
+////    }
 //
-//        btnGetLocation = (Button) findViewById(R.id.btnLocation);
-//        btnGetLocation.setOnClickListener(this);
-//
-//        locationMangaer = (LocationManager)
-//                getSystemService(Context.LOCATION_SERVICE);
-//
-//    }
-//
-//
-//
-//    @Override
-//    public void onClick(View v) {
-//        flag = displayGpsStatus();
-//        if (flag) {
-//
-//            Log.v(TAG, "onClick");
-//
-//            editLocation.setText("Please!! move your device to"+
-//                    " see the changes in coordinates."+"\nWait..");
-//
-//            pb.setVisibility(View.VISIBLE);
-//            locationListener = new MyLocationListener();
-//
-//            try {
-//                locationMangaer.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10,locationListener);
-//            } catch (SecurityException e) {
-//                Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
-//            }
-//
-////            locationMangaer.requestLocationUpdates(LocationManager
-////                    .GPS_PROVIDER, 5000, 10,locationListener);
-//
-//        } else {
-//            alertbox("Gps Status!!", "Your GPS is: OFF");
-//        }
-//
-//    }
-//
-//    /*----Method to Check GPS is enable or disable ----- */
-//    private Boolean displayGpsStatus() {
-//        ContentResolver contentResolver = getBaseContext()
-//                .getContentResolver();
-//        boolean gpsStatus = Settings.Secure
-//                .isLocationProviderEnabled(contentResolver,
-//                        LocationManager.GPS_PROVIDER);
-//        if (gpsStatus) {
-//            return true;
-//
-//        } else {
-//            return false;
-//        }
-//    }
-//
-//    /*----------Method to create an AlertBox ------------- */
-//    protected void alertbox(String title, String mymessage) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setMessage("Your Device's GPS is Disable")
-//                .setCancelable(false)
-//                .setTitle("** Gps Status **")
-//                .setPositiveButton("Gps On",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int id) {
-//                                // finish the current activity
-//                                // AlertBoxAdvance.this.finish();
-//                                Intent myIntent = new Intent(
-//                                        Settings.ACTION_SECURITY_SETTINGS);
-//                                startActivity(myIntent);
-//                                dialog.cancel();
-//                            }
-//                        })
-//                .setNegativeButton("Cancel",
-//                        new DialogInterface.OnClickListener() {
-//                            public void onClick(DialogInterface dialog, int id) {
-//                                // cancel the dialog box
-//                                dialog.cancel();
-//                            }
-//                        });
-//        AlertDialog alert = builder.create();
-//        alert.show();
-//    }
-//
-//    /*----------Listener class to get coordinates ------------- */
-//    private class MyLocationListener implements LocationListener {
+//    public class MyLocationListener implements LocationListener {
 //        @Override
-//        public void onLocationChanged(Location loc) {
+//        public void onLocationChanged(Location location) {
+//            Log.d(TAG, "onLocationChanged");
+////            mProgressBar.setVisibility(View.INVISIBLE);
 //
-//            editLocation.setText("");
-//            pb.setVisibility(View.INVISIBLE);
-//            Toast.makeText(getBaseContext(),"Location changed : Lat: " +
-//                            loc.getLatitude()+ " Lng: " + loc.getLongitude(),
-//                    Toast.LENGTH_SHORT).show();
-//            String longitude = "Longitude: " +loc.getLongitude();
+//            String longitude = "Longitude: " +location.getLongitude();
 //            Log.v(TAG, longitude);
-//            String latitude = "Latitude: " +loc.getLatitude();
+//            String latitude = "Latitude: " +location.getLatitude();
 //            Log.v(TAG, latitude);
 //
 //    /*----------to get City-Name from coordinates ------------- */
-//            String cityName=null;
+//            String cityName = null;
 //            Geocoder gcd = new Geocoder(getBaseContext(),
 //                    Locale.getDefault());
-//            List<Address>  addresses;
+//            List<Address> addresses;
 //            try {
-//                addresses = gcd.getFromLocation(loc.getLatitude(), loc
+//                addresses = gcd.getFromLocation(location.getLatitude(), location
 //                        .getLongitude(), 1);
 //                if (addresses.size() > 0)
 //                    System.out.println(addresses.get(0).getLocality());
@@ -167,25 +131,21 @@
 //                e.printStackTrace();
 //            }
 //
-//            String s = longitude+"\n"+latitude +
-//                    "\n\nMy Currrent City is: "+cityName;
-//            editLocation.setText(s);
+//            String s = cityName;
+////            retrieveLocationButton.setText(s);
 //        }
 //
-//        @Override
-//        public void onProviderDisabled(String provider) {
-//            // TODO Auto-generated method stub
+//        public void onStatusChanged(String s, int i, Bundle b) {
+////            Toast.makeText(WeatherWakeMainActivity.this, "Provider status changed", Toast.LENGTH_LONG).show();
 //        }
 //
-//        @Override
-//        public void onProviderEnabled(String provider) {
-//            // TODO Auto-generated method stub
+//        public void onProviderDisabled(String s) {
+////            Toast.makeText(WeatherWakeMainActivity.this, "Provider disabled by the user. GPS turned off", Toast.LENGTH_LONG).show();
 //        }
 //
-//        @Override
-//        public void onStatusChanged(String provider,
-//                                    int status, Bundle extras) {
-//            // TODO Auto-generated method stub
+//        public void onProviderEnabled(String s) {
+////            Toast.makeText(WeatherWakeMainActivity.this, "Provider enabled by the user. GPS turned on", Toast.LENGTH_LONG).show();
 //        }
+//
 //    }
 //}

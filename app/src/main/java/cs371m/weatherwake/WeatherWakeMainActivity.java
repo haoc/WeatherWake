@@ -6,7 +6,6 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-//import android.location.LocationListener;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -23,6 +22,9 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.survivingwithandroid.weather.lib.WeatherClient;
+import com.survivingwithandroid.weather.lib.request.WeatherRequest;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -41,13 +43,19 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
     protected LocationManager mLocationManager;
     protected LocationListener mLocationListener;
+//    private GetCurrentLocation mLocationListener;
+
+//    private GetWeather mGetWeather;
 
     protected Button retrieveLocationButton;
+    private Button addAlarmButton;
 
     private TextView mDateTime;
 
     private ProgressBar mProgressBar;
     private Boolean flag = false;
+
+    private View.OnClickListener mAddAlarmListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,9 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
         retrieveLocationButton = (Button) findViewById(R.id.locationButton);
         retrieveLocationButton.setOnClickListener(this);
+
+        addAlarmButton = (Button) findViewById(R.id.addAlarm);
+        addAlarmButton.setOnClickListener(this);
 
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -82,17 +93,19 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
+        mLocationListener = new MyLocationListener();
+//        mLocationListener = new GetCurrentLocation();
         flag = displayGpsStatus();
         if(flag) {
             Log.d(TAG, "GPS IS ON");
-            mLocationListener = new MyLocationListener();
+//            mLocationListener = new MyLocationListener();
             mProgressBar.setVisibility(View.VISIBLE);
             try {
                 mLocationManager.requestLocationUpdates(
                         LocationManager.GPS_PROVIDER,
                         MINIMUM_TIME_BETWEEN_UPDATES,
                         MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                        mLocationListener);
+                         mLocationListener);
                 Log.d(TAG, "requestLocationUpdates");
 
             } catch (SecurityException e) {
@@ -101,6 +114,8 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
         } else {
             Toast.makeText(WeatherWakeMainActivity.this, "Please turn on your GPS!", Toast.LENGTH_LONG).show();
         }
+
+//        mAddAlarmListener = new
     }
 
     private Boolean displayGpsStatus() {
@@ -142,6 +157,12 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
             String s = cityName;
             retrieveLocationButton.setText(s);
+
+//            mGetWeather = new GetWeather();
+//            mGetweather.getCurrentCondition(new WeatherRequest("2988507"), new WeatherClient.WeatherEventListener(){
+//
+//            }
+
         }
 
         public void onStatusChanged(String s, int i, Bundle b) {
@@ -149,11 +170,11 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
         }
 
         public void onProviderDisabled(String s) {
-            Toast.makeText(WeatherWakeMainActivity.this, "Provider disabled by the user. GPS turned off", Toast.LENGTH_LONG).show();
+//            Toast.makeText(WeatherWakeMainActivity.this, "Provider disabled by the user. GPS turned off", Toast.LENGTH_LONG).show();
         }
 
         public void onProviderEnabled(String s) {
-            Toast.makeText(WeatherWakeMainActivity.this, "Provider enabled by the user. GPS turned on", Toast.LENGTH_LONG).show();
+//            Toast.makeText(WeatherWakeMainActivity.this, "Provider enabled by the user. GPS turned on", Toast.LENGTH_LONG).show();
         }
 
     }
