@@ -4,6 +4,14 @@
         "source": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.1.1\\res\\drawable\\design_fab_background.xml"
     },
     {
+        "merged": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\seek_thumb_normal.png",
+        "source": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\seek_thumb_normal.png"
+    },
+    {
+        "merged": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\seek_thumb_pressed.png",
+        "source": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\seek_thumb_pressed.png"
+    },
+    {
         "merged": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_light.xml",
         "source": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable\\abc_list_selector_background_transition_holo_light.xml"
     },
@@ -34,6 +42,10 @@
     {
         "merged": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_seekbar_track_material.xml",
         "source": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable\\abc_seekbar_track_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\seek_thumb_disabled.png",
+        "source": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\seek_thumb_disabled.png"
     },
     {
         "merged": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_background_transition_holo_dark.xml",
