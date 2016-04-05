@@ -51,7 +51,7 @@ public class AlarmEditorActivity extends PreferenceActivity {
 //                finish();
 //            }
 //        });
-
+//
     }
 
     private void setButtonViewInfo() {
