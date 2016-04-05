@@ -17,6 +17,7 @@ As an alpha, we have yet to implement most of our application's features.  You c
 Features Completed:
 - User can get current location to display as a city on a click of a button (GPS needs to be on)
 - App shows current day and time
+- User can access the edit page of the alarms created
 - User can view the default condition on the conditions activity
 - User can adjust the default condition on the condition editor activity
 - Connected the activities of the app
