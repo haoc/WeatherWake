@@ -19,4 +19,5 @@
     <string name="five_min">5 minutes</string>
     <string name="ten_min">10 minutes</string>
     <string name="thirty_min">30 minutes</string>
+    <string name="confirm_cancel">confirm_cancel</string>
 </resources>

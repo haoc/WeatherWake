@@ -41,6 +41,7 @@
         android:entryValues="@array/snooze_times_values"/>
 
     <Preference
+        android:key="@string/confirm_cancel"
         android:layout="@layout/confirm_cancel_preference"/>
 
 </PreferenceScreen>

@@ -12,6 +12,10 @@
         "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_screen_content_include.xml"
     },
     {
+        "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\weather_wake_alarm_screen.xml",
+        "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\src\\main\\res\\layout\\weather_wake_alarm_screen.xml"
+    },
+    {
         "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_popup_menu_item_layout.xml",
         "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_popup_menu_item_layout.xml"
     },
@@ -26,6 +30,10 @@
     {
         "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\content_wearther_wake_main.xml",
         "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\src\\main\\res\\layout\\content_wearther_wake_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\confirm_cancel_preference.xml",
+        "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\src\\main\\res\\layout\\confirm_cancel_preference.xml"
     },
     {
         "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
@@ -132,6 +140,10 @@
         "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\src\\main\\res\\layout\\wearther_wake_main.xml"
     },
     {
+        "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\time_wheel_preference.xml",
+        "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\src\\main\\res\\layout\\time_wheel_preference.xml"
+    },
+    {
         "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item.xml",
         "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.1.1\\res\\layout\\design_navigation_item.xml"
     },
@@ -146,6 +158,10 @@
     {
         "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_subheader.xml",
         "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.1.1\\res\\layout\\design_navigation_item_subheader.xml"
+    },
+    {
+        "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\toggle_button_preference.xml",
+        "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\src\\main\\res\\layout\\toggle_button_preference.xml"
     },
     {
         "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_bar_up_container.xml",
