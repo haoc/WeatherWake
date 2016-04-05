@@ -28,29 +28,29 @@ public class AlarmEditorActivity extends PreferenceActivity {
 
         setButtonViewInfo();
 
-        buttons.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            public boolean onPreferenceClick(Preference preference) {
-                Log.d("something", "to");
-                finish();
-                return true;
-            }
-        });
-
-        mConfirm.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d("somethingconfirm", "to");
-
-                finish();
-            }
-        });
-
-        mCancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Log.d("somethingcancel", "to");
-
-                finish();
-            }
-        });
+//        buttons.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//            public boolean onPreferenceClick(Preference preference) {
+//                Log.d("something", "to");
+//                finish();
+//                return true;
+//            }
+//        });
+//
+//        mConfirm.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.d("somethingconfirm", "to");
+//
+//                finish();
+//            }
+//        });
+//
+//        mCancel.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Log.d("somethingcancel", "to");
+//
+//                finish();
+//            }
+//        });
 
     }
 
