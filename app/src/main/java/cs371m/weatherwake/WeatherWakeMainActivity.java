@@ -3,6 +3,7 @@ package cs371m.weatherwake;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -20,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,9 +45,6 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
     protected LocationManager mLocationManager;
     protected LocationListener mLocationListener;
-//    private GetCurrentLocation mLocationListener;
-
-//    private GetWeather mGetWeather;
 
     protected Button retrieveLocationButton;
     private Button addAlarmButton;
@@ -56,24 +55,37 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     private Boolean flag = false;
 
     private View.OnClickListener mAddAlarmListener;
+    
+    private TextView mTemp;
+    private ImageView mArrowUp;
+    private TextView mHighTemp;
+    private ImageView mArrowDown;
+    private TextView mLowTemp;
+    private TextView mWeatherType;
+    private ImageView mWeatherImage;
+    private View mDivider;
+
+    private TextView mAlarm;
+    private TextView mAlarmName;
+    private ImageView mStartAlarm;
+    private ImageView mEditAlarm;
+
+    private Button mAddAlarm;
+    private Button mAddWeatherSetting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wearther_wake_main);
+    
+        setBasicViewInfo();
+        setAlarmViewInfo();
+        setButtonViewInfo();
 
         retrieveLocationButton = (Button) findViewById(R.id.locationButton);
         retrieveLocationButton.setOnClickListener(this);
 
-        addAlarmButton = (Button) findViewById(R.id.addAlarm);
-        addAlarmButton.setOnClickListener(this);
-
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mProgressBar.setVisibility(View.INVISIBLE);
-
-        mDateTime = (TextView) findViewById(R.id.dateTime);
 
         // Get day
         String weekDay;
@@ -88,7 +100,32 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
         String localTime = date.format(currentTime);
 
         mDateTime.setText(weekDay + ", " + localTime);
+        
+        mStartAlarm.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
 
+            }
+        });
+        
+        mEditAlarm.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                prepAlarmEditorActivity();
+            }
+        });
+
+        mAddAlarm.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                prepAlarmEditorActivity();
+            }
+        });
+
+        mAddWeatherSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        
     }
 
     @Override
@@ -200,5 +237,37 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    
+    private void setBasicViewInfo() {
+       mLocation = (TextView) findViewById(R.id.location);
+       mDateTime = (TextView) findViewById(R.id.dateTime);
+       mTemp = (TextView) findViewById(R.id.temp);
+       mArrowUp = (ImageView) findViewById(R.id.arrow_up);
+       mHighTemp = (TextView) findViewById(R.id.highTemp);
+       mArrowDown = (ImageView) findViewById(R.id.arrow_down);
+       mLowTemp = (TextView) findViewById(R.id. lowTemp);
+       mWeatherType = (TextView) findViewById(R.id.weatherType);
+       mWeatherImage = (ImageView) findViewById(R.id.weatherImg);
+       mDivider = (View) findViewById(R.id.divider);
+       mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+       mProgressBar.setVisibility(View.INVISIBLE);
+    }
+    
+    private void setAlarmViewInfo() {
+        mAlarm = (TextView) findViewById(R.id.alarm);
+        mAlarmName = (TextView) findViewById(R.id.alarmName);
+        mStartAlarm = (ImageView) findViewById(R.id.start);
+        mEditAlarm = (ImageView) findViewById(R.id.editAlarm);
+    }
+
+    private void setButtonViewInfo() {
+        mAddAlarm = (Button) findViewById(R.id.addAlarm);
+        mAddWeatherSetting = (Button) findViewById(R.id.addWeatherSetting);
+    }
+
+    private void prepAlarmEditorActivity(){
+        Intent intent = new Intent(this, AlarmEditorActivity.class);
+        startActivity(intent);
     }
 }
