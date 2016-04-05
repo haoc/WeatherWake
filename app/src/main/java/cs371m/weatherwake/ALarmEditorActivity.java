@@ -9,7 +9,7 @@ import android.widget.Button;
 /**
  * Created by KC on 3/27/2016.
  */
-public class ALarmEditorActivity  extends PreferenceActivity {
+public class AlarmEditorActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
