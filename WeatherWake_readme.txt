@@ -5,6 +5,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
+    // Seekbar library
+    compile 'org.florescu.android.rangeseekbar:rangeseekbar-library:0.3.0'
     // WeatherLib Library
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.survivingwithandroid:weatherlib:1.6.0'
