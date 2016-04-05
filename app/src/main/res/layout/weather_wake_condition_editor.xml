@@ -98,11 +98,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/temperature"
         android:layout_marginTop="-15dp"
-        android:layout_marginleft="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
         android:orientation="vertical" />
 
     <TextView
@@ -121,11 +120,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/precipitation"
         android:layout_marginTop="-15dp"
-        android:layout_marginleft="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
         android:orientation="vertical" />
 
     <TextView
@@ -144,11 +142,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/windMPH"
         android:layout_marginTop="-15dp"
-        android:layout_marginleft="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="20dp"
         android:orientation="vertical" />
 
     <LinearLayout
