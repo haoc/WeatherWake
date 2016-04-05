@@ -11,6 +11,9 @@ Member 3:
 Michael Tsang
 met2224
 
+Brief Instructions:
+As an alpha, we have yet to implement most of our application's features.  You can get to the edit alarm editor page by clicking on the edit button next to the existing default alarm. To get to the conditions page, a page where it lists a default typical day of weather in Texas, you can click on the weather settings button on the home page.  From there, you can click on the weather setting, "Hot and Sunny," to go to a page where the default ranges are set.  You can change these, but they will not be saved.  These are our core activities that we will be expanding upon for the beta.
+
 Features Completed:
 - User can get current location to display as a city on a click of a button (GPS needs to be on)
 - App shows current day and time
@@ -21,6 +24,11 @@ Features Completed:
 
 Features Not Completed:
 - Condition editor activity does not save edits in state
+- Cannot add condition
+- Alarm not functional, as a result, alarm screen never appears and no song added
+- Need to save in state functionality
+- Cannot edit alarm
+- Weather API not implemented
 
 Extra Features Added:
 
@@ -31,3 +39,16 @@ http://www.rdcworld-android.blogspot.in/2012/01/get-current-location-coordinates
 https://github.com/yahoo/android-range-seek-bar
 
 Code Completed:
+List of classes written by team:
+AlarmEditorActivity.java
+AlarmScreenActivity.java
+ConditionsEditorActivity.java
+WeatherSettingsActivity.java
+WeatherWakeMainActivity.java
+All Layout pages
+
+List of classes not written by team:
+RangeSeekBar.java
+BitmapUtil.java
+PixelUtil.java
+attrs.xml
