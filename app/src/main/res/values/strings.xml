@@ -15,4 +15,8 @@
     <string name="sat_button">SAT</string>
     <string name="sun_button">SUN</string>
     <string name="default_alarm">Alarm 1</string>
+    <string name="one_min">1 minute</string>
+    <string name="five_min">5 minutes</string>
+    <string name="ten_min">10 minutes</string>
+    <string name="thirty_min">30 minutes</string>
 </resources>
