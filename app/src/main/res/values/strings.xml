@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">WeatherWake</string>
+    <string name="app_name">Weather Wake</string>
     <string name="action_settings">Settings</string>
+    <string name="pairing1">Hot and Sunny</string>
+    <string name="demo_min_label">Min</string>
+    <string name="demo_max_label">Max</string>
+    <string name="temperature">Temperature (F)</string>
+    <string name="precipitation">Precipitation (%)</string>
+    <string name="windMPH">Wind Speed (MPH)</string>
 </resources>

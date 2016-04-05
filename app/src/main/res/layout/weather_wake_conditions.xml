@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_weight="1">
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Austin"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/dateTime"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/location"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:text="TH, 3:32 PM"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/temp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="68"
+        android:textSize="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp" />
+
+    <ImageView
+        android:id="@+id/arrow_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        />
+
+    <TextView
+        android:id="@+id/highTemp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/temp"
+        android:text="70"
+        android:textSize="20dp"
+        android:layout_marginRight="70dp" />
+
+    <ImageView
+        android:id="@+id/arrow_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        />
+
+    <TextView
+        android:id="@+id/lowTemp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_below="@id/temp"
+        android:text="50"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:id="@+id/pairing1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pairing1"
+        android:layout_below="@id/dateTime"
+        android:layout_marginLeft="20dp"
+        android:textSize="30dp"
+        android:layout_marginTop="25dp"
+        android:clickable="true"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/addAlarm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:text="Add Condition"
+            />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
