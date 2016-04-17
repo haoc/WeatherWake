@@ -11,10 +11,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -24,9 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.survivingwithandroid.weather.lib.WeatherClient;
-import com.survivingwithandroid.weather.lib.request.WeatherRequest;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -76,7 +69,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.wearther_wake_main);
+        setContentView(R.layout.weather_wake_main);
     
         setBasicViewInfo();
         setAlarmViewInfo();

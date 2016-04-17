@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="cs371m.weatherwake.WeartherWakeMainActivity"
-    tools:showIn="@layout/wearther_wake_main">
+    tools:showIn="@layout/weather_wake_main">
 
     <TextView
         android:layout_width="wrap_content"
