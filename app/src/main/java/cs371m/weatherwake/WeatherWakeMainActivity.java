@@ -31,6 +31,8 @@ import android.widget.ProgressBar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -78,7 +80,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     private Button mAddWeatherSetting;
 
     private ListView alarmListView ;
-    AlarmListAdapter alarmListAdapter;
+    private AlarmListAdapter alarmListAdapter;
 
     private database mDatabase;
 
@@ -116,11 +118,11 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 //            }
 //        });
         
-        mEditAlarm.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                prepAlarmEditorActivity();
-            }
-        });
+//        mEditAlarm.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                prepAlarmEditorActivity();
+//            }
+//        });
 
         mAddAlarm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -293,11 +295,14 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
         mStartAlarm = (ImageView) findViewById(R.id.start);
         mEditAlarm = (ImageView) findViewById(R.id.editAlarm);
 
+        Log.d(TAG, "setAlarmViewInfo()");
+
         alarmListView = (ListView) findViewById(R.id.list);
         alarmListView.setLongClickable(true);
-        alarmListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        alarmListView.setOnItemLongClickListener(new OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemLongClick");
                 view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
                 final Alarm alarm = (Alarm) alarmListAdapter.getItem(position);
                 AlertDialog.Builder builder = new AlertDialog.Builder(WeatherWakeMainActivity.this);
@@ -329,12 +334,13 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
         alarmListAdapter = new AlarmListAdapter(this);
         this.alarmListView.setAdapter(alarmListAdapter);
-        alarmListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        alarmListView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick");
                 view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
                 Alarm alarm = (Alarm) alarmListAdapter.getItem(position);
-                Intent intent = new Intent(WeatherWakeMainActivity.this, AlarmEditorPreferenceActivity.class);           // ?
+                Intent intent = new Intent(WeatherWakeMainActivity.this, AlarmEditorPreferenceActivity.class);
                 intent.putExtra("alarm", alarm);
                 startActivity(intent);
             }
@@ -342,8 +348,8 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     }
 
     protected void callAlarmScheduleService() {
-        Intent mathAlarmServiceIntent = new Intent(this, AlarmServiceBroadcastReceiver.class);
-        sendBroadcast(mathAlarmServiceIntent, null);
+        Intent alarmServiceIntent = new Intent(this, AlarmServiceBroadcastReceiver.class);
+        sendBroadcast(alarmServiceIntent, null);
     }
 
     private void setButtonViewInfo() {

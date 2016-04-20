@@ -52,6 +52,7 @@ public class AlarmEditorPreferenceActivity extends Activity {
     private ListView listView;
 
     private Button saveAlarm;
+    private Boolean alarmActive;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class AlarmEditorPreferenceActivity extends Activity {
                         switch (alarmEditorPreference.getKey()) {
                             case ALARM_ACTIVE:
                                 alarm.setAlarmActive(checked);
+                                alarmActive = checked;
                                 break;
                             case ALARM_VIBRATE:
                                 alarm.setAlarmVibrate(checked);
@@ -411,7 +413,10 @@ public class AlarmEditorPreferenceActivity extends Activity {
             database.update(getAlarm());
         }
         callMathAlarmScheduleService();
-        Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
+        // only display toast if alarm is active
+        if (alarmActive) {
+            Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
+        }
         finish();
     }
 

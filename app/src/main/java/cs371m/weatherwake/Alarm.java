@@ -55,7 +55,7 @@ public class Alarm implements Serializable {
     }
 
     private static final long serialVersionUID = 1234567890;
-    private  int alarmId;
+    private int alarmId;
     private String alarmName = "Alarm Clock";
     private Boolean alarmActive = true;
     private Calendar alarmTime = Calendar.getInstance();
@@ -77,6 +77,10 @@ public class Alarm implements Serializable {
 
     public String getAlarmName() {
         return alarmName;
+    }
+
+    public String getAlarmNameString() {
+        return getAlarmName();
     }
 
     public void setAlarmName(String alarmName) {

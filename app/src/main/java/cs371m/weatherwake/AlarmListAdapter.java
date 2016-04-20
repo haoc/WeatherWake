@@ -59,7 +59,7 @@ public class AlarmListAdapter extends BaseAdapter{
         checkBox.setOnClickListener(weatherWakeMainActivity);
 
         TextView alarmNameTextView = (TextView) view.findViewById(R.id.alarmNameTextView);
-        alarmNameTextView.setText(alarm.getAlarmName());
+        alarmNameTextView.setText(alarm.getAlarmNameString());
 
         TextView alarmTimeView = (TextView) view.findViewById(R.id.alarmTimeTextView);
         alarmTimeView.setText(alarm.getAlarmTimeString());

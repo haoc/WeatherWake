@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_weight="1">
+    android:layout_weight="1"
+    tools:context=".WeatherWakeMainActivity">
 
     <!--<TextView-->
         <!--android:id="@+id/location"-->
@@ -86,7 +88,6 @@
         android:layout_below="@id/dateTime"
         android:layout_centerInParent="true"
         android:textSize="30dp"
-        android:layout_marginTop="20dp"
         />
 
     <ImageView
@@ -110,7 +111,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/weatherImg"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:background="@android:color/darker_gray" />
@@ -120,12 +121,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
+        android:layout_marginBottom="45dp"
         android:longClickable="true" />
 
     <TextView
         android:id="@+id/noAlarms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
         android:text="No alarms." />
 
     <!--<TextView-->
