@@ -128,35 +128,35 @@
         android:layout_height="wrap_content"
         android:text="No alarms." />
 
-    <TextView
-        android:id="@+id/alarm"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        android:layout_alignLeft="@id/divider"
-        android:layout_marginTop="15dp"
-        android:text="4:00 AM TOMORROW" />
+    <!--<TextView-->
+        <!--android:id="@+id/alarm"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/divider"-->
+        <!--android:layout_alignLeft="@id/divider"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:text="4:00 AM TOMORROW" />-->
 
-    <TextView
-        android:id="@+id/alarmName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:text="Work"
-        android:textSize="20dp"
-        />
+    <!--<TextView-->
+        <!--android:id="@+id/alarmName"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/divider"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:text="Work"-->
+        <!--android:textSize="20dp"-->
+        <!--/>-->
 
-    <ImageView
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        android:layout_alignRight="@id/divider"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
-        android:src="@drawable/x"/>
+    <!--<ImageView-->
+        <!--android:id="@+id/start"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/divider"-->
+        <!--android:layout_alignRight="@id/divider"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginRight="40dp"-->
+        <!--android:src="@drawable/x"/>-->
 
     <ImageView
         android:id="@+id/editAlarm"

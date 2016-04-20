@@ -110,11 +110,11 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
         mDateTime.setText(weekDay + ", " + localTime);
         
-        mStartAlarm.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-            }
-        });
+//        mStartAlarm.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//
+//            }
+//        });
         
         mEditAlarm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -288,8 +288,8 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     }
     
     private void setAlarmViewInfo() {
-        mAlarm = (TextView) findViewById(R.id.alarm);
-        mAlarmName = (TextView) findViewById(R.id.alarmName);
+//        mAlarm = (TextView) findViewById(R.id.alarm);
+//        mAlarmName = (TextView) findViewById(R.id.alarmName);
         mStartAlarm = (ImageView) findViewById(R.id.start);
         mEditAlarm = (ImageView) findViewById(R.id.editAlarm);
 

@@ -44,7 +44,7 @@ public class AlarmListAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        Log.d(TAG, "getting view...");
+//        Log.d(TAG, "getting view...");
         // if view is null(first time the view has been  displayed),
         // obtain the LayoutInflater from weatherWakeMainActivity and inflate/render a enw view hierarchy from alarm_list.xml;
         if (view == null) {
@@ -57,6 +57,9 @@ public class AlarmListAdapter extends BaseAdapter{
         checkBox.setChecked(alarm.getAlarmActive());
         checkBox.setTag(position);
         checkBox.setOnClickListener(weatherWakeMainActivity);
+
+        TextView alarmNameTextView = (TextView) view.findViewById(R.id.alarmNameTextView);
+        alarmNameTextView.setText(alarm.getAlarmName());
 
         TextView alarmTimeView = (TextView) view.findViewById(R.id.alarmTimeTextView);
         alarmTimeView.setText(alarm.getAlarmTimeString());
