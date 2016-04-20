@@ -111,22 +111,24 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/addAlarm"
+            android:id="@+id/snooze"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_weight="1"
             android:text="Snooze"
+            android:tag="snooze"
             />
 
         <Button
-            android:id="@+id/addWeatherSetting"
+            android:id="@+id/turnOffAlarm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_weight="1"
             android:text="Ok"
+            android:tag="ok"
             />
 
     </LinearLayout>

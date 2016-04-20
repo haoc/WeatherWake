@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,11 +13,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
+import java.util.ArrayList;
+import java.util.List;
+
+import cs371m.weatherwake.Alarm;
 
 /**
  * Created by KC on 4/16/2016.
  */
 public class database extends SQLiteOpenHelper {
+
+    private final static String TAG = "database";
 
     static database instance = null;
     static SQLiteDatabase database = null;
@@ -89,8 +96,9 @@ public class database extends SQLiteOpenHelper {
         // insert values into database
         ContentValues contentValues = new ContentValues();
         contentValues.put(ALARMS_COLUMN_NAME, alarm.getAlarmName());
+        Log.d(TAG, "Alarm Name: " + alarm.getAlarmName());
         contentValues.put(ALARMS_COLUMN_ACTIVE, alarm.getAlarmActive());
-        contentValues.put(ALARMS_COLUMN_TIME, alarm.getAlarmTime());
+        contentValues.put(ALARMS_COLUMN_TIME, alarm.getAlarmTimeString());
 
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -106,7 +114,7 @@ public class database extends SQLiteOpenHelper {
         }
 
         contentValues.put(ALARMS_COLUMN_MUSIC, alarm.getAlarmMusic());
-        contentValues.put(ALARMS_COLUMN_VIBRATE, alarm.getVibrate());
+        contentValues.put(ALARMS_COLUMN_VIBRATE, alarm.getAlarmVibrate());
 
         return getDatabase().insert(ALARMS_TABLE, null, contentValues);
     }
@@ -115,7 +123,7 @@ public class database extends SQLiteOpenHelper {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ALARMS_COLUMN_NAME, alarm.getAlarmName());
         contentValues.put(ALARMS_COLUMN_ACTIVE, alarm.getAlarmActive());
-        contentValues.put(ALARMS_COLUMN_TIME, alarm.getAlarmTime());
+        contentValues.put(ALARMS_COLUMN_TIME, alarm.getAlarmTimeString());
 
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -131,13 +139,13 @@ public class database extends SQLiteOpenHelper {
         }
 
         contentValues.put(ALARMS_COLUMN_MUSIC, alarm.getAlarmMusic());
-        contentValues.put(ALARMS_COLUMN_VIBRATE, alarm.getVibrate());
+        contentValues.put(ALARMS_COLUMN_VIBRATE, alarm.getAlarmVibrate());
 
-        return getDatabase().update(ALARMS_TABLE, contentValues, "_id= " + alarm.getId(), null);
+        return getDatabase().update(ALARMS_TABLE, contentValues, "_id= " + alarm.getAlarmId(), null);
     }
 
     public static int deleteAlarm(Alarm alarm) {
-        return deleteAlarm(alarm.getId());
+        return deleteAlarm(alarm.getAlarmId());
     }
 
     public static int deleteAlarm(int id) {
@@ -149,7 +157,7 @@ public class database extends SQLiteOpenHelper {
     }
 
     public static void deactivate() {
-        if (null != database && databse.isOpen()) {
+        if (null != database && database.isOpen()) {
             database.close();
         }
         database = null;
@@ -168,12 +176,13 @@ public class database extends SQLiteOpenHelper {
                 ALARMS_COLUMN_VIBRATE
         };
 
+
         Cursor cursor = getDatabase().query(ALARMS_TABLE, columns, ALARMS_COLUMN_ID + "=" + id, null, null, null, null);
         Alarm alarm = null;
         // if query doesn't returned empty; moves cursor to first result
         if(cursor.moveToNext()) {
             alarm = new Alarm();
-            alarm.setId(cursor.getInt(1));
+            alarm.setAlarmId(cursor.getInt(1));
             alarm.setAlarmActive(cursor.getInt(3) == 1);
             alarm.setAlarmTime(cursor.getString(4));
             byte[] repeatDaysInBytes = cursor.getBlob(5);
@@ -200,21 +209,38 @@ public class database extends SQLiteOpenHelper {
             }
 
             alarm.setAlarmMusic(cursor.getString(6));
-            alarm.setVibrate(cursor.getInt(7) == 1);
+            alarm.setAlarmVibrate(cursor.getInt(7) == 1);
         }
+        cursor.close();
+        return alarm;
     }
 
-    public ArrayList<Alarm> getAllAlarms() {
-        ArrayList<Alarm> array_list = new ArrayList<Alarm>();
+    public static List<Alarm> getAllAlarms() {
+        List<Alarm> array_list = new ArrayList<Alarm>();
         // return result from a database query
-        Cursor cursor = database.getCursor();
+
+        String[] columns = new String[] {
+                ALARMS_COLUMN_ID,
+                ALARMS_COLUMN_NAME,
+                ALARMS_COLUMN_ACTIVE,
+                ALARMS_COLUMN_TIME,
+                ALARMS_COLUMN_DAYS,
+                ALARMS_COLUMN_MUSIC,
+                ALARMS_COLUMN_VIBRATE
+        };
+
+//        return getDatabase().query(ALARMS_TABLE, columns, null, null, null, null, null);
+
+
+//        Cursor cursor = database.getCursor();
+        Cursor cursor = getDatabase().query(ALARMS_TABLE, columns, null, null, null, null, null);       // correct?
         // if query doesn't returned empty; moves cursor to first result
         if(cursor.moveToFirst()) {
 
             do {
                 // init alarm
                 Alarm alarm = new Alarm();
-                alarm.setId(cursor.getInt(0));
+                alarm.setAlarmId(cursor.getInt(0));
                 alarm.setAlarmActive(cursor.getInt(2) == 1);
                 alarm.setAlarmTime(cursor.getString(3));
                 byte[] repeatDaysInBytes = cursor.getBlob(4);
@@ -241,19 +267,13 @@ public class database extends SQLiteOpenHelper {
                 }
 
                 alarm.setAlarmMusic(cursor.getString(5));
-                alarm.setVibrate(cursor.getInt(6) == 1);
+                alarm.setAlarmVibrate(cursor.getInt(6) == 1);
+
+                array_list.add(alarm);
 
             } while (cursor.moveToNext());
         }
-
         cursor.close();
         return array_list;
-
     }
-
-    //    public static List<Alarm> getAll() {
-//        List<Alarm> alarms = new ArrayList<Alarm>();
-//    }
-
-
 }

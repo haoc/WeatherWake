@@ -120,9 +120,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:longClickable="true" >
+        android:longClickable="true" />
 
-    </ListView>
+    <TextView
+        android:id="@+id/noAlarms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No alarms." />
 
     <TextView
         android:id="@+id/alarm"

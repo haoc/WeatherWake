@@ -2,6 +2,7 @@ package cs371m.weatherwake;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -53,6 +54,18 @@ public class AlarmEditorActivity extends PreferenceActivity {
 //        });
 //
     }
+
+//    @Override
+//    public void onClick(View v) {
+//        Intent intent;
+//        switch(v.getId()) {
+//            case R.id.addAlarm:
+//                intent = new Intent(this, );
+//            case R.id.addWeatherSetting;
+//                intent = new Intent(this, );
+//                break;
+//        }
+//    }
 
     private void setButtonViewInfo() {
         buttons = (Preference) findPreference(getString(R.string.confirm_cancel));
