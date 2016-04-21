@@ -39,7 +39,7 @@ import java.util.Calendar;
 /**
  * Created by KC on 4/19/2016.
  */
-public class AlarmEditorPreferenceActivity extends Activity {
+public class AlarmEditorPreferenceActivity extends Activity {                                       //!!!!!!!!!!!!!!
 
     private final static String TAG = "AlarmEditorPreferenceActivity";
     ImageButton deleteButton;
@@ -52,7 +52,7 @@ public class AlarmEditorPreferenceActivity extends Activity {
     private ListView listView;
 
     private Button saveAlarm;
-    private Boolean alarmActive;
+    private Boolean alarmActive = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +90,7 @@ public class AlarmEditorPreferenceActivity extends Activity {
                         ((CheckedTextView) v).setChecked(checked);
                         switch (alarmEditorPreference.getKey()) {
                             case ALARM_ACTIVE:
+                                Log.d(TAG, "ALARM_ACTIVE");
                                 alarm.setAlarmActive(checked);
                                 alarmActive = checked;
                                 break;
@@ -281,19 +282,11 @@ public class AlarmEditorPreferenceActivity extends Activity {
         saveAlarm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "setOnClickListener");
-                addAlarm();
+                addAlarm();                         //!!!!!!!!!!!!!!!!!
             }
         });
 
     }
-
-    // need to create confirm and delete/cancel button
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        boolean result = super.onCreateOptionsMenu(menu);
-//        menu.findItem(R.id.menu_item_new).setVisible(false);
-//        return result;
-//    }
 
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
@@ -413,8 +406,9 @@ public class AlarmEditorPreferenceActivity extends Activity {
             database.update(getAlarm());
         }
         callMathAlarmScheduleService();
+        Log.d(TAG, "alarmActive: " + alarmActive);
         // only display toast if alarm is active
-        if (alarmActive) {
+        if (alarmActive) {                                          // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
         }
         finish();
