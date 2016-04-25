@@ -37,6 +37,9 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
 
     private TextView weatherTypeView;
 
+    private Button snoozeButton;
+    private Button turnOffAlarmButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +61,14 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         weatherTypeView.setText("Overcast".toString());
 
 
-        ((Button) findViewById(R.id.snooze)).setOnClickListener(this);
-        ((Button) findViewById(R.id.turnOffAlarm)).setOnClickListener(this);
+        snoozeButton = (Button) findViewById(R.id.snooze);
+        snoozeButton.setOnClickListener(this);
+
+        turnOffAlarmButton = (Button) findViewById(R.id.turnOffAlarm);
+        turnOffAlarmButton.setOnClickListener(this);
+
+//        ((Button) findViewById(R.id.snooze)).setOnClickListener(this);
+//        ((Button) findViewById(R.id.turnOffAlarm)).setOnClickListener(this);
 
         TelephonyManager telephonyManager = (TelephonyManager) this
                 .getSystemService(Context.TELEPHONY_SERVICE);

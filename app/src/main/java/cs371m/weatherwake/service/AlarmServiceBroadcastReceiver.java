@@ -12,7 +12,7 @@ public class AlarmServiceBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("AlarmServiceBroadcastReciever", "onReceive()");
+        Log.d("AlarmServiceBroadcastReciever", "onReceive()" + "TestTest");
         Intent serviceIntent = new Intent(context, AlarmService.class);
         context.startService(serviceIntent);
     }

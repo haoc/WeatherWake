@@ -115,6 +115,7 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
                     alarm.setAlarmName((String) alarmEditorPreference.getValue());
                     break;
                 case ALARM_TIME:
+                    Log.d(TAG, "TestTime getAlarm()" + (String) alarmEditorPreference.getValue());
                     alarm.setAlarmTime((String) alarmEditorPreference.getValue());
                     break;
                 case ALARM_MUSIC:
@@ -134,7 +135,7 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
     public void setAlarm(Alarm alarm) {
         this.alarm = alarm;
         alarmEditorPreferenceList.clear();
-        alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_NAME, alarm.getAlarmName(), AlarmEditorPreference.Type.STRING, "Label", alarm.getAlarmName(), null));
+        alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_NAME, alarm.getAlarmName(), AlarmEditorPreference.Type.STRING, "Alarm Name", alarm.getAlarmName(), null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_ACTIVE, alarm.getAlarmActive(), AlarmEditorPreference.Type.BOOLEAN, "Active", null, null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_TIME, alarm.getAlarmTime(), AlarmEditorPreference.Type.TIME, "Set Time", alarm.getAlarmTimeString(), null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_REPEAT, alarm.getDays(), AlarmEditorPreference.Type.LISTS, "Repeat", alarm.getRepeatDaysString(), days));
@@ -145,10 +146,10 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
 
         if(ringtone instanceof Ringtone && !alarm.getAlarmMusic().equalsIgnoreCase("")) {
             alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_MUSIC, alarm.getAlarmMusic(),
-                    AlarmEditorPreference.Type.LIST, "Ringtone", ringtone.getTitle(getContext()), alarmMusic));
+                    AlarmEditorPreference.Type.LIST, "Music", ringtone.getTitle(getContext()), alarmMusic));
         } else {
             alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_MUSIC, null,
-                    AlarmEditorPreference.Type.LIST, "Ringtone", getAlarmMusic()[0], alarmMusic));
+                    AlarmEditorPreference.Type.LIST, "Music", getAlarmMusic()[0], alarmMusic));
         }
 
     }

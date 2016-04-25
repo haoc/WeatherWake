@@ -99,6 +99,7 @@ public class database extends SQLiteOpenHelper {
         Log.d(TAG, "Alarm Name: " + alarm.getAlarmName());
         contentValues.put(ALARMS_COLUMN_ACTIVE, alarm.getAlarmActive());
         contentValues.put(ALARMS_COLUMN_TIME, alarm.getAlarmTimeString());
+        Log.d(TAG, "ALARMS_COLUMN_TIME" + alarm.getAlarmTimeString());
 
         try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

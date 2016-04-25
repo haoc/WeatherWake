@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -22,6 +23,8 @@ import cs371m.weatherwake.alert.AlarmAlertBroadcastReceiver;
  * Created by KC on 4/17/2016.
  */
 public class Alarm implements Serializable {
+
+    private final static String TAG = "Alarm";
 
     public enum Day {
         MONDAY,
@@ -96,10 +99,13 @@ public class Alarm implements Serializable {
     }
 
     // Better way to do this? Time might be wrong
+    // Zone is America/Chicago; date is 1 day ahead, need to fix
     public Calendar getAlarmTime() {
         if (alarmTime.before(Calendar.getInstance())) {
+            Log.d(TAG, "TestTime inside if");
             alarmTime.add(Calendar.DAY_OF_MONTH, 1);
         }
+        Log.d(TAG, "TestTime alarmTime: " + alarmTime);
         return alarmTime;
     }
 

@@ -212,7 +212,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                         alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
 
                         alert.setTitle(alarmEditorPreference.getTitle());
-                        // alert.setMessage(message);
 
                         CharSequence[] multiListItems = new CharSequence[alarmEditorPreference.getOptions().length];
                         for (int i = 0; i < multiListItems.length; i++)
@@ -256,6 +255,10 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                         alert.show();
                         break;
                     case TIME:
+                        // public TimePickerDialog (Context context, TimePickerDialog.OnTimeSetListener listener, int initial hourOfDay, int initial minute, boolean is24HourView)
+                        int hour = 12;
+                        int minute = 00;
+                        // set initial alarm clock time; need to make sure preference "Set time" title is the same***
                         TimePickerDialog timePickerDialog = new TimePickerDialog(AlarmEditorPreferenceActivity.this, new TimePickerDialog.OnTimeSetListener() {
 
                             @Override
@@ -268,8 +271,10 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
                                 alarmEditorPreferenceListAdapter.notifyDataSetChanged();
                             }
-                        }, alarm.getAlarmTime().get(Calendar.HOUR_OF_DAY), alarm.getAlarmTime().get(Calendar.MINUTE), true);
+//                        }, alarm.getAlarmTime().get(Calendar.HOUR_OF_DAY), alarm.getAlarmTime().get(Calendar.MINUTE), true);
+                        }, hour, minute, false);
                         timePickerDialog.setTitle(alarmEditorPreference.getTitle());
+                        Log.d(TAG, "TestTime timePickerDialog.setTitle() " + alarmEditorPreference.getTitle() );
                         timePickerDialog.show();
                     default:
                         break;
