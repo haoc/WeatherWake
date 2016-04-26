@@ -152,34 +152,37 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View v) {
-        mLocationListener = new MyLocationListener();
-//        mLocationListener = new GetCurrentLocation();
-        flag = displayGpsStatus();
-        if(flag) {
-            Log.d(TAG, "GPS IS ON");
-//            mLocationListener = new MyLocationListener();
-            mProgressBar.setVisibility(View.VISIBLE);
-            try {
-                mLocationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,
-                        MINIMUM_TIME_BETWEEN_UPDATES,
-                        MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                         mLocationListener);
-                Log.d(TAG, "requestLocationUpdates");
+    public void onClick(View view) {
 
-            } catch (SecurityException e) {
-                Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
+        mLocationListener = new MyLocationListener();
+        flag = displayGpsStatus();
+
+        if (view.getId() == R.id.locationButton) {
+            if(flag) {
+                Log.d(TAG, "GPS IS ON");
+                mProgressBar.setVisibility(View.VISIBLE);
+                try {
+                    mLocationManager.requestLocationUpdates(
+                            LocationManager.GPS_PROVIDER,
+                            MINIMUM_TIME_BETWEEN_UPDATES,
+                            MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                            mLocationListener);
+                    Log.d(TAG, "requestLocationUpdates");
+
+                } catch (SecurityException e) {
+                    Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
+                }
+            } else {
+                Toast.makeText(WeatherWakeMainActivity.this, "Please turn on your GPS!", Toast.LENGTH_LONG).show();
             }
-        } else {
-            Toast.makeText(WeatherWakeMainActivity.this, "Please turn on your GPS!", Toast.LENGTH_LONG).show();
         }
 
-//        mAddAlarmListener = new
+
+
 
         // Check if alarm is active
-        if (v.getId() == R.id.alarmActiveCheckBox) {
-            CheckBox checkBox = (CheckBox) v;
+        if (view.getId() == R.id.alarmActiveCheckBox) {
+            CheckBox checkBox = (CheckBox) view;
             Alarm alarm = (Alarm) alarmListAdapter.getItem((Integer) checkBox.getTag());
             alarm.setAlarmActive(checkBox.isChecked());
             database.update(alarm);

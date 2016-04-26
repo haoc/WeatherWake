@@ -257,7 +257,7 @@ public class database extends SQLiteOpenHelper {
 
 //        Cursor cursor = database.getCursor();
         String orderBy = ALARMS_COLUMN_TIME + " DESC";
-        Cursor cursor = getDatabase().query(ALARMS_TABLE, columns, null, null, null, null, null);
+        Cursor cursor = getDatabase().query(ALARMS_TABLE, columns, null, null, null, null, orderBy);
         // if query doesn't returned empty; moves cursor to first result
         if(cursor.moveToFirst()) {
 
