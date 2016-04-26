@@ -116,12 +116,39 @@ public class Alarm implements Serializable {
 
     // Might be buggy; time might be wrong
     public String getAlarmTimeString() {
-//        String time = "";
-        Date time = alarmTime.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-        String localTime = dateFormat.format(time);
 
-        return localTime;
+        String time = "";
+        String am_pm = "";
+        if (alarmTime.get(Calendar.HOUR) > 12) {
+            Log.d(TAG, "if: " + alarmTime.get(Calendar.HOUR));
+            time += String.valueOf(alarmTime.get(Calendar.HOUR) - 12);
+        } else {
+            time += String.valueOf(alarmTime.get(Calendar.HOUR));
+        }
+
+        time += ":";
+        time += String.valueOf(alarmTime.get(Calendar.MINUTE));
+
+
+        if (alarmTime.get(Calendar.AM_PM) == 0) {
+            Log.d(TAG, "AM");
+            time += " AM";
+        } else {
+            Log.d(TAG, "PM");
+            time += " PM";
+        }
+
+        Log.d(TAG, "getAlarmTimeString: " + time);
+
+        Log.d(TAG, "AM_PM: " + alarmTime.get(Calendar.AM_PM));
+
+        return time;
+
+//        Date time = alarmTime.getTime();
+//        DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+//        String localTime = dateFormat.format(time);
+//
+//        return localTime;
     }
 
     public void setAlarmTime(Calendar alarmTime) {
@@ -130,9 +157,10 @@ public class Alarm implements Serializable {
 
     // Might be buggy; need to set SECOND?
     public void setAlarmTime(String alarmTime) {
+        Log.d(TAG, "setAlarmTIme: " + alarmTime);
         String[] timeArray = alarmTime.split("[\\s:]");
         Calendar newAlarmTime = Calendar.getInstance();
-        newAlarmTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]));
+        newAlarmTime.set(Calendar.HOUR, Integer.parseInt(timeArray[0]));                            // HOUR or HOUR_OF_DAY
         newAlarmTime.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]));
         newAlarmTime.set(Calendar.SECOND, 0);
         setAlarmTime(newAlarmTime);

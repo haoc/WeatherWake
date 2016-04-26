@@ -52,6 +52,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
     private ListView listView;
 
     private Button saveAlarm;
+    private Button deleteAlarm;
     private Boolean alarmActive = true;
     private Boolean alarmPairing = true;
 
@@ -272,16 +273,31 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                     case TIME:
                         // public TimePickerDialog (Context context, TimePickerDialog.OnTimeSetListener listener, int initial hourOfDay, int initial minute, boolean is24HourView)
                         int hour = 12;
-                        int minute = 00;
+                        final int minute = 00;
                         // set initial alarm clock time; need to make sure preference "Set time" title is the same***
                         TimePickerDialog timePickerDialog = new TimePickerDialog(AlarmEditorPreferenceActivity.this, new TimePickerDialog.OnTimeSetListener() {
 
                             @Override
-                            public void onTimeSet(TimePicker timePicker, int hours, int minutes) {
+                            public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                                 Calendar newAlarmTime = Calendar.getInstance();
-                                newAlarmTime.set(Calendar.HOUR_OF_DAY, hours);
-                                newAlarmTime.set(Calendar.MINUTE, minutes);
+//                                timePicker.is24HourView(false);
+                                String am_pm;
+                                Log.d(TAG, "hourOfDay: " + hourOfDay + " " + "minute: " + minute);
+
+//                                if (hourOfDay > 12) {
+//                                    newAlarmTime.set(Calendar.HOUR, hourOfDay - 12);
+//                                    am_pm = "PM";
+//                                } else {
+//                                    newAlarmTime.set(Calendar.HOUR, hourOfDay);
+//                                    am_pm = "AM";
+//                                }
+                                Log.d(TAG, "AM_PM: " + newAlarmTime.get(Calendar.AM_PM));
+                                // HOUR_OF_DAY = 24-hour clock
+                                newAlarmTime.set(Calendar.HOUR, hourOfDay);
+                                newAlarmTime.set(Calendar.MINUTE, minute);
                                 newAlarmTime.set(Calendar.SECOND, 0);
+//                                Log.d(TAG, "case TIME: HOUR_OF_DAY: " + Calendar.HOUR_OF_DAY);
+//                                Log.d(TAG, "case TIME: MINUTE: " + Calendar.MINUTE );
                                 alarm.setAlarmTime(newAlarmTime);
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
                                 alarmEditorPreferenceListAdapter.notifyDataSetChanged();
@@ -301,8 +317,17 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
         saveAlarm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(TAG, "setOnClickListener");
-                addAlarm();                         //!!!!!!!!!!!!!!!!!
+                Log.d(TAG, "saveAlarm pressed");
+                addAlarm();
+            }
+        });
+
+        deleteAlarm = (Button) findViewById(R.id.deleteAlarm);
+
+        deleteAlarm.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Log.d(TAG, "deleteAlarm pressed");
+                deleteAlarm();
             }
         });
 
@@ -432,6 +457,33 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
             Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
         }
         finish();
+    }
+
+    private void deleteAlarm() {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
+        dialog.setTitle("Delete alarm?");
+//        dialog.setMessage("Delete alarm?");
+        dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                database.init(getApplicationContext());
+                if (getAlarm().getAlarmId() < 1) {
+                    Log.d(TAG, "Alarm not saved");
+                } else {
+                    database.deleteAlarm(alarm);
+                    callAlarmScheduleService();
+                }
+                finish();
+            }
+        });
+        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
 //    @Override

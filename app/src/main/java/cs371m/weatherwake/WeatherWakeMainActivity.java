@@ -84,6 +84,8 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
     private database mDatabase;
 
+    public String city;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,9 +179,6 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
             }
         }
 
-
-
-
         // Check if alarm is active
         if (view.getId() == R.id.alarmActiveCheckBox) {
             CheckBox checkBox = (CheckBox) view;
@@ -191,7 +190,6 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
                 Toast.makeText(WeatherWakeMainActivity.this, alarm.getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
             }
         }
-
     }
 
     private Boolean displayGpsStatus() {
@@ -232,6 +230,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
             }
 
             String s = cityName;
+            city = s;
             retrieveLocationButton.setText(s);
 
 //            mGetWeather = new GetWeather();
@@ -394,5 +393,8 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
         });
     }
 
+    public String getCity() {
+        return this.city;
+    }
 
 }
