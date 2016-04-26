@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
 import android.util.Log;
+import android.widget.NumberPicker;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -18,6 +19,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import cs371m.weatherwake.alert.AlarmAlertBroadcastReceiver;
+import cs371m.weatherwake.preferences.AlarmEditorPreferenceActivity;
 
 /**
  * Created by KC on 4/17/2016.
@@ -64,6 +66,9 @@ public class Alarm implements Serializable {
     private Calendar alarmTime = Calendar.getInstance();
     private Day[] days = {Day.MONDAY, Day.TUESDAY, Day.WEDNESDAY, Day.THURSDAY, Day.FRIDAY, Day.SATURDAY, Day.SUNDAY};
     private String alarmMusic = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
+//    private NumberPicker np = new NumberPicker(AlarmEditorPreferenceActivity.this);
+//    private String alarmSnooze = "2";
+    private Boolean alarmPairing = true;
     private Boolean alarmVibrate = true;
 
     public Alarm() {
@@ -174,6 +179,31 @@ public class Alarm implements Serializable {
 
     public void setAlarmMusic(String alarmMusic) {
         this.alarmMusic = alarmMusic;
+    }
+
+//    public String getAlarmSnooze() {
+//        return alarmSnooze;
+//    }
+
+//    public String getAlarmSnoozeString() {
+//        Log.d(TAG, "getAlarmSnoozeString(): " + Integer.toString(alarmSnooze));
+//        return Integer.toString(alarmSnooze);
+//    }
+
+//    public String getAlarmSnoozeString() {
+//        return getAlarmSnooze();
+//    }
+
+//    public void setAlarmSnooze(String alarmSnooze) {
+//        this.alarmSnooze = alarmSnooze;
+//    }
+
+    public Boolean getAlarmPairing() {
+        return alarmPairing;
+    }
+
+    public void setAlarmPairing(Boolean alarmPairing) {
+        this.alarmPairing = alarmPairing;
     }
 
     public Boolean getAlarmVibrate() {

@@ -14,16 +14,14 @@ import java.util.List;
 /**
  * Created by KC on 4/17/2016.
  */
+
 public class AlarmListAdapter extends BaseAdapter{
 
     private final static String TAG = "AlarmListAAdapter";
-//    private AlarmActivity alarmActivity;
     private WeatherWakeMainActivity weatherWakeMainActivity;
     private List<Alarm> alarms = new ArrayList<Alarm>();
 
-    // AlarmActivity alarmActivity
     public AlarmListAdapter(WeatherWakeMainActivity weatherWakeMainActivity) {
-//        this.alarmActivity = alarmActivity;
         this.weatherWakeMainActivity = weatherWakeMainActivity;
     }
 
@@ -42,11 +40,12 @@ public class AlarmListAdapter extends BaseAdapter{
         return alarms.get(position);
     }
 
+    // view of list of alarms on the home screen
     @Override
     public View getView(int position, View view, ViewGroup parent) {
 //        Log.d(TAG, "getting view...");
-        // if view is null(first time the view has been  displayed),
-        // obtain the LayoutInflater from weatherWakeMainActivity and inflate/render a enw view hierarchy from alarm_list.xml;
+        // if view is null(first time the view has been displayed),
+        // obtain the LayoutInflater from weatherWakeMainActivity and inflate/render a new view hierarchy from alarm_list.xml;
         if (view == null) {
             view = LayoutInflater.from(weatherWakeMainActivity).inflate(R.layout.alarm_list, null);
         }

@@ -14,7 +14,6 @@
         android:layout_alignParentRight="true" />
 
 
-
     <TextView
         android:id="@+id/alarmTimeTextView"
         android:layout_width="wrap_content"

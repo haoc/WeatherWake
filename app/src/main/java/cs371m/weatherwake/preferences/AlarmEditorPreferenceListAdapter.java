@@ -121,6 +121,13 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
                 case ALARM_MUSIC:
                     alarm.setAlarmMusic((String) alarmEditorPreference.getValue());
                     break;
+//                case ALARM_SNOOZE:
+//                    Log.d(TAG, "ALARM_SNOOZE");
+//                    alarm.setAlarmSnooze((String) alarmEditorPreference.getValue());               // Change to String? Integer?
+//                    break;
+                case ALARM_PAIRING:
+                    Log.d(TAG, "ALARM_PAIRING");
+                    alarm.setAlarmPairing((Boolean) alarmEditorPreference.getValue());
                 case ALARM_VIBRATE:
                     alarm.setAlarmVibrate((Boolean) alarmEditorPreference.getValue());
                     break;
@@ -139,7 +146,10 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_ACTIVE, alarm.getAlarmActive(), AlarmEditorPreference.Type.BOOLEAN, "Active", null, null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_TIME, alarm.getAlarmTime(), AlarmEditorPreference.Type.TIME, "Set Time", alarm.getAlarmTimeString(), null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_REPEAT, alarm.getDays(), AlarmEditorPreference.Type.LISTS, "Repeat", alarm.getRepeatDaysString(), days));
+//        alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_SNOOZE, alarm.getAlarmSnooze(), AlarmEditorPreference.Type.STRING, "Snooze Duration", alarm.getAlarmSnooze(), null));
+        alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_PAIRING, alarm.getAlarmPairing(), AlarmEditorPreference.Type.BOOLEAN, "Alarm Pairing", null, null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_VIBRATE, alarm.getAlarmVibrate(), AlarmEditorPreference.Type.BOOLEAN, "Vibrate", null, null));
+
 
         Uri uri = Uri.parse(alarm.getAlarmMusic());
         Ringtone ringtone = RingtoneManager.getRingtone(getContext(), uri);

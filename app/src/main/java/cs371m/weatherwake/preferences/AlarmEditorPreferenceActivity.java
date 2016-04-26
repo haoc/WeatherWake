@@ -53,6 +53,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
     private Button saveAlarm;
     private Boolean alarmActive = true;
+    private Boolean alarmPairing = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,22 +78,27 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+            public void onItemClick(AdapterView<?> l, View view, int position, long id) {
                 final AlarmEditorPreferenceListAdapter alarmEditorPreferenceListAdapter = (AlarmEditorPreferenceListAdapter) getListAdapter();
                 final AlarmEditorPreference alarmEditorPreference = (AlarmEditorPreference) alarmEditorPreferenceListAdapter.getItem(position);
 
                 AlertDialog.Builder alert;
-                v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
                 switch (alarmEditorPreference.getType()) {
                     case BOOLEAN:
-                        CheckedTextView checkedTextView = (CheckedTextView) v;
+                        CheckedTextView checkedTextView = (CheckedTextView) view;
                         boolean checked = !checkedTextView.isChecked();
-                        ((CheckedTextView) v).setChecked(checked);
+                        ((CheckedTextView) view).setChecked(checked);
                         switch (alarmEditorPreference.getKey()) {
                             case ALARM_ACTIVE:
                                 Log.d(TAG, "ALARM_ACTIVE");
                                 alarm.setAlarmActive(checked);
                                 alarmActive = checked;
+                                break;
+                            case ALARM_PAIRING:
+                                Log.d(TAG, "ALARM_PAIRING");
+                                alarm.setAlarmPairing(checked);
+                                alarmPairing = checked;
                                 break;
                             case ALARM_VIBRATE:
                                 alarm.setAlarmVibrate(checked);
@@ -104,6 +110,9 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                         }
                         alarmEditorPreference.setValue(checked);
                         break;
+//                    case INTEGER:
+//
+
                     case STRING:
 
                         alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
@@ -118,7 +127,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
                         alert.setView(input);
                         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
+                            public void onClick(DialogInterface dialogInterface, int whichButton) {
 
                                 alarmEditorPreference.setValue(input.getText().toString());
 
@@ -128,6 +137,12 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
                                 alarmEditorPreferenceListAdapter.notifyDataSetChanged();
+                            }
+                        });
+                        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
                             }
                         });
                         alert.show();
@@ -274,7 +289,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 //                        }, alarm.getAlarmTime().get(Calendar.HOUR_OF_DAY), alarm.getAlarmTime().get(Calendar.MINUTE), true);
                         }, hour, minute, false);
                         timePickerDialog.setTitle(alarmEditorPreference.getTitle());
-                        Log.d(TAG, "TestTime timePickerDialog.setTitle() " + alarmEditorPreference.getTitle() );
+                        Log.d(TAG, "TestTime timePickerDialog.setTitle() " + alarmEditorPreference.getTitle());
                         timePickerDialog.show();
                     default:
                         break;
@@ -410,10 +425,10 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
             Log.d(TAG, "Alarm " + getAlarm().getAlarmId() + " updated");
             database.update(getAlarm());
         }
-        callMathAlarmScheduleService();
+        callAlarmScheduleService();
         Log.d(TAG, "alarmActive: " + alarmActive);
         // only display toast if alarm is active
-        if (alarmActive) {                                          // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (alarmActive) {
             Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
         }
         finish();
@@ -426,9 +441,8 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 //    }
 
 
-    protected void callMathAlarmScheduleService() {
-        Intent mathAlarmServiceIntent = new Intent(this, AlarmServiceBroadcastReceiver.class);
-        sendBroadcast(mathAlarmServiceIntent, null);
+    protected void callAlarmScheduleService() {
+        Intent alarmServiceIntent = new Intent(this, AlarmServiceBroadcastReceiver.class);
+        sendBroadcast(alarmServiceIntent, null);
     }
-
 }

@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cs371m.weatherwake.Alarm;
 import cs371m.weatherwake.R;
@@ -25,6 +26,8 @@ import cs371m.weatherwake.R;
  * Created by KC on 4/19/2016.
  */
 public class AlarmWakeActivity extends Activity implements View.OnClickListener{
+
+    private final static String TAG = "AlarmWakeActivity";
 
     private Alarm alarm;
     private MediaPlayer mediaPlayer;
@@ -184,17 +187,23 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
     }
 
     @Override
-    public void onClick(View v) {
-        if (!alarmActive)
+    public void onClick(View view) {
+        if (!alarmActive) {
             return;
-        String button = (String) v.getTag();
-        v.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+        }
+        String button = (String) view.getTag();
+        view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         if (button.equalsIgnoreCase("ok")) {
+            Log.d(TAG, "Ok Button is pressed");
             alarmActive = false;
             vibrator.cancel();
+            mediaPlayer.stop();
         } else if (button.equalsIgnoreCase("snooze")) {
+            Log.d(TAG, "Snooze Button is pressed");
+            // display toast of time until next wake up time depending on the snooze duration
             vibrator.cancel();
             mediaPlayer.stop();
+//            Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
         } else {
 
         }

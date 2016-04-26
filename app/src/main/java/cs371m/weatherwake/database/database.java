@@ -38,6 +38,8 @@ public class database extends SQLiteOpenHelper {
     public static final String ALARMS_COLUMN_TIME = "alarm_time";
     public static final String ALARMS_COLUMN_DAYS = "alarm_days";
     public static final String ALARMS_COLUMN_MUSIC = "alarm_music";
+    public static final String ALARMS_COLUMN_SNOOZE = "alarm_snooze";
+    public static final String ALARMS_COLUMN_PAIRING = "alarm_pairing";
     // Additional feature
     public static final String ALARMS_COLUMN_VIBRATE = "alarm_vibrate";
 
@@ -54,6 +56,8 @@ public class database extends SQLiteOpenHelper {
                         + ALARMS_COLUMN_TIME + " TEXT NOT NULL, "
                         + ALARMS_COLUMN_DAYS + " BLOB NOT NULL, "
                         + ALARMS_COLUMN_MUSIC + " TEXT NOT NULL, "
+//                        + ALARMS_COLUMN_SNOOZE + " TEXT NOT NULL, "
+                        + ALARMS_COLUMN_PAIRING + " INTEGER NOT NULL, "
                         + ALARMS_COLUMN_VIBRATE + " INTEGER NOT NULL)"
         );
     }
@@ -78,10 +82,12 @@ public class database extends SQLiteOpenHelper {
                 ALARMS_COLUMN_TIME,
                 ALARMS_COLUMN_DAYS,
                 ALARMS_COLUMN_MUSIC,
+//                ALARMS_COLUMN_SNOOZE,
+                ALARMS_COLUMN_PAIRING,
                 ALARMS_COLUMN_VIBRATE
         };
 
-        return getDatabase().query(ALARMS_TABLE, columns, null, null, null, null, null);
+        return getDatabase().query(ALARMS_TABLE, columns, null, null, null, null, null);            // 5 nulls?
     }
 
     public static SQLiteDatabase getDatabase() {
@@ -115,6 +121,9 @@ public class database extends SQLiteOpenHelper {
         }
 
         contentValues.put(ALARMS_COLUMN_MUSIC, alarm.getAlarmMusic());
+//        contentValues.put(ALARMS_COLUMN_SNOOZE, alarm.getAlarmSnooze());
+        contentValues.put(ALARMS_COLUMN_PAIRING, alarm.getAlarmPairing());
+        Log.d(TAG, "ALARMS_COLUMN_PAIRING " + alarm.getAlarmPairing() );
         contentValues.put(ALARMS_COLUMN_VIBRATE, alarm.getAlarmVibrate());
 
         return getDatabase().insert(ALARMS_TABLE, null, contentValues);
@@ -140,6 +149,8 @@ public class database extends SQLiteOpenHelper {
         }
 
         contentValues.put(ALARMS_COLUMN_MUSIC, alarm.getAlarmMusic());
+//        contentValues.put(ALARMS_COLUMN_SNOOZE, alarm.getAlarmSnooze());
+        contentValues.put(ALARMS_COLUMN_PAIRING, alarm.getAlarmPairing());
         contentValues.put(ALARMS_COLUMN_VIBRATE, alarm.getAlarmVibrate());
 
         return getDatabase().update(ALARMS_TABLE, contentValues, "_id= " + alarm.getAlarmId(), null);
@@ -174,6 +185,8 @@ public class database extends SQLiteOpenHelper {
                 ALARMS_COLUMN_TIME,
                 ALARMS_COLUMN_DAYS,
                 ALARMS_COLUMN_MUSIC,
+//                ALARMS_COLUMN_SNOOZE,
+                ALARMS_COLUMN_PAIRING,
                 ALARMS_COLUMN_VIBRATE
         };
 
@@ -210,7 +223,14 @@ public class database extends SQLiteOpenHelper {
             }
 
             alarm.setAlarmMusic(cursor.getString(6));
-            alarm.setAlarmVibrate(cursor.getInt(7) == 1);
+            alarm.setAlarmPairing(cursor.getInt(7) == 1);
+            alarm.setAlarmVibrate(cursor.getInt(8) == 1);
+            // with snooze and pairing
+//            alarm.setAlarmSnooze(cursor.getString(7));                                             // don't set it?
+//            alarm.setAlarmPairing(cursor.getInt(8) == 1);
+//            alarm.setAlarmVibrate(cursor.getInt(9) == 1);
+            // original
+//            alarm.setAlarmVibrate(cursor.getInt(7) == 1);
         }
         cursor.close();
         return alarm;
@@ -227,6 +247,8 @@ public class database extends SQLiteOpenHelper {
                 ALARMS_COLUMN_TIME,
                 ALARMS_COLUMN_DAYS,
                 ALARMS_COLUMN_MUSIC,
+//                ALARMS_COLUMN_SNOOZE,
+                ALARMS_COLUMN_PAIRING,
                 ALARMS_COLUMN_VIBRATE
         };
 
@@ -234,7 +256,8 @@ public class database extends SQLiteOpenHelper {
 
 
 //        Cursor cursor = database.getCursor();
-        Cursor cursor = getDatabase().query(ALARMS_TABLE, columns, null, null, null, null, null);       // correct?
+        String orderBy = ALARMS_COLUMN_TIME + " DESC";
+        Cursor cursor = getDatabase().query(ALARMS_TABLE, columns, null, null, null, null, null);
         // if query doesn't returned empty; moves cursor to first result
         if(cursor.moveToFirst()) {
 
@@ -268,7 +291,14 @@ public class database extends SQLiteOpenHelper {
                 }
 
                 alarm.setAlarmMusic(cursor.getString(5));
-                alarm.setAlarmVibrate(cursor.getInt(6) == 1);
+                alarm.setAlarmPairing(cursor.getInt(6) == 1);
+                alarm.setAlarmVibrate(cursor.getInt(7) == 1);
+                // with snooze and pairing
+//                alarm.setAlarmSnooze(cursor.getString(6));                                           // don't set it? getInt or getString
+//                alarm.setAlarmPairing(cursor.getInt(7) == 1);
+//                alarm.setAlarmVibrate(cursor.getInt(8) == 1);
+                // original?
+//                alarm.setAlarmVibrate(cursor.getInt(8) == 1);
 
                 array_list.add(alarm);
 

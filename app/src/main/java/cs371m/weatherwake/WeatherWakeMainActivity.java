@@ -297,6 +297,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
         Log.d(TAG, "setAlarmViewInfo()");
 
+        // delete existing alarms by long clicking the alarms
         alarmListView = (ListView) findViewById(R.id.list);
         alarmListView.setLongClickable(true);
         alarmListView.setOnItemLongClickListener(new OnItemLongClickListener() {
@@ -332,6 +333,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
         callAlarmScheduleService();
 
+        // edit existing alarms
         alarmListAdapter = new AlarmListAdapter(this);
         this.alarmListView.setAdapter(alarmListAdapter);
         alarmListView.setOnItemClickListener(new OnItemClickListener() {

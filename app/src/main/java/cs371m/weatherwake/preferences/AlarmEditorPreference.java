@@ -11,6 +11,8 @@ public class AlarmEditorPreference {
         ALARM_TIME,
         ALARM_REPEAT,
         ALARM_MUSIC,
+        ALARM_SNOOZE,
+        ALARM_PAIRING,
         ALARM_VIBRATE
     }
 
