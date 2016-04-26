@@ -11,14 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by KC on 3/27/2016.
  */
 public class AlarmEditorActivity extends PreferenceActivity {
     private Preference buttons;
-    private Button mConfirm;
-    private Button mCancel;
+    private TextView mConfirm;
+    private TextView mCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +29,14 @@ public class AlarmEditorActivity extends PreferenceActivity {
 
         setButtonViewInfo();
 
-//        buttons.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-//            public boolean onPreferenceClick(Preference preference) {
-//                Log.d("something", "to");
-//                finish();
-//                return true;
-//            }
-//        });
-//
+        buttons.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference preference) {
+                Log.d("something", "to");
+                finish();
+                return true;
+            }
+        });
+
 //        mConfirm.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View v) {
 //                Log.d("somethingconfirm", "to");
@@ -51,12 +52,12 @@ public class AlarmEditorActivity extends PreferenceActivity {
 //                finish();
 //            }
 //        });
-//
+
     }
 
     private void setButtonViewInfo() {
         buttons = (Preference) findPreference(getString(R.string.confirm_cancel));
-        mConfirm = (Button) findViewById(R.id.confirm);
-        mCancel = (Button) findViewById(R.id.cancel);
+//        mConfirm = (TextView) findViewById(R.id.confirm);
+//        mCancel = (TextView) findViewById(R.id.cancel);
     }
 }
