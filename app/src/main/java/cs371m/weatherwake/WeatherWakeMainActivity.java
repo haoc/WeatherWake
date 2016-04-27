@@ -98,20 +98,36 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        // Get day
-        String weekDay;
-        SimpleDateFormat dayFormat = new SimpleDateFormat("E", Locale.US);
 
-        Calendar calendar = Calendar.getInstance();
-        weekDay = dayFormat.format(calendar.getTime());
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while(!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Get day
+                                String weekDay;
+                                SimpleDateFormat dayFormat = new SimpleDateFormat("E", Locale.US);
 
-        // Get time
-        Date currentTime = calendar.getTime();
-        DateFormat date = new SimpleDateFormat("hh:mm a");
-        String localTime = date.format(currentTime);
+                                Calendar calendar = Calendar.getInstance();
+                                weekDay = dayFormat.format(calendar.getTime());
 
-        mDateTime.setText(weekDay + ", " + localTime);
-        
+                                // Get time
+                                Date currentTime = calendar.getTime();
+                                DateFormat date = new SimpleDateFormat("hh:mm a");
+                                String localTime = date.format(currentTime);
+
+                                mDateTime.setText(weekDay + ", " + localTime);
+                            }
+                        });
+                    }
+                } catch(InterruptedException e) {}
+            }
+        };
+        t.start();
 //        mStartAlarm.setOnClickListener(new View.OnClickListener() {
 //            public void onClick(View v) {
 //
@@ -136,7 +152,6 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
                 prepWeatherSettingActivity();
             }
         });
-        
     }
 
     @Override
@@ -293,7 +308,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 //        mAlarm = (TextView) findViewById(R.id.alarm);
 //        mAlarmName = (TextView) findViewById(R.id.alarmName);
         mStartAlarm = (ImageView) findViewById(R.id.start);
-        mEditAlarm = (ImageView) findViewById(R.id.editAlarm);
+//        mEditAlarm = (ImageView) findViewById(R.id.editAlarm);
 
         Log.d(TAG, "setAlarmViewInfo()");
 

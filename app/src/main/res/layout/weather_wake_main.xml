@@ -163,15 +163,15 @@
         <!--android:layout_marginRight="40dp"-->
         <!--android:src="@drawable/x"/>-->
 
-    <ImageView
-        android:id="@+id/editAlarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        android:layout_alignRight="@id/divider"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/menu"/>
+    <!--<ImageView-->
+        <!--android:id="@+id/editAlarm"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/divider"-->
+        <!--android:layout_alignRight="@id/divider"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:src="@drawable/menu"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"

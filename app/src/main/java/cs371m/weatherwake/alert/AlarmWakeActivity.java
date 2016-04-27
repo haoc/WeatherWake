@@ -82,17 +82,13 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
                                 + incomingNumber);
                         try {
                             mediaPlayer.pause();
-                        } catch (IllegalStateException e) {
-
-                        }
+                        } catch (IllegalStateException e) {}
                         break;
                     case TelephonyManager.CALL_STATE_IDLE:
                         Log.d(getClass().getSimpleName(), "Call State Idle");
                         try {
                             mediaPlayer.start();
-                        } catch (IllegalStateException e) {
-
-                        }
+                        } catch (IllegalStateException e) {}
                         break;
                 }
                 super.onCallStateChanged(state, incomingNumber);
@@ -167,19 +163,13 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         try {
             if (vibrator != null)
                 vibrator.cancel();
-        } catch (Exception e) {
-
-        }
+        } catch (Exception e) {}
         try {
             mediaPlayer.stop();
-        } catch (Exception e) {
-
-        }
+        } catch (Exception e) {}
         try {
             mediaPlayer.release();
-        } catch (Exception e) {
-
-        }
+        } catch (Exception e) {}
         super.onDestroy();
     }
 
