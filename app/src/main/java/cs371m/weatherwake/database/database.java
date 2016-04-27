@@ -176,7 +176,6 @@ public class database extends SQLiteOpenHelper {
         instance = null;
     }
 
-    // correct indexing?
     public static Alarm getAlarm(int id) {
         String[] columns = new String[]{
                 ALARMS_COLUMN_ID,

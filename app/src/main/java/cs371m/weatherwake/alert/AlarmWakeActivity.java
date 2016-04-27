@@ -59,10 +59,9 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
 
         this.setTitle(alarm.getAlarmName());
 
-
+        // need to use weather api to get icon for the weather
         weatherTypeView = (TextView) findViewById(R.id.weatherType);
         weatherTypeView.setText("Overcast".toString());
-
 
         snoozeButton = (Button) findViewById(R.id.snooze);
         snoozeButton.setOnClickListener(this);
@@ -70,31 +69,30 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         turnOffAlarmButton = (Button) findViewById(R.id.turnOffAlarm);
         turnOffAlarmButton.setOnClickListener(this);
 
-//        ((Button) findViewById(R.id.snooze)).setOnClickListener(this);
-//        ((Button) findViewById(R.id.turnOffAlarm)).setOnClickListener(this);
+        // provide information about the telephony services and determine the phone state
+        TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
 
-        TelephonyManager telephonyManager = (TelephonyManager) this
-                .getSystemService(Context.TELEPHONY_SERVICE);
-
+        // listen and see if phone is has incoming call or idle
         PhoneStateListener phoneStateListener = new PhoneStateListener() {
             @Override
             public void onCallStateChanged(int state, String incomingNumber) {
                 switch (state) {
+                    // if incoming call, pause music
                     case TelephonyManager.CALL_STATE_RINGING:
-                        Log.d(getClass().getSimpleName(), "Incoming call: "
-                                + incomingNumber);
+                        Log.d(getClass().getSimpleName(), "Incoming call: " + incomingNumber);
                         try {
                             mediaPlayer.pause();
                         } catch (IllegalStateException e) {
-
+                            e.printStackTrace();
                         }
                         break;
+                    // resume music when phone state is back to idle
                     case TelephonyManager.CALL_STATE_IDLE:
                         Log.d(getClass().getSimpleName(), "Call State Idle");
                         try {
                             mediaPlayer.start();
                         } catch (IllegalStateException e) {
-
+                            e.printStackTrace();
                         }
                         break;
                 }
@@ -102,13 +100,9 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
             }
         };
 
-        telephonyManager.listen(phoneStateListener,
-                PhoneStateListener.LISTEN_CALL_STATE);
-
-        // Toast.makeText(this, answerString, Toast.LENGTH_LONG).show();
+        telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
 
         startAlarm();
-
     }
 
     @Override
@@ -140,7 +134,6 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
                 alarmActive = false;
             }
         }
-
     }
 
     /*

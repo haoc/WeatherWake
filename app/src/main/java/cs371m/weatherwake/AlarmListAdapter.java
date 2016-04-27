@@ -61,6 +61,8 @@ public class AlarmListAdapter extends BaseAdapter{
         alarmNameTextView.setText(alarm.getAlarmNameString());
 
         TextView alarmTimeView = (TextView) view.findViewById(R.id.alarmTimeTextView);
+        Log.d(TAG, "DebugTime: alarmTimeView.setText(alarm.getAlarmTimeString()): " + alarm.getAlarmTimeString());
+//        alarmTimeView.setText(alarm.getAlarmTimeStringHome());
         alarmTimeView.setText(alarm.getAlarmTimeString());
 
         TextView alarmDaysView = (TextView) view.findViewById(R.id.alarmDaysTextView);

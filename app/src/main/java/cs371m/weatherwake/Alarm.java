@@ -107,64 +107,70 @@ public class Alarm implements Serializable {
     // Zone is America/Chicago; date is 1 day ahead, need to fix
     public Calendar getAlarmTime() {
         if (alarmTime.before(Calendar.getInstance())) {
-            Log.d(TAG, "TestTime inside if");
+//            Log.d(TAG, "DebugTime: getAlarmTime(): inside if: " + alarmTime);
             alarmTime.add(Calendar.DAY_OF_MONTH, 1);
         }
-        Log.d(TAG, "TestTime alarmTime: " + alarmTime);
+        while(!Arrays.asList(getDays()).contains(Day.values()[alarmTime.get(Calendar.DAY_OF_WEEK) - 1])) {
+            alarmTime.add(Calendar.DAY_OF_MONTH, 1);
+        }
+        Log.d(TAG, "DebugTime: getAlarmTime: " + alarmTime);
         return alarmTime;
     }
 
-    // Might be buggy; time might be wrong
     public String getAlarmTimeString() {
 
         String time = "";
         String am_pm = "";
-        if (alarmTime.get(Calendar.HOUR) > 12) {
-            Log.d(TAG, "if: " + alarmTime.get(Calendar.HOUR));
-            time += String.valueOf(alarmTime.get(Calendar.HOUR) - 12);
+
+        if (alarmTime.get(Calendar.HOUR_OF_DAY) > 12) {
+            time += String.valueOf(alarmTime.get(Calendar.HOUR_OF_DAY) - 12);
+            am_pm = " PM";
         } else {
-            time += String.valueOf(alarmTime.get(Calendar.HOUR));
+            time += String.valueOf(alarmTime.get(Calendar.HOUR_OF_DAY));
+            am_pm = " AM";
         }
 
         time += ":";
-        time += String.valueOf(alarmTime.get(Calendar.MINUTE));
-
-
-        if (alarmTime.get(Calendar.AM_PM) == 0) {
-            Log.d(TAG, "AM");
-            time += " AM";
-        } else {
-            Log.d(TAG, "PM");
-            time += " PM";
+        if (alarmTime.get(Calendar.MINUTE) <= 9) {
+            time += "0";
         }
+        time += String.valueOf(alarmTime.get(Calendar.MINUTE));
+        time += am_pm;
 
-        Log.d(TAG, "getAlarmTimeString: " + time);
-
-        Log.d(TAG, "AM_PM: " + alarmTime.get(Calendar.AM_PM));
-
+        Log.d(TAG, "DebugTime: getAlarmTimeString: " + time);
         return time;
-
-//        Date time = alarmTime.getTime();
-//        DateFormat dateFormat = new SimpleDateFormat("hh:mm a");
-//        String localTime = dateFormat.format(time);
-//
-//        return localTime;
+        
     }
 
+
     public void setAlarmTime(Calendar alarmTime) {
+        Log.d(TAG, "DebugTime: setAlarmTime(Calendar alarmTime): " + alarmTime);
         this.alarmTime = alarmTime;
     }
 
-    // Might be buggy; need to set SECOND?
     public void setAlarmTime(String alarmTime) {
-        Log.d(TAG, "setAlarmTIme: " + alarmTime);
         String[] timeArray = alarmTime.split("[\\s:]");
+        int am_pm;
+        Log.d(TAG, "DebugTime: alarmTime: " + alarmTime);
         Calendar newAlarmTime = Calendar.getInstance();
-        newAlarmTime.set(Calendar.HOUR, Integer.parseInt(timeArray[0]));                            // HOUR or HOUR_OF_DAY
+        newAlarmTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]));
+        newAlarmTime.set(Calendar.HOUR, Integer.parseInt(timeArray[0]));
         newAlarmTime.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]));
+
+        Log.d(TAG, "DebugTime: timeArray[2]: " + timeArray[2]);
+        if (timeArray[2].equalsIgnoreCase("am")) {
+            Log.d(TAG, "DebugTime: 2 == AM");
+            am_pm = 0;
+        } else {
+            Log.d(TAG, "DebugTime: 2 == PM");
+            am_pm = 1;
+        }
+        Log.d(TAG, "DebugTime: am_pm: " + am_pm);
+        newAlarmTime.set(Calendar.AM_PM, am_pm);
         newAlarmTime.set(Calendar.SECOND, 0);
         setAlarmTime(newAlarmTime);
     }
+
 
     public Day[] getDays() {
         return days;

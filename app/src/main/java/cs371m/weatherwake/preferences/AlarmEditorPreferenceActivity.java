@@ -280,24 +280,23 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                             @Override
                             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                                 Calendar newAlarmTime = Calendar.getInstance();
-//                                timePicker.is24HourView(false);
-                                String am_pm;
-                                Log.d(TAG, "hourOfDay: " + hourOfDay + " " + "minute: " + minute);
+                                int amPM;
+                                int hour;
 
-//                                if (hourOfDay > 12) {
-//                                    newAlarmTime.set(Calendar.HOUR, hourOfDay - 12);
-//                                    am_pm = "PM";
-//                                } else {
-//                                    newAlarmTime.set(Calendar.HOUR, hourOfDay);
-//                                    am_pm = "AM";
-//                                }
-                                Log.d(TAG, "AM_PM: " + newAlarmTime.get(Calendar.AM_PM));
+                                if (hourOfDay > 12) {
+                                    hour = hourOfDay - 12;
+                                    amPM = 1;
+                                } else {
+                                    hour = hourOfDay;
+                                    amPM = 0;
+                                }
+
                                 // HOUR_OF_DAY = 24-hour clock
-                                newAlarmTime.set(Calendar.HOUR, hourOfDay);
+                                newAlarmTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                                newAlarmTime.set(Calendar.HOUR, hour);
                                 newAlarmTime.set(Calendar.MINUTE, minute);
                                 newAlarmTime.set(Calendar.SECOND, 0);
-//                                Log.d(TAG, "case TIME: HOUR_OF_DAY: " + Calendar.HOUR_OF_DAY);
-//                                Log.d(TAG, "case TIME: MINUTE: " + Calendar.MINUTE );
+                                newAlarmTime.set(Calendar.AM_PM, amPM);
                                 alarm.setAlarmTime(newAlarmTime);
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
                                 alarmEditorPreferenceListAdapter.notifyDataSetChanged();
@@ -305,7 +304,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 //                        }, alarm.getAlarmTime().get(Calendar.HOUR_OF_DAY), alarm.getAlarmTime().get(Calendar.MINUTE), true);
                         }, hour, minute, false);
                         timePickerDialog.setTitle(alarmEditorPreference.getTitle());
-                        Log.d(TAG, "TestTime timePickerDialog.setTitle() " + alarmEditorPreference.getTitle());
+//                        Log.d(TAG, "DebugTime: timePickerDialog.setTitle() " + alarmEditorPreference.getTitle());
                         timePickerDialog.show();
                     default:
                         break;

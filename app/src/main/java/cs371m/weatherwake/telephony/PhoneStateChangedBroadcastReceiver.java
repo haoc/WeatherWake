@@ -13,7 +13,5 @@ public class PhoneStateChangedBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(getClass().getSimpleName(), "onReceive()");
-
     }
-
 }
