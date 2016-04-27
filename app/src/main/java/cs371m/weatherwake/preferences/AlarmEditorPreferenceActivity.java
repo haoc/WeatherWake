@@ -53,7 +53,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
     private Button saveAlarm;
     private Button deleteAlarm;
-    private Boolean alarmActive = true;
+    private Boolean alarmActive = false;
     private Boolean alarmPairing = true;
 
     @Override
@@ -119,13 +119,12 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                         alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
 
                         alert.setTitle(alarmEditorPreference.getTitle());
-                        // alert.setMessage(message);
 
                         // Set an EditText view to get user input
                         final EditText input = new EditText(AlarmEditorPreferenceActivity.this);
 
                         input.setText(alarmEditorPreference.getValue().toString());
-
+                        Log.d(TAG, "DebugName: input: " + alarmEditorPreference.getValue().toString());
                         alert.setView(input);
                         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogInterface, int whichButton) {
@@ -238,42 +237,59 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                             checkedItems[day.ordinal()] = true;
                         }
                         alert.setMultiChoiceItems(multiListItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
-
                             @Override
                             public void onClick(final DialogInterface dialog, int which, boolean isChecked) {
-
                                 Alarm.Day thisDay = Alarm.Day.values()[which];
 
                                 if (isChecked) {
                                     alarm.addDay(thisDay);
                                 } else {
-                                    // Only remove the day if there are more than 1
-                                    // selected
+                                    // Only remove the day if there are more than 1 selected
                                     if (alarm.getDays().length > 1) {
                                         alarm.deleteDay(thisDay);
                                     } else {
-                                        // If the last day was unchecked, re-check
-                                        // it
+                                        // If the last day was unchecked, re-check it
                                         ((AlertDialog) dialog).getListView().setItemChecked(which, true);
                                     }
                                 }
-
                             }
                         });
-                        alert.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                            @Override
-                            public void onCancel(DialogInterface dialog) {
+
+                        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int which) {
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
                                 alarmEditorPreferenceListAdapter.notifyDataSetChanged();
 
                             }
                         });
+
+//                        alert.setOnCancelListener(new DialogInterface.OnCancelListener() {
+//                            @Override
+//                            public void onCancel(DialogInterface dialog) {
+//                                alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
+//                                alarmEditorPreferenceListAdapter.notifyDataSetChanged();
+//
+//                            }
+//                        });
                         alert.show();
                         break;
                     case TIME:
                         // public TimePickerDialog (Context context, TimePickerDialog.OnTimeSetListener listener, int initial hourOfDay, int initial minute, boolean is24HourView)
-                        int hour = 12;
-                        final int minute = 00;
+//                        final int hour = 12;
+//                        final int minute = 00;
+                        final int hour;
+                        final int minute;
+                        int newAlarm = alarm.getAlarmId();
+
+                        if (newAlarm == 0) {
+                            hour = 12;
+                            minute = 00;
+                        } else {
+                            hour = alarm.getAlarmTime().get(Calendar.HOUR_OF_DAY);
+                            minute = alarm.getAlarmTime().get(Calendar.MINUTE);
+                        }
+
+                        Log.d(TAG, "DebugClock: alarm ID: " + alarm.getAlarmId());
                         // set initial alarm clock time; need to make sure preference "Set time" title is the same***
                         TimePickerDialog timePickerDialog = new TimePickerDialog(AlarmEditorPreferenceActivity.this, new TimePickerDialog.OnTimeSetListener() {
 
@@ -331,53 +347,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
         });
 
     }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case R.id.menu_item_save:
-//                database.init(getApplicationContext());
-//                if (getAlarm().getAlarmId() < 1) {
-//                    database.create(getAlarm());
-//                } else {
-//                    database.update(getAlarm());
-//                }
-//                callMathAlarmScheduleService();
-//                Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
-//                finish();
-//                break;
-//            case R.id.menu_item_delete:
-//                AlertDialog.Builder dialog = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
-//                dialog.setTitle("Delete");
-//                dialog.setMessage("Delete this alarm?");
-//                dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                        database.init(getApplicationContext());
-//                        if (getAlarm().getAlarmId() < 1) {
-//                            // Alarm not saved
-//                        } else {
-//                            database.deleteAlarm(alarm);
-//                            callMathAlarmScheduleService();
-//                        }
-//                        finish();
-//                    }
-//                });
-//                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//                dialog.show();
-//
-//                break;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 
     private CountDownTimer alarmToneTimer;
 

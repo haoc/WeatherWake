@@ -84,14 +84,17 @@ public class Alarm implements Serializable {
     }
 
     public String getAlarmName() {
+        Log.d(TAG, "DebugName: getAlarmName(): " + alarmName);
         return alarmName;
     }
 
     public String getAlarmNameString() {
+        Log.d(TAG, "DebugName: getAlarmNameString(): " + getAlarmName());
         return getAlarmName();
     }
 
     public void setAlarmName(String alarmName) {
+        Log.d(TAG, "DebugName: setAlarmName(): " + alarmName);
         this.alarmName = alarmName;
     }
 
@@ -139,7 +142,6 @@ public class Alarm implements Serializable {
 
         Log.d(TAG, "DebugTime: getAlarmTimeString: " + time);
         return time;
-        
     }
 
 
@@ -268,7 +270,7 @@ public class Alarm implements Serializable {
                         daysStringBuilder.append(d.toString().substring(0, 3));
                         break;
                 }
-                daysStringBuilder.append(',');
+                daysStringBuilder.append(' ');
             }
             daysStringBuilder.setLength(daysStringBuilder.length() - 1);
         }

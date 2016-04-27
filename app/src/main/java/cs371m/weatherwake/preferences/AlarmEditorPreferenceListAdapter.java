@@ -109,12 +109,10 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
                     alarm.setAlarmActive((Boolean) alarmEditorPreference.getValue());
                     break;
                 case ALARM_NAME:
-//                    Log.d(TAG, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-//                    Log.d(TAG, "ALARM_NAMEEEEEEEE: " + (String) alarmEditorPreference.getValue());
+                    Log.d(TAG, "DebugName: getAlarm(): " + (String) alarmEditorPreference.getValue());
                     alarm.setAlarmName((String) alarmEditorPreference.getValue());
                     break;
                 case ALARM_TIME:
-                    Log.d(TAG, "DebugTime: getAlarm()" + (String) alarmEditorPreference.getValue());
                     alarm.setAlarmTime((String) alarmEditorPreference.getValue());
                     break;
                 case ALARM_MUSIC:
@@ -141,7 +139,7 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
     public void setAlarm(Alarm alarm) {
         this.alarm = alarm;
         alarmEditorPreferenceList.clear();
-        alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_NAME, alarm.getAlarmName(), AlarmEditorPreference.Type.STRING, "Alarm Name", alarm.getAlarmName(), null));
+        alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_NAME, alarm.getAlarmName(), AlarmEditorPreference.Type.STRING, "Alarm Name", alarm.getAlarmNameString(), null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_ACTIVE, alarm.getAlarmActive(), AlarmEditorPreference.Type.BOOLEAN, "Active", null, null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_TIME, alarm.getAlarmTime(), AlarmEditorPreference.Type.TIME, "Set Time", alarm.getAlarmTimeString(), null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_REPEAT, alarm.getDays(), AlarmEditorPreference.Type.LISTS, "Repeat", alarm.getRepeatDaysString(), days));
