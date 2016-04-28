@@ -292,7 +292,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                         Log.d(TAG, "DebugClock: alarm ID: " + alarm.getAlarmId());
                         // set initial alarm clock time; need to make sure preference "Set time" title is the same***
                         TimePickerDialog timePickerDialog = new TimePickerDialog(AlarmEditorPreferenceActivity.this, new TimePickerDialog.OnTimeSetListener() {
-
                             @Override
                             public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
                                 Calendar newAlarmTime = Calendar.getInstance();

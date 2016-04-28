@@ -314,5 +314,4 @@ public class Alarm implements Serializable {
         }
         return alert;
     }
-
 }

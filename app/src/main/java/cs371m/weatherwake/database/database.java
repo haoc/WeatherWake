@@ -87,7 +87,7 @@ public class database extends SQLiteOpenHelper {
                 ALARMS_COLUMN_VIBRATE
         };
 
-        return getDatabase().query(ALARMS_TABLE, columns, null, null, null, null, null);            // 5 nulls?
+        return getDatabase().query(ALARMS_TABLE, columns, null, null, null, null, null);
     }
 
     public static SQLiteDatabase getDatabase() {
