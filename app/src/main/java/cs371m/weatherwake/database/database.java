@@ -56,7 +56,7 @@ public class database extends SQLiteOpenHelper {
                         + ALARMS_COLUMN_TIME + " TEXT NOT NULL, "
                         + ALARMS_COLUMN_DAYS + " BLOB NOT NULL, "
                         + ALARMS_COLUMN_MUSIC + " TEXT NOT NULL, "
-//                        + ALARMS_COLUMN_SNOOZE + " TEXT NOT NULL, "
+                        + ALARMS_COLUMN_SNOOZE + " TEXT NOT NULL, "
                         + ALARMS_COLUMN_PAIRING + " INTEGER NOT NULL, "
                         + ALARMS_COLUMN_VIBRATE + " INTEGER NOT NULL)"
         );
@@ -82,7 +82,7 @@ public class database extends SQLiteOpenHelper {
                 ALARMS_COLUMN_TIME,
                 ALARMS_COLUMN_DAYS,
                 ALARMS_COLUMN_MUSIC,
-//                ALARMS_COLUMN_SNOOZE,
+                ALARMS_COLUMN_SNOOZE,
                 ALARMS_COLUMN_PAIRING,
                 ALARMS_COLUMN_VIBRATE
         };
@@ -121,9 +121,10 @@ public class database extends SQLiteOpenHelper {
         }
 
         contentValues.put(ALARMS_COLUMN_MUSIC, alarm.getAlarmMusic());
-//        contentValues.put(ALARMS_COLUMN_SNOOZE, alarm.getAlarmSnooze());
+        Log.d(TAG, "DebugSnooze: ALARMS_COLUMN_SNOOZE");
+        contentValues.put(ALARMS_COLUMN_SNOOZE, alarm.getAlarmSnooze());
         contentValues.put(ALARMS_COLUMN_PAIRING, alarm.getAlarmPairing());
-        Log.d(TAG, "ALARMS_COLUMN_PAIRING " + alarm.getAlarmPairing() );
+//        Log.d(TAG, "ALARMS_COLUMN_PAIRING " + alarm.getAlarmPairing() );
         contentValues.put(ALARMS_COLUMN_VIBRATE, alarm.getAlarmVibrate());
 
         return getDatabase().insert(ALARMS_TABLE, null, contentValues);
@@ -149,7 +150,7 @@ public class database extends SQLiteOpenHelper {
         }
 
         contentValues.put(ALARMS_COLUMN_MUSIC, alarm.getAlarmMusic());
-//        contentValues.put(ALARMS_COLUMN_SNOOZE, alarm.getAlarmSnooze());
+        contentValues.put(ALARMS_COLUMN_SNOOZE, alarm.getAlarmSnooze());
         contentValues.put(ALARMS_COLUMN_PAIRING, alarm.getAlarmPairing());
         contentValues.put(ALARMS_COLUMN_VIBRATE, alarm.getAlarmVibrate());
 
@@ -184,7 +185,7 @@ public class database extends SQLiteOpenHelper {
                 ALARMS_COLUMN_TIME,
                 ALARMS_COLUMN_DAYS,
                 ALARMS_COLUMN_MUSIC,
-//                ALARMS_COLUMN_SNOOZE,
+                ALARMS_COLUMN_SNOOZE,
                 ALARMS_COLUMN_PAIRING,
                 ALARMS_COLUMN_VIBRATE
         };
@@ -221,13 +222,15 @@ public class database extends SQLiteOpenHelper {
                 e.printStackTrace();
             }
 
-            alarm.setAlarmMusic(cursor.getString(6));
-            alarm.setAlarmPairing(cursor.getInt(7) == 1);
-            alarm.setAlarmVibrate(cursor.getInt(8) == 1);
+            // without snooze
+//            alarm.setAlarmMusic(cursor.getString(6));
+//            alarm.setAlarmPairing(cursor.getInt(7) == 1);
+//            alarm.setAlarmVibrate(cursor.getInt(8) == 1);
             // with snooze and pairing
-//            alarm.setAlarmSnooze(cursor.getString(7));                                             // don't set it?
-//            alarm.setAlarmPairing(cursor.getInt(8) == 1);
-//            alarm.setAlarmVibrate(cursor.getInt(9) == 1);
+            alarm.setAlarmMusic(cursor.getString(6));
+            alarm.setAlarmSnooze(cursor.getString(7));                                             // don't set it?
+            alarm.setAlarmPairing(cursor.getInt(8) == 1);
+            alarm.setAlarmVibrate(cursor.getInt(9) == 1);
             // original
 //            alarm.setAlarmVibrate(cursor.getInt(7) == 1);
         }
@@ -246,7 +249,7 @@ public class database extends SQLiteOpenHelper {
                 ALARMS_COLUMN_TIME,
                 ALARMS_COLUMN_DAYS,
                 ALARMS_COLUMN_MUSIC,
-//                ALARMS_COLUMN_SNOOZE,
+                ALARMS_COLUMN_SNOOZE,
                 ALARMS_COLUMN_PAIRING,
                 ALARMS_COLUMN_VIBRATE
         };
@@ -289,13 +292,15 @@ public class database extends SQLiteOpenHelper {
                     e.printStackTrace();
                 }
 
-                alarm.setAlarmMusic(cursor.getString(5));
-                alarm.setAlarmPairing(cursor.getInt(6) == 1);
-                alarm.setAlarmVibrate(cursor.getInt(7) == 1);
+                // without snooze
+//                alarm.setAlarmMusic(cursor.getString(5));
+//                alarm.setAlarmPairing(cursor.getInt(6) == 1);
+//                alarm.setAlarmVibrate(cursor.getInt(7) == 1);
                 // with snooze and pairing
-//                alarm.setAlarmSnooze(cursor.getString(6));                                           // don't set it? getInt or getString
-//                alarm.setAlarmPairing(cursor.getInt(7) == 1);
-//                alarm.setAlarmVibrate(cursor.getInt(8) == 1);
+                alarm.setAlarmMusic(cursor.getString(5));
+                alarm.setAlarmSnooze(cursor.getString(6));                                           // don't set it? getInt or getString
+                alarm.setAlarmPairing(cursor.getInt(7) == 1);
+                alarm.setAlarmVibrate(cursor.getInt(8) == 1);
                 // original?
 //                alarm.setAlarmVibrate(cursor.getInt(8) == 1);
 

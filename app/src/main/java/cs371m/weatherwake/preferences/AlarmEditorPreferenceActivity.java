@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -111,13 +112,52 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                         }
                         alarmEditorPreference.setValue(checked);
                         break;
-//                    case INTEGER:
-//
-
-                    case STRING:
+                    case INTEGER:
+                        Log.d(TAG, "DebugSnooze: CASE INTEGER");
+//                        TextView numberPickerView = (TextView) findViewById(R.id.numberPickerView);
+                        final NumberPicker numberPicker = new NumberPicker(AlarmEditorPreferenceActivity.this);
+                        int newAlarm2 = alarm.getAlarmId();
 
                         alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
+                        alert.setView(numberPicker);
 
+                        numberPicker.setMaxValue(60);
+                        numberPicker.setMinValue(1);
+
+                        if (newAlarm2 == 0) {
+                            Log.d(TAG, "DebugSnooze: newAlarm2: " + newAlarm2);
+                            numberPicker.setValue(2);
+                        } else {
+                            Log.d(TAG, "DebugSnooze: edit newAlarm2: " + newAlarm2);
+                            Log.d(TAG, "DebugSnooze: edit newAlarm2: alarm.getAlarmSnooze() " + alarm.getAlarmSnooze());
+                            numberPicker.setValue(Integer.parseInt(alarm.getAlarmSnooze()));
+                        }
+
+                        numberPicker.setWrapSelectorWheel(true);
+                        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                            @Override
+                            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                                Log.d(TAG, "DebugSnooze: onValueChange: newVal: " + newVal);
+//                                alarmEditorPreference.setValue(Integer.toString(newVal));
+//                                alarm.setAlarmSnooze(alarmEditorPreference.getValue().toString());
+                            }
+                        });
+                        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d(TAG, "DebugSnooze: onClick:  " + numberPicker.getValue());
+                                alarmEditorPreference.setValue(numberPicker.getValue());
+                                alarm.setAlarmSnooze(alarmEditorPreference.getValue().toString());
+                                
+                                alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
+                                alarmEditorPreferenceListAdapter.notifyDataSetChanged();
+                            }
+                        });
+                        alert.show();
+                        break;
+
+                    case STRING:
+                        alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
                         alert.setTitle(alarmEditorPreference.getTitle());
 
                         // Set an EditText view to get user input
@@ -147,6 +187,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                         });
                         alert.show();
                         break;
+
                     case LIST:
                         alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
 
@@ -220,17 +261,17 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                             }
 
                         });
-
                         alert.show();
                         break;
+
                     case LISTS:
                         alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
-
                         alert.setTitle(alarmEditorPreference.getTitle());
 
                         CharSequence[] multiListItems = new CharSequence[alarmEditorPreference.getOptions().length];
-                        for (int i = 0; i < multiListItems.length; i++)
+                        for (int i = 0; i < multiListItems.length; i++) {
                             multiListItems[i] = alarmEditorPreference.getOptions()[i];
+                        }
 
                         boolean[] checkedItems = new boolean[multiListItems.length];
                         for (Alarm.Day day : getAlarm().getDays()) {
@@ -262,21 +303,10 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
                             }
                         });
-
-//                        alert.setOnCancelListener(new DialogInterface.OnCancelListener() {
-//                            @Override
-//                            public void onCancel(DialogInterface dialog) {
-//                                alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
-//                                alarmEditorPreferenceListAdapter.notifyDataSetChanged();
-//
-//                            }
-//                        });
                         alert.show();
                         break;
+
                     case TIME:
-                        // public TimePickerDialog (Context context, TimePickerDialog.OnTimeSetListener listener, int initial hourOfDay, int initial minute, boolean is24HourView)
-//                        final int hour = 12;
-//                        final int minute = 00;
                         final int hour;
                         final int minute;
                         int newAlarm = alarm.getAlarmId();
@@ -289,7 +319,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                             minute = alarm.getAlarmTime().get(Calendar.MINUTE);
                         }
 
-                        Log.d(TAG, "DebugClock: alarm ID: " + alarm.getAlarmId());
                         // set initial alarm clock time; need to make sure preference "Set time" title is the same***
                         TimePickerDialog timePickerDialog = new TimePickerDialog(AlarmEditorPreferenceActivity.this, new TimePickerDialog.OnTimeSetListener() {
                             @Override
@@ -384,20 +413,15 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
     }
 
     public void setListAdapter(ListAdapter listAdapter) {
-//        Log.d(TAG, "setListAdapter_______________________");
         this.listAdapter = listAdapter;
-//        Log.d(TAG, "ELSE_______________________" + this.listAdapter);
         getListView().setAdapter(listAdapter);
 
     }
 
     public ListView getListView() {
-//        Log.d(TAG, "INSIDE GETLISTVIEW-----------");
+
         if (listView == null) {
-//            Log.d(TAG, "if listView == null!!!!!!!!!");
-//            listView = (ListView) findViewById(android.R.id.list);
             listView = (ListView) findViewById(R.id.list);
-//            Log.d(TAG, "listView: " + listView);
         }
 
         return listView;
@@ -408,7 +432,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
     }
 
     private void addAlarm() {
-
         database.init(getApplicationContext());
         if (getAlarm().getAlarmId() < 1) {
             Log.d(TAG, "Alarm " + getAlarm().getAlarmId() + " added");
@@ -418,7 +441,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
             database.update(getAlarm());
         }
         callAlarmScheduleService();
-        Log.d(TAG, "alarmActive: " + alarmActive);
         // only display toast if alarm is active
         if (alarmActive) {
             Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
@@ -429,7 +451,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
     private void deleteAlarm() {
         AlertDialog.Builder dialog = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
         dialog.setTitle("Delete alarm?");
-//        dialog.setMessage("Delete alarm?");
         dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -452,13 +473,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
         dialog.show();
     }
-
-//    @Override
-//    public void onClick(View v) {
-//        // super.onClick(v);
-//
-//    }
-
 
     protected void callAlarmScheduleService() {
         Intent alarmServiceIntent = new Intent(this, AlarmServiceBroadcastReceiver.class);

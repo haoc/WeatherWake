@@ -66,8 +66,8 @@ public class Alarm implements Serializable {
     private Calendar alarmTime = Calendar.getInstance();
     private Day[] days = {Day.MONDAY, Day.TUESDAY, Day.WEDNESDAY, Day.THURSDAY, Day.FRIDAY, Day.SATURDAY, Day.SUNDAY};
     private String alarmMusic = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
-//    private NumberPicker np = new NumberPicker(AlarmEditorPreferenceActivity.this);
-//    private String alarmSnooze = "2";
+//    private NumberPicker np = new NumberPicker();
+    private String alarmSnooze = "2";
     private Boolean alarmPairing = true;
     private Boolean alarmVibrate = true;
 
@@ -209,6 +209,7 @@ public class Alarm implements Serializable {
         setDays(result.toArray(new Day[result.size()]));
     }
 
+    // ALARM_MUSIC
     public String getAlarmMusic() {
         return alarmMusic;
     }
@@ -217,23 +218,23 @@ public class Alarm implements Serializable {
         this.alarmMusic = alarmMusic;
     }
 
-//    public String getAlarmSnooze() {
-//        return alarmSnooze;
-//    }
+    // ALARM_SNOOZE
+    public String getAlarmSnooze() {
+        Log.d(TAG, "DebugSnooze: getAlarmSnooze: " + alarmSnooze);
+        return alarmSnooze;
+    }
 
-//    public String getAlarmSnoozeString() {
-//        Log.d(TAG, "getAlarmSnoozeString(): " + Integer.toString(alarmSnooze));
-//        return Integer.toString(alarmSnooze);
-//    }
+    public String getAlarmSnoozeString() {
+        Log.d(TAG, "DebugSnooze: getAlarmSnoozeString: " + getAlarmSnooze());
+        return getAlarmSnooze();
+    }
 
-//    public String getAlarmSnoozeString() {
-//        return getAlarmSnooze();
-//    }
+    public void setAlarmSnooze(String alarmSnooze) {
+        Log.d(TAG, "DebugSnooze: setAlarmSnooze: " + alarmSnooze);
+        this.alarmSnooze = alarmSnooze;
+    }
 
-//    public void setAlarmSnooze(String alarmSnooze) {
-//        this.alarmSnooze = alarmSnooze;
-//    }
-
+    // ALARM_PAIRING
     public Boolean getAlarmPairing() {
         return alarmPairing;
     }
