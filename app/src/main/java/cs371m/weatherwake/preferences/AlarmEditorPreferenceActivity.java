@@ -160,14 +160,15 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                         alert.setTitle(alarmEditorPreference.getTitle());
 
                         // Set an EditText view to get user input
-                        final EditText input = new EditText(AlarmEditorPreferenceActivity.this);
-                        input.setText(alarmEditorPreference.getValue().toString());
+                        final EditText editText = new EditText(AlarmEditorPreferenceActivity.this);
+                        editText.setText(alarmEditorPreference.getValue().toString());
+                        editText.setSelection(editText.getText().length());
 
-                        alert.setView(input);
+                        alert.setView(editText);
                         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogInterface, int whichButton) {
 
-                                alarmEditorPreference.setValue(input.getText().toString());
+                                alarmEditorPreference.setValue(editText.getText().toString());
                                 alarm.setAlarmName(alarmEditorPreference.getValue().toString());
 
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
