@@ -109,7 +109,6 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
                     alarm.setAlarmActive((Boolean) alarmEditorPreference.getValue());
                     break;
                 case ALARM_NAME:
-                    Log.d(TAG, "DebugName: getAlarm(): " + (String) alarmEditorPreference.getValue());
                     alarm.setAlarmName((String) alarmEditorPreference.getValue());
                     break;
                 case ALARM_TIME:

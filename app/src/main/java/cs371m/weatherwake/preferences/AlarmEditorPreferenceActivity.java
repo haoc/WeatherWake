@@ -54,8 +54,9 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
     private Button saveAlarm;
     private Button deleteAlarm;
-    private Boolean alarmActive = false;
+    private Boolean alarmActive = true;
     private Boolean alarmPairing = true;
+    private Boolean alarmCheck2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +91,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                     case BOOLEAN:
                         CheckedTextView checkedTextView = (CheckedTextView) view;
                         boolean checked = !checkedTextView.isChecked();
+
                         ((CheckedTextView) view).setChecked(checked);
                         switch (alarmEditorPreference.getKey()) {
                             case ALARM_ACTIVE:
@@ -129,7 +131,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                             numberPicker.setValue(2);
                         } else {
                             Log.d(TAG, "DebugSnooze: edit newAlarm2: " + newAlarm2);
-                            Log.d(TAG, "DebugSnooze: edit newAlarm2: alarm.getAlarmSnooze() " + alarm.getAlarmSnooze());
                             numberPicker.setValue(Integer.parseInt(alarm.getAlarmSnooze()));
                         }
 
@@ -137,9 +138,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                         numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                             @Override
                             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                                Log.d(TAG, "DebugSnooze: onValueChange: newVal: " + newVal);
-//                                alarmEditorPreference.setValue(Integer.toString(newVal));
-//                                alarm.setAlarmSnooze(alarmEditorPreference.getValue().toString());
+
                             }
                         });
                         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -148,7 +147,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                                 Log.d(TAG, "DebugSnooze: onClick:  " + numberPicker.getValue());
                                 alarmEditorPreference.setValue(numberPicker.getValue());
                                 alarm.setAlarmSnooze(alarmEditorPreference.getValue().toString());
-                                
+
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
                                 alarmEditorPreferenceListAdapter.notifyDataSetChanged();
                             }
@@ -162,18 +161,14 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
                         // Set an EditText view to get user input
                         final EditText input = new EditText(AlarmEditorPreferenceActivity.this);
-
                         input.setText(alarmEditorPreference.getValue().toString());
-                        Log.d(TAG, "DebugName: input: " + alarmEditorPreference.getValue().toString());
+
                         alert.setView(input);
                         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogInterface, int whichButton) {
 
                                 alarmEditorPreference.setValue(input.getText().toString());
-
-                                if (alarmEditorPreference.getKey() == AlarmEditorPreference.Key.ALARM_NAME) {
-                                    alarm.setAlarmName(alarmEditorPreference.getValue().toString());
-                                }
+                                alarm.setAlarmName(alarmEditorPreference.getValue().toString());
 
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
                                 alarmEditorPreferenceListAdapter.notifyDataSetChanged();
@@ -360,7 +355,8 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
         saveAlarm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d(TAG, "saveAlarm pressed");
+                Log.d(TAG, "DebugToast: saveAlarm pressed");
+//                alarmCheck2 =
                 addAlarm();
             }
         });
@@ -433,6 +429,9 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
     private void addAlarm() {
         database.init(getApplicationContext());
+
+        Boolean alarmActive = alarm.getAlarmActive();
+
         if (getAlarm().getAlarmId() < 1) {
             Log.d(TAG, "Alarm " + getAlarm().getAlarmId() + " added");
             database.create(getAlarm());
@@ -441,6 +440,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
             database.update(getAlarm());
         }
         callAlarmScheduleService();
+
         // only display toast if alarm is active
         if (alarmActive) {
             Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();

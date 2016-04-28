@@ -84,17 +84,14 @@ public class Alarm implements Serializable {
     }
 
     public String getAlarmName() {
-        Log.d(TAG, "DebugName: getAlarmName(): " + alarmName);
         return alarmName;
     }
 
     public String getAlarmNameString() {
-        Log.d(TAG, "DebugName: getAlarmNameString(): " + getAlarmName());
         return getAlarmName();
     }
 
     public void setAlarmName(String alarmName) {
-        Log.d(TAG, "DebugName: setAlarmName(): " + alarmName);
         this.alarmName = alarmName;
     }
 

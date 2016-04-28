@@ -197,6 +197,7 @@ public class database extends SQLiteOpenHelper {
         if(cursor.moveToNext()) {
             alarm = new Alarm();
             alarm.setAlarmId(cursor.getInt(1));
+            alarm.setAlarmName(cursor.getString(2));
             alarm.setAlarmActive(cursor.getInt(3) == 1);
             alarm.setAlarmTime(cursor.getString(4));
             byte[] repeatDaysInBytes = cursor.getBlob(5);
@@ -267,6 +268,7 @@ public class database extends SQLiteOpenHelper {
                 // init alarm
                 Alarm alarm = new Alarm();
                 alarm.setAlarmId(cursor.getInt(0));
+                alarm.setAlarmName(cursor.getString(1));
                 alarm.setAlarmActive(cursor.getInt(2) == 1);
                 alarm.setAlarmTime(cursor.getString(3));
                 byte[] repeatDaysInBytes = cursor.getBlob(4);
