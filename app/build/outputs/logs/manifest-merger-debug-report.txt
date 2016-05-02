@@ -65,7 +65,7 @@ MERGED from [com.survivingwithandroid:weatherlib:1.6.0] C:\Users\Michael\Documen
 	android:allowBackup
 		ADDED from C:\Users\Michael\Documents\GitHub\WeatherWake\app\src\main\AndroidManifest.xml:16:9-35
 	android:icon
-		ADDED from C:\Users\Michael\Documents\GitHub\WeatherWake\app\src\main\AndroidManifest.xml:17:9-43
+		ADDED from C:\Users\Michael\Documents\GitHub\WeatherWake\app\src\main\AndroidManifest.xml:17:9-42
 	android:theme
 		ADDED from C:\Users\Michael\Documents\GitHub\WeatherWake\app\src\main\AndroidManifest.xml:20:9-40
 activity#cs371m.weatherwake.WeatherWakeMainActivity

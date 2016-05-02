@@ -16,7 +16,14 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import cs371m.weatherwake.Alarm;
 import cs371m.weatherwake.R;
@@ -35,7 +42,10 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
 
     private boolean alarmActive;
 
+    private RelativeLayout mAlarmScreenLayout;
+
     private TextView weatherTypeView;
+    private TextView mDateTime;
 
     private Button snoozeButton;
     private Button turnOffAlarmButton;
@@ -43,6 +53,7 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         final Window window = getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
@@ -51,24 +62,59 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
 
         setContentView(R.layout.weather_wake_alarm_screen);
 
+        setViewInfo();
+
         Bundle bundle = this.getIntent().getExtras();
         alarm = (Alarm) bundle.getSerializable("alarm");
 
         this.setTitle(alarm.getAlarmName());
 
-
-        weatherTypeView = (TextView) findViewById(R.id.weatherType);
         weatherTypeView.setText("Overcast".toString());
-
-
-        snoozeButton = (Button) findViewById(R.id.snooze);
         snoozeButton.setOnClickListener(this);
-
-        turnOffAlarmButton = (Button) findViewById(R.id.turnOffAlarm);
         turnOffAlarmButton.setOnClickListener(this);
 
 //        ((Button) findViewById(R.id.snooze)).setOnClickListener(this);
 //        ((Button) findViewById(R.id.turnOffAlarm)).setOnClickListener(this);
+
+        Calendar startUp = Calendar.getInstance();
+        if(startUp.get(Calendar.HOUR_OF_DAY) >= 7 && startUp.get(Calendar.HOUR_OF_DAY) <= 19) {
+            mAlarmScreenLayout.setBackgroundResource(R.drawable.morning_sky5);
+        }
+        else {
+            mAlarmScreenLayout.setBackgroundResource(R.drawable.night_sky2);
+        }
+
+
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while(!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Get day
+                                String weekDay;
+                                SimpleDateFormat dayFormat = new SimpleDateFormat("E", Locale.US);
+
+                                Calendar calendar = Calendar.getInstance();
+                                weekDay = dayFormat.format(calendar.getTime());
+
+                                // Get time
+                                Date currentTime = calendar.getTime();
+                                Log.d("somthing", currentTime.toString());
+                                DateFormat date = new SimpleDateFormat("hh:mm a");
+                                String localTime = date.format(currentTime);
+
+                                mDateTime.setText(weekDay + ", " + localTime);
+                            }
+                        });
+                    }
+                } catch(InterruptedException e) {}
+            }
+        };
+        t.start();
 
         TelephonyManager telephonyManager = (TelephonyManager) this
                 .getSystemService(Context.TELEPHONY_SERVICE);
@@ -188,6 +234,14 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         } else {
 
         }
+    }
+
+    private void setViewInfo() {
+        mAlarmScreenLayout = (RelativeLayout) findViewById(R.id.alarmScreenLayout);
+        weatherTypeView = (TextView) findViewById(R.id.weatherType);
+        mDateTime = (TextView) findViewById(R.id.dateTime);
+        snoozeButton = (Button) findViewById(R.id.snooze);
+        turnOffAlarmButton = (Button) findViewById(R.id.turnOffAlarm);
     }
 }
 

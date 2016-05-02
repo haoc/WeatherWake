@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/alarmScreenLayout"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_weight="1">
+    android:layout_weight="1"
+    android:background="#99e5ff">
 
     <TextView
         android:id="@+id/location"
@@ -15,20 +17,10 @@
         android:layout_marginLeft="10dp"/>
 
     <TextView
-        android:id="@+id/dateTime"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:layout_below="@id/location"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="10dp"
-        android:text="TH, 3:32 PM"
-        android:textSize="20dp" />
-
-    <TextView
         android:id="@+id/temp"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_below="@id/dateTime"
+        android:layout_below="@id/location"
         android:layout_centerHorizontal="true"
         android:text="68"
         android:textSize="40dp"
@@ -95,15 +87,25 @@
         />
 
     <TextView
-        android:id="@+id/alarmSong"
-        android:layout_width="wrap_content"
+        android:id="@+id/dateTime"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_below="@id/weatherImg"
-        android:text="Hotline Bling by Drake"
-        android:layout_centerHorizontal="true"
-        android:textSize="20dp"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_marginTop="5dp"
+        android:layout_centerInParent="true"
+        android:text="TH, 3:32 PM"
+        android:textSize="40dp" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/alarmSong"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/weatherImg"-->
+        <!--android:text="Hotline Bling by Drake"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:textSize="20dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--/>-->
 
     <LinearLayout
         android:layout_width="match_parent"

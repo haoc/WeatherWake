@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\morning_sky4.jpg",
+        "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\morning_sky4.jpg"
+    },
+    {
         "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\seek_thumb_pressed.png",
         "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\seek_thumb_pressed.png"
     },
@@ -8,12 +12,20 @@
         "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\arrow_up.png"
     },
     {
+        "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\night_sky.jpg",
+        "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\night_sky.jpg"
+    },
+    {
         "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
         "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable\\abc_list_selector_holo_dark.xml"
     },
     {
         "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_tab_indicator_material.xml",
         "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable\\abc_tab_indicator_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\app_icon.png",
+        "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\app_icon.png"
     },
     {
         "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_internal_bg.xml",
@@ -38,6 +50,18 @@
     {
         "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
         "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\morning_sky2.jpg",
+        "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\morning_sky2.jpg"
+    },
+    {
+        "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\night_sky2.jpg",
+        "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\night_sky2.jpg"
+    },
+    {
+        "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\morning_sky5.jpg",
+        "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\morning_sky5.jpg"
     },
     {
         "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
@@ -96,6 +120,10 @@
         "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable\\abc_list_selector_background_transition_holo_dark.xml"
     },
     {
+        "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\morning_sky.jpg",
+        "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\morning_sky.jpg"
+    },
+    {
         "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
         "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable\\abc_switch_thumb_material.xml"
     },
@@ -126,6 +154,10 @@
     {
         "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_borderless_material.xml",
         "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable\\abc_btn_borderless_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\morning_sky3.jpg",
+        "source": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\drawable\\morning_sky3.jpg"
     },
     {
         "merged": "C:\\Users\\Michael\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_full_material.xml",
