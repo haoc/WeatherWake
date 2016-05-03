@@ -43,7 +43,6 @@ public class AlarmListAdapter extends BaseAdapter{
     // view of list of alarms on the home screen
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-//        Log.d(TAG, "getting view...");
         // if view is null(first time the view has been displayed),
         // obtain the LayoutInflater from weatherWakeMainActivity and inflate/render a new view hierarchy from alarm_list.xml;
         if (view == null) {
@@ -61,15 +60,12 @@ public class AlarmListAdapter extends BaseAdapter{
         alarmNameTextView.setText(alarm.getAlarmNameString());
 
         TextView alarmTimeView = (TextView) view.findViewById(R.id.alarmTimeTextView);
-        Log.d(TAG, "DebugTime: alarmTimeView.setText(alarm.getAlarmTimeString()): " + alarm.getAlarmTimeString());
-//        alarmTimeView.setText(alarm.getAlarmTimeStringHome());
         alarmTimeView.setText(alarm.getAlarmTimeString());
 
         TextView alarmDaysView = (TextView) view.findViewById(R.id.alarmDaysTextView);
         alarmDaysView.setText(alarm.getRepeatDaysString());
 
         return view;
-
     }
 
     public List<Alarm> getAlarms() {

@@ -11,6 +11,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -18,6 +19,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -83,8 +85,6 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
     private ListView alarmListView ;
     private AlarmListAdapter alarmListAdapter;
-
-    private database mDatabase;
 
     public String city;
 
@@ -178,7 +178,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
         flag = displayGpsStatus();
 
         if (view.getId() == R.id.locationButton) {
-            if(flag) {
+            if (flag) {
                 Log.d(TAG, "GPS IS ON");
                 mProgressBar.setVisibility(View.VISIBLE);
                 try {
@@ -240,9 +240,10 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
             try {
                 addresses = gcd.getFromLocation(location.getLatitude(), location
                         .getLongitude(), 1);
-                if (addresses.size() > 0)
+                if (addresses.size() > 0) {
                     System.out.println(addresses.get(0).getLocality());
-                cityName=addresses.get(0).getLocality();
+                }
+                cityName = addresses.get(0).getLocality();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -250,12 +251,6 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
             String s = cityName;
             city = s;
             retrieveLocationButton.setText(s);
-
-//            mGetWeather = new GetWeather();
-//            mGetweather.getCurrentCondition(new WeatherRequest("2988507"), new WeatherClient.WeatherEventListener(){
-//
-//            }
-
         }
 
         public void onStatusChanged(String s, int i, Bundle b) {
@@ -272,29 +267,6 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_wearther_wake_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-    
     private void setBasicViewInfo() {
        mWeatherWakeLayout = (RelativeLayout) findViewById(R.id.weatherWakeLayout);
        mDateTime = (TextView) findViewById(R.id.dateTime);
@@ -314,9 +286,6 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 //        mAlarm = (TextView) findViewById(R.id.alarm);
 //        mAlarmName = (TextView) findViewById(R.id.alarmName);
         mStartAlarm = (ImageView) findViewById(R.id.start);
-//        mEditAlarm = (ImageView) findViewById(R.id.editAlarm);
-
-        Log.d(TAG, "setAlarmViewInfo()");
 
         // delete existing alarms by long clicking the alarms
         alarmListView = (ListView) findViewById(R.id.list);
@@ -382,8 +351,6 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     }
 
     private void prepAlarmEditorActivity(){
-//        Intent intent = new Intent(this, AlarmEditorActivity.class);
-        Log.d(TAG, "Add Alarm");
         Intent intent = new Intent(this, AlarmEditorPreferenceActivity.class);
         startActivity(intent);
     }
@@ -412,9 +379,4 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
             }
         });
     }
-
-    public String getCity() {
-        return this.city;
-    }
-
 }

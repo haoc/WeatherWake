@@ -7,12 +7,11 @@
         android:id="@+id/alarmActiveCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp"
         android:focusable="false"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true" />
-
 
     <TextView
         android:id="@+id/alarmTimeTextView"
@@ -31,8 +30,8 @@
         android:id="@+id/alarmNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
-
-
+        android:layout_marginTop="10dp"
+        android:text="test"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

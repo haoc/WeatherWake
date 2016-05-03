@@ -13,10 +13,11 @@
         android:id="@+id/locationButton"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="Click to set Location"
-        android:textSize="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginLeft="10dp"
+        android:text="@string/location"
+        android:textSize="15dp"
+        style="@style/Button" />
 
     <TextView
         android:id="@+id/dateTime"
@@ -105,8 +106,8 @@
         android:layout_height="2dp"
         android:layout_below="@id/weatherImg"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginRight="17dp"
         android:background="@android:color/darker_gray" />
 
     <ListView
@@ -138,9 +139,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="7dp"
+            android:background="@drawable/raised_button"
             android:layout_weight="1"
-            android:text="Alarm"
-            />
+            android:text="@string/add_alarm" />
 
         <Button
             android:id="@+id/addWeatherSetting"
@@ -148,9 +151,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="7dp"
             android:layout_weight="1"
-            android:text="Weather Setting"
-            />
+            android:background="@drawable/raised_button"
+            android:text="@string/weather_setting" />
 
     </LinearLayout>
 

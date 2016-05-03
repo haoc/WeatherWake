@@ -20,4 +20,7 @@
     <string name="ten_min">10 minutes</string>
     <string name="thirty_min">30 minutes</string>
     <string name="confirm_cancel">confirm_cancel</string>
+    <string name="add_alarm">Add Alarm</string>
+    <string name="weather_setting">Weather Setting</string>
+    <string name="location">Location</string>
 </resources>

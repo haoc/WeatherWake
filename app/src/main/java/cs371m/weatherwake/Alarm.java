@@ -117,7 +117,6 @@ public class Alarm implements Serializable {
         while(!Arrays.asList(getDays()).contains(Day.values()[alarmTime.get(Calendar.DAY_OF_WEEK) - 1])) {
             alarmTime.add(Calendar.DAY_OF_MONTH, 1);
         }
-        Log.d(TAG, "DebugTime: getAlarmTime: " + alarmTime);
         return alarmTime;
     }
 
@@ -141,13 +140,10 @@ public class Alarm implements Serializable {
         time += String.valueOf(alarmTime.get(Calendar.MINUTE));
         time += am_pm;
 
-        Log.d(TAG, "DebugTime: getAlarmTimeString: " + time);
         return time;
     }
 
-
     public void setAlarmTime(Calendar alarmTime) {
-        Log.d(TAG, "DebugTime: setAlarmTime(Calendar alarmTime): " + alarmTime);
         this.alarmTime = alarmTime;
     }
 
@@ -256,7 +252,7 @@ public class Alarm implements Serializable {
     public String getRepeatDaysString() {
         StringBuilder daysStringBuilder = new StringBuilder();
         if (getDays().length == Day.values().length) {
-            daysStringBuilder.append("Every Day");
+            daysStringBuilder.append("Everyday");
         } else {
             Arrays.sort(getDays(), new Comparator<Day>() {
                 @Override
