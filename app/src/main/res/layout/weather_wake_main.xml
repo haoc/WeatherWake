@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_weight="1">
+    android:layout_weight="1"
+    tools:context=".WeatherWakeMainActivity">
 
     <!--<TextView-->
         <!--android:id="@+id/location"-->
@@ -86,7 +88,6 @@
         android:layout_below="@id/dateTime"
         android:layout_centerInParent="true"
         android:textSize="30dp"
-        android:layout_marginTop="20dp"
         />
 
     <ImageView
@@ -110,41 +111,57 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/weatherImg"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:layout_marginBottom="45dp"
+        android:longClickable="true" />
 
     <TextView
-        android:id="@+id/alarm"
-        android:layout_width="80dp"
+        android:id="@+id/noAlarms"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/divider"
-        android:layout_alignLeft="@id/divider"
-        android:layout_marginTop="15dp"
-        android:text="4:00 AM TOMORROW"
-        />
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        android:text="No alarms." />
 
-    <TextView
-        android:id="@+id/alarmName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="20dp"
-        android:text="Work"
-        android:textSize="20dp"
-        />
+    <!--<TextView-->
+        <!--android:id="@+id/alarm"-->
+        <!--android:layout_width="80dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/divider"-->
+        <!--android:layout_alignLeft="@id/divider"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--android:text="4:00 AM TOMORROW" />-->
 
-    <ImageView
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/divider"
-        android:layout_alignRight="@id/divider"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
-        android:src="@drawable/x"/>
+    <!--<TextView-->
+        <!--android:id="@+id/alarmName"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/divider"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:text="Work"-->
+        <!--android:textSize="20dp"-->
+        <!--/>-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/start"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/divider"-->
+        <!--android:layout_alignRight="@id/divider"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:layout_marginRight="40dp"-->
+        <!--android:src="@drawable/x"/>-->
 
     <ImageView
         android:id="@+id/editAlarm"

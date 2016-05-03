@@ -1,8 +1,15 @@
 package cs371m.weatherwake;
 
+
+import cs371m.weatherwake.database.database;
+import cs371m.weatherwake.preferences.AlarmEditorPreferenceActivity;
+import cs371m.weatherwake.service.AlarmServiceBroadcastReceiver;
+
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -11,22 +18,21 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.survivingwithandroid.weather.lib.WeatherClient;
-import com.survivingwithandroid.weather.lib.request.WeatherRequest;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -73,10 +79,17 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     private Button mAddAlarm;
     private Button mAddWeatherSetting;
 
+    private ListView alarmListView ;
+    private AlarmListAdapter alarmListAdapter;
+
+    private database mDatabase;
+
+    public String city;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.wearther_wake_main);
+        setContentView(R.layout.weather_wake_main);
     
         setBasicViewInfo();
         setAlarmViewInfo();
@@ -101,17 +114,17 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 
         mDateTime.setText(weekDay + ", " + localTime);
         
-        mStartAlarm.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-
-            }
-        });
+//        mStartAlarm.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//
+//            }
+//        });
         
-        mEditAlarm.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                prepAlarmEditorActivity();
-            }
-        });
+//        mEditAlarm.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                prepAlarmEditorActivity();
+//            }
+//        });
 
         mAddAlarm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -129,30 +142,54 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View v) {
-        mLocationListener = new MyLocationListener();
-//        mLocationListener = new GetCurrentLocation();
-        flag = displayGpsStatus();
-        if(flag) {
-            Log.d(TAG, "GPS IS ON");
-//            mLocationListener = new MyLocationListener();
-            mProgressBar.setVisibility(View.VISIBLE);
-            try {
-                mLocationManager.requestLocationUpdates(
-                        LocationManager.GPS_PROVIDER,
-                        MINIMUM_TIME_BETWEEN_UPDATES,
-                        MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
-                         mLocationListener);
-                Log.d(TAG, "requestLocationUpdates");
+    protected void onPause() {
+        database.deactivate();
+        super.onPause();
+    }
 
-            } catch (SecurityException e) {
-                Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateAlarmList();
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        mLocationListener = new MyLocationListener();
+        flag = displayGpsStatus();
+
+        if (view.getId() == R.id.locationButton) {
+            if(flag) {
+                Log.d(TAG, "GPS IS ON");
+                mProgressBar.setVisibility(View.VISIBLE);
+                try {
+                    mLocationManager.requestLocationUpdates(
+                            LocationManager.GPS_PROVIDER,
+                            MINIMUM_TIME_BETWEEN_UPDATES,
+                            MINIMUM_DISTANCE_CHANGE_FOR_UPDATES,
+                            mLocationListener);
+                    Log.d(TAG, "requestLocationUpdates");
+
+                } catch (SecurityException e) {
+                    Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
+                }
+            } else {
+                Toast.makeText(WeatherWakeMainActivity.this, "Please turn on your GPS!", Toast.LENGTH_LONG).show();
             }
-        } else {
-            Toast.makeText(WeatherWakeMainActivity.this, "Please turn on your GPS!", Toast.LENGTH_LONG).show();
         }
 
-//        mAddAlarmListener = new
+        // Check if alarm is active
+        if (view.getId() == R.id.alarmActiveCheckBox) {
+            CheckBox checkBox = (CheckBox) view;
+            Alarm alarm = (Alarm) alarmListAdapter.getItem((Integer) checkBox.getTag());
+            alarm.setAlarmActive(checkBox.isChecked());
+            database.update(alarm);
+            WeatherWakeMainActivity.this.callAlarmScheduleService();
+            if (checkBox.isChecked()) {
+                Toast.makeText(WeatherWakeMainActivity.this, alarm.getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private Boolean displayGpsStatus() {
@@ -193,6 +230,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
             }
 
             String s = cityName;
+            city = s;
             retrieveLocationButton.setText(s);
 
 //            mGetWeather = new GetWeather();
@@ -254,10 +292,68 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     }
     
     private void setAlarmViewInfo() {
-        mAlarm = (TextView) findViewById(R.id.alarm);
-        mAlarmName = (TextView) findViewById(R.id.alarmName);
+//        mAlarm = (TextView) findViewById(R.id.alarm);
+//        mAlarmName = (TextView) findViewById(R.id.alarmName);
         mStartAlarm = (ImageView) findViewById(R.id.start);
         mEditAlarm = (ImageView) findViewById(R.id.editAlarm);
+
+        Log.d(TAG, "setAlarmViewInfo()");
+
+        // delete existing alarms by long clicking the alarms
+        alarmListView = (ListView) findViewById(R.id.list);
+        alarmListView.setLongClickable(true);
+        alarmListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemLongClick");
+                view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+                final Alarm alarm = (Alarm) alarmListAdapter.getItem(position);
+                AlertDialog.Builder builder = new AlertDialog.Builder(WeatherWakeMainActivity.this);
+                builder.setTitle("Delete");
+                builder.setMessage("Delete this alarm?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        database.init(WeatherWakeMainActivity.this);
+                        database.deleteAlarm(alarm);
+                        WeatherWakeMainActivity.this.callAlarmScheduleService();
+
+                        updateAlarmList();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.show();
+
+                return true;
+            }
+        });
+
+        callAlarmScheduleService();
+
+        // edit existing alarms
+        alarmListAdapter = new AlarmListAdapter(this);
+        this.alarmListView.setAdapter(alarmListAdapter);
+        alarmListView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "onItemClick");
+                view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                Alarm alarm = (Alarm) alarmListAdapter.getItem(position);
+                Intent intent = new Intent(WeatherWakeMainActivity.this, AlarmEditorPreferenceActivity.class);
+                intent.putExtra("alarm", alarm);
+                startActivity(intent);
+            }
+        });
+    }
+
+    protected void callAlarmScheduleService() {
+        Intent alarmServiceIntent = new Intent(this, AlarmServiceBroadcastReceiver.class);
+        sendBroadcast(alarmServiceIntent, null);
     }
 
     private void setButtonViewInfo() {
@@ -266,7 +362,9 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     }
 
     private void prepAlarmEditorActivity(){
-        Intent intent = new Intent(this, AlarmEditorActivity.class);
+//        Intent intent = new Intent(this, AlarmEditorActivity.class);
+        Log.d(TAG, "Add Alarm");
+        Intent intent = new Intent(this, AlarmEditorPreferenceActivity.class);
         startActivity(intent);
     }
 
@@ -274,4 +372,29 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
         Intent intent = new Intent(this, WeatherSettingsActivity.class);
         startActivity(intent);
     }
+
+    private void updateAlarmList() {
+        database.init(WeatherWakeMainActivity.this);
+        final List<Alarm> alarms = database.getAllAlarms();
+        Log.d(TAG, "alarms: " + alarms);
+        alarmListAdapter.setAlarms(alarms);
+
+        runOnUiThread(new Runnable() {
+            public void run() {
+                WeatherWakeMainActivity.this.alarmListAdapter.notifyDataSetChanged();
+                if(alarms.size() > 0) {
+                    Log.d(TAG, "alarm.size() > 0");
+                    findViewById(R.id.noAlarms).setVisibility(View.INVISIBLE);
+                } else {
+                    Log.d(TAG, "No Alarms set");
+                    findViewById(R.id.noAlarms).setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    public String getCity() {
+        return this.city;
+    }
+
 }
