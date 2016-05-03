@@ -29,6 +29,7 @@ import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -61,7 +62,8 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     private Boolean flag = false;
 
     private View.OnClickListener mAddAlarmListener;
-    
+
+    private RelativeLayout mWeatherWakeLayout;
     private TextView mTemp;
     private ImageView mArrowUp;
     private TextView mHighTemp;
@@ -95,36 +97,9 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
         setAlarmViewInfo();
         setButtonViewInfo();
 
-        retrieveLocationButton = (Button) findViewById(R.id.locationButton);
         retrieveLocationButton.setOnClickListener(this);
 
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        // Get day
-        String weekDay;
-        SimpleDateFormat dayFormat = new SimpleDateFormat("E", Locale.US);
-
-        Calendar calendar = Calendar.getInstance();
-        weekDay = dayFormat.format(calendar.getTime());
-
-        // Get time
-        Date currentTime = calendar.getTime();
-        DateFormat date = new SimpleDateFormat("hh:mm a");
-        String localTime = date.format(currentTime);
-
-        mDateTime.setText(weekDay + ", " + localTime);
-        
-//        mStartAlarm.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//
-//            }
-//        });
-        
-//        mEditAlarm.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                prepAlarmEditorActivity();
-//            }
-//        });
 
         mAddAlarm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -138,7 +113,50 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
                 prepWeatherSettingActivity();
             }
         });
-        
+
+        Calendar startUp = Calendar.getInstance();
+        if(startUp.get(Calendar.HOUR_OF_DAY) >= 7 && startUp.get(Calendar.HOUR_OF_DAY) <= 19) {
+            mWeatherWakeLayout.setBackgroundResource(R.drawable.morning_sky5);
+        }
+        else {
+            mWeatherWakeLayout.setBackgroundResource(R.drawable.night_sky2);
+        }
+
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while(!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                // Get day
+                                String weekDay;
+                                SimpleDateFormat dayFormat = new SimpleDateFormat("E", Locale.US);
+
+                                Calendar calendar = Calendar.getInstance();
+                                weekDay = dayFormat.format(calendar.getTime());
+
+                                // Get time
+                                Date currentTime = calendar.getTime();
+                                DateFormat date = new SimpleDateFormat("hh:mm a");
+                                String localTime = date.format(currentTime);
+
+                                mDateTime.setText(weekDay + ", " + localTime);
+                                if(calendar.get(Calendar.HOUR_OF_DAY) >= 7 && calendar.get(Calendar.HOUR_OF_DAY) <= 19) {
+                                    mWeatherWakeLayout.setBackgroundResource(R.drawable.morning_sky5);
+                                }
+                                else {
+                                    mWeatherWakeLayout.setBackgroundResource(R.drawable.night_sky2);
+                                }
+                            }
+                        });
+                    }
+                } catch(InterruptedException e) {}
+            }
+        };
+        t.start();
     }
 
     @Override
@@ -278,6 +296,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     }
     
     private void setBasicViewInfo() {
+       mWeatherWakeLayout = (RelativeLayout) findViewById(R.id.weatherWakeLayout);
        mDateTime = (TextView) findViewById(R.id.dateTime);
        mTemp = (TextView) findViewById(R.id.temp);
        mArrowUp = (ImageView) findViewById(R.id.arrow_up);
@@ -295,7 +314,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
 //        mAlarm = (TextView) findViewById(R.id.alarm);
 //        mAlarmName = (TextView) findViewById(R.id.alarmName);
         mStartAlarm = (ImageView) findViewById(R.id.start);
-        mEditAlarm = (ImageView) findViewById(R.id.editAlarm);
+//        mEditAlarm = (ImageView) findViewById(R.id.editAlarm);
 
         Log.d(TAG, "setAlarmViewInfo()");
 
@@ -357,6 +376,7 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     }
 
     private void setButtonViewInfo() {
+        retrieveLocationButton = (Button) findViewById(R.id.locationButton);
         mAddAlarm = (Button) findViewById(R.id.addAlarm);
         mAddWeatherSetting = (Button) findViewById(R.id.addWeatherSetting);
     }
