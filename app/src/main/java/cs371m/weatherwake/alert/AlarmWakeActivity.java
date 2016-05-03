@@ -77,24 +77,22 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
 
         this.setTitle(alarm.getAlarmName());
 
-<<<<<<< HEAD
+
         // need to use weather api to get icon for the weather
         weatherTypeView = (TextView) findViewById(R.id.weatherType);
         weatherTypeView.setText("Overcast".toString());
 
         snoozeButton = (Button) findViewById(R.id.snooze);
-=======
+
         weatherTypeView.setText("Overcast".toString());
->>>>>>> aesthetics
+
         snoozeButton.setOnClickListener(this);
         turnOffAlarmButton.setOnClickListener(this);
 
-<<<<<<< HEAD
+
         // provide information about the telephony services and determine the phone state
         TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-=======
-//        ((Button) findViewById(R.id.snooze)).setOnClickListener(this);
-//        ((Button) findViewById(R.id.turnOffAlarm)).setOnClickListener(this);
+
 
         Calendar startUp = Calendar.getInstance();
         if(startUp.get(Calendar.HOUR_OF_DAY) >= 7 && startUp.get(Calendar.HOUR_OF_DAY) <= 19) {
@@ -136,10 +134,6 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         };
         t.start();
 
-        TelephonyManager telephonyManager = (TelephonyManager) this
-                .getSystemService(Context.TELEPHONY_SERVICE);
->>>>>>> aesthetics
-
         // listen and see if phone is has incoming call or idle
         PhoneStateListener phoneStateListener = new PhoneStateListener() {
             @Override
@@ -150,26 +144,19 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
                         Log.d(getClass().getSimpleName(), "Incoming call: " + incomingNumber);
                         try {
                             mediaPlayer.pause();
-<<<<<<< HEAD
+
                         } catch (IllegalStateException e) {
                             e.printStackTrace();
                         }
-=======
-                        } catch (IllegalStateException e) {}
->>>>>>> aesthetics
                         break;
                     // resume music when phone state is back to idle
                     case TelephonyManager.CALL_STATE_IDLE:
                         Log.d(getClass().getSimpleName(), "Call State Idle");
                         try {
                             mediaPlayer.start();
-<<<<<<< HEAD
                         } catch (IllegalStateException e) {
                             e.printStackTrace();
                         }
-=======
-                        } catch (IllegalStateException e) {}
->>>>>>> aesthetics
                         break;
                 }
                 super.onCallStateChanged(state, incomingNumber);
