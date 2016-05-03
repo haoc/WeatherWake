@@ -2,6 +2,7 @@ package cs371m.weatherwake.alert;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -19,8 +20,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Calendar;
+
 import cs371m.weatherwake.Alarm;
 import cs371m.weatherwake.R;
+import cs371m.weatherwake.database.database;
+import cs371m.weatherwake.service.AlarmServiceBroadcastReceiver;
 
 /**
  * Created by KC on 4/19/2016.
@@ -136,22 +141,13 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see android.app.Activity#onBackPressed()
-     */
     @Override
     public void onBackPressed() {
-        if (!alarmActive)
+        if (!alarmActive) {
             super.onBackPressed();
+        }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see android.app.Activity#onPause()
-     */
     @Override
     protected void onPause() {
         super.onPause();
@@ -186,20 +182,73 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         }
         String button = (String) view.getTag();
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+        // Button Ok
         if (button.equalsIgnoreCase("ok")) {
             Log.d(TAG, "Ok Button is pressed");
             alarmActive = false;
             vibrator.cancel();
             mediaPlayer.stop();
-        } else if (button.equalsIgnoreCase("snooze")) {
-            Log.d(TAG, "Snooze Button is pressed");
-            // display toast of time until next wake up time depending on the snooze duration
+        }
+        // Button Snooze
+        if (button.equalsIgnoreCase("snooze")) {
+//            database.init(getApplicationContext());
+            Log.d(TAG, "DebugSnooze: Snooze Button is pressed");
+            Log.d(TAG, "DebugSnooze: alarmId: " + alarm.getAlarmId());
             vibrator.cancel();
             mediaPlayer.stop();
-//            Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
-        } else {
+
+            // update the database
+            // current time + snooze time
+            Calendar newAlarmTime = Calendar.getInstance();
+            Log.d(TAG, "DebugSnooze: getAlarmTImeString: " + alarm.getAlarmTimeString());
+
+            String[] timeArray = alarm.getAlarmTimeString().split("[\\s:]");
+            int hour = Integer.parseInt(timeArray[0]);
+            Log.d(TAG, "DebugSnooze: hour: " + hour);
+            int minute = Integer.parseInt(timeArray[1]);
+            Log.d(TAG, "DebugSnooze: minute: " + minute);
+            String am_pm = timeArray[2];
+            Log.d(TAG, "DebugSnooze: am_pm: " + am_pm);
+            int snooze = Integer.parseInt(alarm.getAlarmSnooze());
+            Log.d(TAG, "DebugSnooze: snooze: " + snooze);
+            if (minute + snooze >= 60) {
+                hour += 1;
+                minute = minute + snooze - 60;
+
+                // set HOUR_OF_DAY
+                if (am_pm.equalsIgnoreCase("am")) {
+                    newAlarmTime.set(Calendar.HOUR_OF_DAY, hour + 1);
+                } else {
+                    newAlarmTime.set(Calendar.HOUR_OF_DAY, hour + 13);
+                }
+            } else {
+                minute += snooze;
+            }
+
+            newAlarmTime.set(Calendar.HOUR, hour);
+            newAlarmTime.set(Calendar.MINUTE, minute);
+            Log.d(TAG, "DebugSnooze: BeforeSnoozeTime: " + alarm.getAlarmTime());
+            alarm.setAlarmTime(newAlarmTime);
+            alarm.setAlarmVibrate(true);
+            alarm.setAlarmActive(true);
+            alarm.setAlarmMusic(alarm.getAlarmMusic());
+            Log.d(TAG, "DebugSnooze: AfterSnoozeTime: " + alarm.getAlarmTime());
+
+            callAlarmScheduleService();
+
+            // might not need to call this again
+            Toast.makeText(AlarmWakeActivity.this, alarm.getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
+
+            // update database? don't think so, since you want the original alarms to be the same without adding snooze to min
+            // database.update(alarm);
 
         }
+//        finish();
+    }
+
+    protected void callAlarmScheduleService() {
+        Intent alarmServiceIntent = new Intent(this, AlarmServiceBroadcastReceiver.class);
+        sendBroadcast(alarmServiceIntent, null);
     }
 }
 

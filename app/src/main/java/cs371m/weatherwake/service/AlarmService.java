@@ -21,19 +21,17 @@ import cs371m.weatherwake.alert.AlarmAlertBroadcastReceiver;
  * Created by KC on 4/19/2016.
  */
 public class AlarmService extends Service {
+
+    private static final String TAG = "AlarmService";
+
     @Override
     public IBinder onBind(Intent intent) {
-
         return null;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see android.app.Service#onCreate()
-     */
     @Override
     public void onCreate() {
+        Log.d(TAG, "DebugSnooze: onCreate");
         Log.d(this.getClass().getSimpleName(), "onCreate()");
         super.onCreate();
     }
@@ -44,9 +42,9 @@ public class AlarmService extends Service {
             public int compare(Alarm lhs, Alarm rhs) {
                 int result = 0;
                 long diff = lhs.getAlarmTime().getTimeInMillis() - rhs.getAlarmTime().getTimeInMillis();
-                if(diff>0){
+                if (diff > 0){
                     return 1;
-                }else if (diff < 0){
+                } else if (diff < 0){
                     return -1;
                 }
                 return result;
@@ -56,41 +54,36 @@ public class AlarmService extends Service {
         database.init(getApplicationContext());
         List<Alarm> alarms = database.getAllAlarms();
 
-        for(Alarm alarm : alarms){
+        for (Alarm alarm : alarms){
             if(alarm.getAlarmActive())
                 alarmQueue.add(alarm);
         }
-        if(alarmQueue.iterator().hasNext()){
+        if (alarmQueue.iterator().hasNext()){
             return alarmQueue.iterator().next();
-        }else{
+        } else {
             return null;
         }
     }
-    /*
-     * (non-Javadoc)
-     *
-     * @see android.app.Service#onDestroy()
-     */
+
     @Override
     public void onDestroy() {
         database.deactivate();
         super.onDestroy();
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see android.app.Service#onStartCommand(android.content.Intent, int, int)
-     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(this.getClass().getSimpleName(),"onStartCommand()");
+        Log.d(TAG, "DebugSnooze: onStartCommand");
         Alarm alarm = getNext();
-        if(null != alarm){
+        Log.d(TAG, "DebugSnooze: alarm getNext(): " + alarm);
+        if (alarm != null){
+            Log.d(TAG, "DebugSnooze: alarm != null");
             alarm.schedule(getApplicationContext());
-            Log.d(this.getClass().getSimpleName(),alarm.getTimeUntilNextAlarmMessage());
+            Log.d(this.getClass().getSimpleName(), alarm.getTimeUntilNextAlarmMessage());
 
-        }else{
+        } else {
+            Log.d(TAG, "DebugSnooze: alarm == null");
             Intent myIntent = new Intent(getApplicationContext(), AlarmAlertBroadcastReceiver.class);
             myIntent.putExtra("alarm", new Alarm());
 
@@ -101,5 +94,4 @@ public class AlarmService extends Service {
         }
         return START_NOT_STICKY;
     }
-
 }

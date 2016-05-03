@@ -434,10 +434,10 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
         Boolean alarmActive = alarm.getAlarmActive();
 
         if (getAlarm().getAlarmId() < 1) {
-            Log.d(TAG, "Alarm " + getAlarm().getAlarmId() + " added");
+            Log.d(TAG, "DebugSnooze: Alarm " + getAlarm().getAlarmId() + " added");
             database.create(getAlarm());
         } else {
-            Log.d(TAG, "Alarm " + getAlarm().getAlarmId() + " updated");
+            Log.d(TAG, "DebugSnooze: Alarm " + getAlarm().getAlarmId() + " updated");
             database.update(getAlarm());
         }
         callAlarmScheduleService();

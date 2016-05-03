@@ -39,7 +39,6 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
     public AlarmEditorPreferenceListAdapter(Context context, Alarm alarm) {
         this.context = context;
 
-//        Log.d(TAG, "Loading Ringtone");
         RingtoneManager ringtoneManager = new RingtoneManager(getContext());
         ringtoneManager.setType(RingtoneManager.TYPE_ALARM);
 
@@ -57,7 +56,6 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
             } while (alarmsCursor.moveToNext());
         }
 
-//        Log.d(TAG, "Finished loading " + alarmMusic.length);
         alarmsCursor.close();
 
         setAlarm(alarm);
@@ -142,7 +140,6 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_ACTIVE, alarm.getAlarmActive(), AlarmEditorPreference.Type.BOOLEAN, "Active", null, null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_TIME, alarm.getAlarmTime(), AlarmEditorPreference.Type.TIME, "Set Time", alarm.getAlarmTimeString(), null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_REPEAT, alarm.getDays(), AlarmEditorPreference.Type.LISTS, "Repeat", alarm.getRepeatDaysString(), days));
-        Log.d(TAG, "DebugSnooze: setAlarm: " + alarm.getAlarmSnooze());
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_SNOOZE, alarm.getAlarmSnooze(), AlarmEditorPreference.Type.INTEGER, "Snooze Duration", alarm.getAlarmSnoozeString(), null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_PAIRING, alarm.getAlarmPairing(), AlarmEditorPreference.Type.BOOLEAN, "Alarm Pairing", null, null));
         alarmEditorPreferenceList.add(new AlarmEditorPreference(AlarmEditorPreference.Key.ALARM_VIBRATE, alarm.getAlarmVibrate(), AlarmEditorPreference.Type.BOOLEAN, "Vibrate", null, null));

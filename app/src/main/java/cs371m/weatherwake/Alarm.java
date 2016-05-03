@@ -75,6 +75,7 @@ public class Alarm implements Serializable {
 
     }
 
+    // ALARM_ID
     public int getAlarmId() {
         return alarmId;
     }
@@ -83,6 +84,7 @@ public class Alarm implements Serializable {
         this.alarmId = id;
     }
 
+    // ALARM_NAME
     public String getAlarmName() {
         return alarmName;
     }
@@ -95,6 +97,7 @@ public class Alarm implements Serializable {
         this.alarmName = alarmName;
     }
 
+    // ALARM_ACTIVE
     public Boolean getAlarmActive() {
         return alarmActive;
     }
@@ -103,6 +106,7 @@ public class Alarm implements Serializable {
         this.alarmActive = alarmActive;
     }
 
+    // ALARM_TIME
     // Better way to do this? Time might be wrong
     // Zone is America/Chicago; date is 1 day ahead, need to fix
     public Calendar getAlarmTime() {
@@ -170,7 +174,7 @@ public class Alarm implements Serializable {
         setAlarmTime(newAlarmTime);
     }
 
-
+    // ALARM_DAY
     public Day[] getDays() {
         return days;
     }
@@ -178,7 +182,7 @@ public class Alarm implements Serializable {
     public void setDays(Day[] days) {
         this.days = days;
     }
-    // ?
+
     public void addDay(Day day) {
         boolean flag = false;
         for (Day d : getDays()) {
@@ -195,7 +199,7 @@ public class Alarm implements Serializable {
             setDays(result.toArray(new Day[result.size()]));
         }
     }
-    // ?
+
     public void deleteDay(Day day) {
         List<Day> result = new LinkedList<Day>();
         for (Day d : getDays()) {
@@ -275,7 +279,7 @@ public class Alarm implements Serializable {
 
         return daysStringBuilder.toString();
     }
-    // ?
+
     public void schedule(Context context) {
         setAlarmActive(true);
         Intent intent = new Intent(context, AlarmAlertBroadcastReceiver.class);

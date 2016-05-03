@@ -10,9 +10,11 @@ import android.util.Log;
  */
 public class AlarmServiceBroadcastReceiver extends BroadcastReceiver {
 
+    private static final String TAG = "AlarmServiceBroadcastReceiver";
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("AlarmServiceBroadcastReciever", "onReceive()" + "TestTest");
+        Log.d(TAG, "DebugSnooze: ");
         Intent serviceIntent = new Intent(context, AlarmService.class);
         context.startService(serviceIntent);
     }
