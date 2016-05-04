@@ -74,22 +74,6 @@ public class database extends SQLiteOpenHelper {
         }
     }
 
-    public static Cursor getCursor() {
-        String[] columns = new String[] {
-                ALARMS_COLUMN_ID,
-                ALARMS_COLUMN_NAME,
-                ALARMS_COLUMN_ACTIVE,
-                ALARMS_COLUMN_TIME,
-                ALARMS_COLUMN_DAYS,
-                ALARMS_COLUMN_MUSIC,
-                ALARMS_COLUMN_SNOOZE,
-                ALARMS_COLUMN_PAIRING,
-                ALARMS_COLUMN_VIBRATE
-        };
-
-        return getDatabase().query(ALARMS_TABLE, columns, null, null, null, null, null);
-    }
-
     public static SQLiteDatabase getDatabase() {
         if (database == null) {
             // create and/or open a database

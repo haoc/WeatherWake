@@ -41,10 +41,10 @@ public class AlarmService extends Service {
             @Override
             public int compare(Alarm lhs, Alarm rhs) {
                 int result = 0;
-                long diff = lhs.getAlarmTime().getTimeInMillis() - rhs.getAlarmTime().getTimeInMillis();
-                if (diff > 0){
+                long difference = lhs.getAlarmTime().getTimeInMillis() - rhs.getAlarmTime().getTimeInMillis();
+                if (difference > 0){
                     return 1;
-                } else if (diff < 0){
+                } else if (difference < 0){
                     return -1;
                 }
                 return result;

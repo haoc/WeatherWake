@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -44,8 +46,6 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
     private Alarm alarm;
     private MediaPlayer mediaPlayer;
 
-    private StringBuilder answerBuilder = new StringBuilder();
-
     private Vibrator vibrator;
 
     private boolean alarmActive;
@@ -57,6 +57,8 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
 
     private Button snoozeButton;
     private Button turnOffAlarmButton;
+
+    private TextView alarmMusic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,16 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
 
         snoozeButton.setOnClickListener(this);
         turnOffAlarmButton.setOnClickListener(this);
+
+        // get music title
+        Uri uri = Uri.parse(alarm.getAlarmMusic());
+        Ringtone ringtone = RingtoneManager.getRingtone(this, uri);
+
+        alarmMusic = (TextView) findViewById(R.id.alarmSong);
+        String musicText = "Music playing: ";
+
+        musicText += ringtone.getTitle(this);
+        alarmMusic.setText(musicText);
 
 
         // provide information about the telephony services and determine the phone state
@@ -185,8 +197,7 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
             }
             try {
                 mediaPlayer.setVolume(1.0f, 1.0f);
-                mediaPlayer.setDataSource(this,
-                        Uri.parse(alarm.getAlarmMusic()));
+                mediaPlayer.setDataSource(this, Uri.parse(alarm.getAlarmMusic()));
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
                 mediaPlayer.setLooping(true);
                 mediaPlayer.prepare();
@@ -199,6 +210,7 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         }
     }
 
+    // allow exit of AlarmWakeScreen if "Ok" button is pressed
     @Override
     public void onBackPressed() {
         if (!alarmActive) {

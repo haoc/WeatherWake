@@ -45,11 +45,10 @@ import java.util.Calendar;
 public class AlarmEditorPreferenceActivity extends Activity {
 
     private final static String TAG = "AlarmEditorPreferenceActivity";
-    ImageButton deleteButton;
-    TextView okButton;
-    TextView cancelButton;
+
     private Alarm alarm;
     private MediaPlayer mediaPlayer;
+    private CountDownTimer countDownTimer;
 
     private ListAdapter listAdapter;
     private ListView listView;
@@ -58,7 +57,6 @@ public class AlarmEditorPreferenceActivity extends Activity {
     private Button deleteAlarm;
     private Boolean alarmActive = true;
     private Boolean alarmPairing = true;
-    private Boolean alarmCheck2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +112,7 @@ public class AlarmEditorPreferenceActivity extends Activity {
                         }
                         alarmEditorPreference.setValue(checked);
                         break;
+
                     case INTEGER:
                         Log.d(TAG, "DebugSnooze: CASE INTEGER");
                         final NumberPicker numberPicker = new NumberPicker(AlarmEditorPreferenceActivity.this);
@@ -159,7 +158,6 @@ public class AlarmEditorPreferenceActivity extends Activity {
                         alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
                         alert.setTitle(alarmEditorPreference.getTitle());
 
-                        // Set an EditText view to get user input
                         final EditText editText = new EditText(AlarmEditorPreferenceActivity.this);
                         editText.setText(alarmEditorPreference.getValue().toString());
                         editText.setSelection(editText.getText().length());
@@ -186,15 +184,14 @@ public class AlarmEditorPreferenceActivity extends Activity {
 
                     case LIST:
                         alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
-
                         alert.setTitle(alarmEditorPreference.getTitle());
 
-                        CharSequence[] items = new CharSequence[alarmEditorPreference.getOptions().length];
-                        for (int i = 0; i < items.length; i++)
-                            items[i] = alarmEditorPreference.getOptions()[i];
+                        CharSequence[] charSequences = new CharSequence[alarmEditorPreference.getOptions().length];
+                        for (int i = 0; i < charSequences.length; i++) {
+                            charSequences[i] = alarmEditorPreference.getOptions()[i];
+                        }
 
-                        alert.setItems(items, new DialogInterface.OnClickListener() {
-
+                        alert.setItems(charSequences, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (alarmEditorPreference.getKey()) {
@@ -217,10 +214,11 @@ public class AlarmEditorPreferenceActivity extends Activity {
                                                 mediaPlayer.prepare();
                                                 mediaPlayer.start();
 
-                                                if (alarmToneTimer != null) {
-                                                    alarmToneTimer.cancel();
+                                                if (countDownTimer != null) {
+                                                    countDownTimer.cancel();
                                                 }
-                                                alarmToneTimer = new CountDownTimer(3000, 3000) {
+                                                // when selecting music, play for 4 seconds
+                                                countDownTimer = new CountDownTimer(4000, 4000) {
                                                     @Override
                                                     public void onTick(long millisUntilFinished) {
 
@@ -237,7 +235,7 @@ public class AlarmEditorPreferenceActivity extends Activity {
                                                         }
                                                     }
                                                 };
-                                                alarmToneTimer.start();
+                                                countDownTimer.start();
                                             } catch (Exception e) {
                                                 try {
                                                     if (mediaPlayer.isPlaying()) {
@@ -263,16 +261,16 @@ public class AlarmEditorPreferenceActivity extends Activity {
                         alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
                         alert.setTitle(alarmEditorPreference.getTitle());
 
-                        CharSequence[] multiListItems = new CharSequence[alarmEditorPreference.getOptions().length];
-                        for (int i = 0; i < multiListItems.length; i++) {
-                            multiListItems[i] = alarmEditorPreference.getOptions()[i];
+                        CharSequence[] charSequences1 = new CharSequence[alarmEditorPreference.getOptions().length];
+                        for (int i = 0; i < charSequences1.length; i++) {
+                            charSequences1[i] = alarmEditorPreference.getOptions()[i];
                         }
 
-                        boolean[] checkedItems = new boolean[multiListItems.length];
+                        boolean[] checkedItems = new boolean[charSequences1.length];
                         for (Alarm.Day day : getAlarm().getDays()) {
                             checkedItems[day.ordinal()] = true;
                         }
-                        alert.setMultiChoiceItems(multiListItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                        alert.setMultiChoiceItems(charSequences1, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                             @Override
                             public void onClick(final DialogInterface dialog, int which, boolean isChecked) {
                                 Alarm.Day thisDay = Alarm.Day.values()[which];
@@ -280,11 +278,11 @@ public class AlarmEditorPreferenceActivity extends Activity {
                                 if (isChecked) {
                                     alarm.addDay(thisDay);
                                 } else {
-                                    // Only remove the day if there are more than 1 selected
+                                   // remove checks only when at least 1 day is checked
                                     if (alarm.getDays().length > 1) {
                                         alarm.deleteDay(thisDay);
                                     } else {
-                                        // If the last day was unchecked, re-check it
+                                        // at least one day will be checked
                                         ((AlertDialog) dialog).getListView().setItemChecked(which, true);
                                     }
                                 }
@@ -343,7 +341,6 @@ public class AlarmEditorPreferenceActivity extends Activity {
 //                        }, alarm.getAlarmTime().get(Calendar.HOUR_OF_DAY), alarm.getAlarmTime().get(Calendar.MINUTE), true);
                         }, hour, minute, false);
                         timePickerDialog.setTitle(alarmEditorPreference.getTitle());
-//                        Log.d(TAG, "DebugTime: timePickerDialog.setTitle() " + alarmEditorPreference.getTitle());
                         timePickerDialog.show();
                     default:
                         break;
@@ -371,8 +368,6 @@ public class AlarmEditorPreferenceActivity extends Activity {
 
     }
 
-    private CountDownTimer alarmToneTimer;
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putSerializable("alarm", getAlarm());
@@ -383,9 +378,11 @@ public class AlarmEditorPreferenceActivity extends Activity {
     protected void onPause() {
         super.onPause();
         try {
-            if (mediaPlayer != null)
+            if (mediaPlayer != null) {
                 mediaPlayer.release();
+            }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -416,7 +413,6 @@ public class AlarmEditorPreferenceActivity extends Activity {
         if (listView == null) {
             listView = (ListView) findViewById(R.id.list);
         }
-
         return listView;
     }
 
@@ -454,7 +450,6 @@ public class AlarmEditorPreferenceActivity extends Activity {
             public void onClick(DialogInterface dialog, int which) {
                 database.init(getApplicationContext());
                 if (getAlarm().getAlarmId() < 1) {
-                    Log.d(TAG, "Alarm not saved");
                 } else {
                     database.deleteAlarm(alarm);
                     callAlarmScheduleService();

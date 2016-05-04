@@ -12,13 +12,14 @@ public class StaticWakeLock {
 
     public static void lockOn(Context context) {
         PowerManager powerManager = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        //Object flags;
         if (wakeLock == null) {
+            // when alarm goes off, "ensures that the screen and keyboard backlight are on at full brightness."
             wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "ALARM");
         }
         wakeLock.acquire();
     }
 
+    // during onPause release wakelock
     public static void lockOff(Context context) {
         try {
             if (wakeLock != null) {
@@ -28,5 +29,4 @@ public class StaticWakeLock {
             e.printStackTrace();
         }
     }
-
 }

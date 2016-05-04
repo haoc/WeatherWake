@@ -12,6 +12,7 @@ import cs371m.weatherwake.service.AlarmServiceBroadcastReceiver;
 /**
  * Created by KC on 4/19/2016.
  */
+// respond to broadcast messages
 public class AlarmAlertBroadcastReceiver extends BroadcastReceiver {
 
     private final static String TAG = "AlarmAlertBroadcastReceiver";
@@ -25,12 +26,8 @@ public class AlarmAlertBroadcastReceiver extends BroadcastReceiver {
         Bundle bundle = intent.getExtras();
         final Alarm alarm = (Alarm) bundle.getSerializable("alarm");
 
-        Intent alarmAlertActivityIntent;
-
-        alarmAlertActivityIntent = new Intent(context, AlarmWakeActivity.class);
-
+        Intent alarmAlertActivityIntent = new Intent(context, AlarmWakeActivity.class);
         alarmAlertActivityIntent.putExtra("alarm", alarm);
-
         alarmAlertActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         context.startActivity(alarmAlertActivityIntent);

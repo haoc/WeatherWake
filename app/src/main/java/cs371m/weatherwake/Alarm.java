@@ -66,7 +66,6 @@ public class Alarm implements Serializable {
     private Calendar alarmTime = Calendar.getInstance();
     private Day[] days = {Day.MONDAY, Day.TUESDAY, Day.WEDNESDAY, Day.THURSDAY, Day.FRIDAY, Day.SATURDAY, Day.SUNDAY};
     private String alarmMusic = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
-//    private NumberPicker np = new NumberPicker();
     private String alarmSnooze = "2";
     private Boolean alarmPairing = true;
     private Boolean alarmVibrate = true;

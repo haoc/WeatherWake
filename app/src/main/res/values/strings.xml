@@ -25,4 +25,6 @@
     <string name="location">Location</string>
     <string name="delete_alarm">Delete Alarm</string>
     <string name="save_alarm">Save Alarm</string>
+    <string name="ok">Ok</string>
+    <string name="snooze">Snooze</string>
 </resources>

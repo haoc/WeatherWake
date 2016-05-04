@@ -87,24 +87,24 @@
 
     <TextView
         android:id="@+id/dateTime"
+        android:layout_below="@+id/alarmSong"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_below="@id/weatherImg"
         android:layout_marginTop="5dp"
         android:layout_centerInParent="true"
         android:text="TH, 3:32 PM"
         android:textSize="40dp" />
 
-    <!--<TextView-->
-        <!--android:id="@+id/alarmSong"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/weatherImg"-->
-        <!--android:text="Hotline Bling by Drake"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:textSize="20dp"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--/>-->
+    <TextView
+        android:id="@+id/alarmSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weatherImg"
+        android:text="Hotline Bling by Drake"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -117,9 +117,11 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_weight="1"
-            android:text="Snooze"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="7dp"
+            android:text="@string/snooze"
             android:tag="snooze"
-            />
+            android:background="@drawable/raised_button" />
 
         <Button
             android:id="@+id/turnOffAlarm"
@@ -127,10 +129,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="7dp"
             android:layout_weight="1"
-            android:text="Ok"
+            android:text="@string/ok"
             android:tag="ok"
-            />
+            android:background="@drawable/raised_button" />
 
     </LinearLayout>
 
