@@ -6,7 +6,6 @@ Member 2:
 David Toth
 dpt336
 
-
 Member 3:
 Michael Tsang
 met2224
@@ -16,7 +15,7 @@ In order to show the current city the user is in, the device's GPS needs to be t
 
 Features Completed:
 - User can get current location to display as a city on a click of a button (GPS needs to be on)
-- App shows current day and time
+- App shows current day and time and updates regularly
 - Buttons to create and delete alarms
 - Can use longclick to delete alarms
 - Working alarms with ability to edit the time, days, music, vibrate, and alarm name
@@ -33,6 +32,7 @@ Features Not Completed:
 
 Extra Features Added:
 - Can add vibrate option to the alarms
+- Background changes according to time of day
 
 Code from Other Sources:
 - Get Current Location Coordintaes, City Name
