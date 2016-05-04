@@ -21,6 +21,7 @@
 
         <activity
             android:name=".WeatherWakeMainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoTitleBar">
         <!--android:theme="@android:style/Theme.NoTitleBar.Fullscreen">-->
@@ -31,7 +32,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".preferences.AlarmEditorPreferenceActivity"
+        <activity
+            android:name=".preferences.AlarmEditorPreferenceActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:parentActivityName=".WeatherWakeMainActivity">
             <meta-data
@@ -51,28 +54,27 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".alert.AlarmWakeActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+        <activity
+            android:name=".alert.AlarmWakeActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name" >
         </activity>
 
-        <receiver android:name=".alert.AlarmAlertBroadcastReceiver">
+        <receiver
+            android:name=".alert.AlarmAlertBroadcastReceiver">
         </receiver>
 
-        <receiver android:name=".telephony.PhoneStateChangedBroadcastReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.PHONE_STATE" />
-            </intent-filter>
-        </receiver>
 
         <activity
             android:name=".WeatherSettingsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
         <activity
             android:name=".ConditionsEditorActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

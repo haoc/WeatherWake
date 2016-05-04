@@ -3,7 +3,6 @@ package cs371m.weatherwake.alert;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
@@ -27,13 +26,11 @@ import java.util.Calendar;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import cs371m.weatherwake.Alarm;
 import cs371m.weatherwake.R;
-import cs371m.weatherwake.database.database;
 import cs371m.weatherwake.service.AlarmServiceBroadcastReceiver;
 
 /**
@@ -218,7 +215,7 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
     protected void onPause() {
         super.onPause();
         // release wakelock
-        StaticWakeLock.lockOff(this);
+        WakeLock.lockOff(this);
     }
 
     @Override

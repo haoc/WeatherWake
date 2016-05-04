@@ -356,8 +356,8 @@ public class WeatherWakeMainActivity extends Activity implements View.OnClickLis
     }
 
     private void prepWeatherSettingActivity(){
-        Intent intent = new Intent(this, WeatherSettingsActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, WeatherSettingsActivity.class);
+//        startActivity(intent);
     }
 
     private void updateAlarmList() {
