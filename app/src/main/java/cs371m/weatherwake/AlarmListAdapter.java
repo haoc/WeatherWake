@@ -59,8 +59,34 @@ public class AlarmListAdapter extends BaseAdapter{
         TextView alarmNameTextView = (TextView) view.findViewById(R.id.alarmNameTextView);
         alarmNameTextView.setText(alarm.getAlarmNameString());
 
+        String alarmTime = alarm.getAlarmTimeString();
+        String[] timeArray = alarmTime.split("[\\s:]");
+        if (Integer.parseInt(timeArray[0]) == 12) {
+            if (timeArray[2].equalsIgnoreCase("am")) {
+                timeArray[2] = "PM";
+            } else {
+                timeArray[2] = "AM";
+            }
+        }
+
+        String time = "";
+        // hour
+        time += Integer.parseInt(timeArray[0]);
+        time += ":";
+        // minute
+        if (Integer.parseInt(timeArray[1]) <= 9) {
+            time += "0";
+            time += Integer.parseInt(timeArray[1]);
+        } else {
+            time += Integer.parseInt(timeArray[1]);
+        }
+        // am/pm
+        time += " ";
+        time += timeArray[2];
+
         TextView alarmTimeView = (TextView) view.findViewById(R.id.alarmTimeTextView);
-        alarmTimeView.setText(alarm.getAlarmTimeString());
+        alarmTimeView.setText(time);
+//        alarmTimeView.setText(alarm.getAlarmTimeString());
 
         TextView alarmDaysView = (TextView) view.findViewById(R.id.alarmDaysTextView);
         alarmDaysView.setText(alarm.getRepeatDaysString());

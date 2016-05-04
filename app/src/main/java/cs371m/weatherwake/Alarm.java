@@ -117,6 +117,7 @@ public class Alarm implements Serializable {
         while(!Arrays.asList(getDays()).contains(Day.values()[alarmTime.get(Calendar.DAY_OF_WEEK) - 1])) {
             alarmTime.add(Calendar.DAY_OF_MONTH, 1);
         }
+        Log.d(TAG, "DebugTime: getAlarmTime(): " + alarmTime);
         return alarmTime;
     }
 
@@ -124,13 +125,24 @@ public class Alarm implements Serializable {
 
         String time = "";
         String am_pm = "";
-
-        if (alarmTime.get(Calendar.HOUR_OF_DAY) > 12) {
-            time += String.valueOf(alarmTime.get(Calendar.HOUR_OF_DAY) - 12);
-            am_pm = " PM";
+        Log.d(TAG, "DebugTime: getAlarmTimeString: AM_PM: " + alarmTime.get(Calendar.AM_PM));
+        if (alarmTime.get(Calendar.HOUR_OF_DAY) >= 12) {
+            if (alarmTime.get(Calendar.HOUR_OF_DAY) == 12) {
+                time += String.valueOf(alarmTime.get(Calendar.HOUR_OF_DAY));
+            } else {
+                time += String.valueOf(alarmTime.get(Calendar.HOUR_OF_DAY) - 12);
+            }
+//            am_pm = " PM";
+            Log.d(TAG, "DebugTime: HOUR_OF_DAY >= 12: " + am_pm);
+        } else if (alarmTime.get(Calendar.HOUR_OF_DAY) == 0) {
+            time = "12";
+//            am_pm = " PM";
+            Log.d(TAG, "DebugTime: HOUR_OF_DAY == 12: " + am_pm);
         } else {
             time += String.valueOf(alarmTime.get(Calendar.HOUR_OF_DAY));
-            am_pm = " AM";
+//            am_pm = " AM";
+            Log.d(TAG, "DebugTime: HOUR_OF_DAY else: " + am_pm);
+
         }
 
         time += ":";
@@ -138,8 +150,16 @@ public class Alarm implements Serializable {
             time += "0";
         }
         time += String.valueOf(alarmTime.get(Calendar.MINUTE));
-        time += am_pm;
-
+//        time += am_pm;
+        time += " ";
+        if (alarmTime.get(Calendar.AM_PM) == 0) {
+            Log.d(TAG, "DebugTime: AM_PM == 0: " + alarmTime.get(Calendar.AM_PM));
+            time += "AM";
+        } else {
+            Log.d(TAG, "DebugTime: AM_PM == 1: " + alarmTime.get(Calendar.AM_PM));
+            time += "PM";
+        }
+        Log.d(TAG, "DebugTime: getAlarmTimeString(): " + time);
         return time;
     }
 
@@ -282,6 +302,11 @@ public class Alarm implements Serializable {
         intent.putExtra("alarm", this);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0 , intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
+
+        AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(getAlarmTime().getTimeInMillis(), pendingIntent);
+        alarmManager.setAlarmClock(alarmClockInfo, pendingIntent);
+
+        // RTC_WAKEUP will wake up device when time goes off
         alarmManager.set(AlarmManager.RTC_WAKEUP, getAlarmTime().getTimeInMillis(), pendingIntent);
 
     }
@@ -312,4 +337,10 @@ public class Alarm implements Serializable {
         }
         return alert;
     }
+
+//    protected void setStatusBarIcon(boolean enabled) {
+//        Intent alarmChanged = new Intent("android.intent.action.ALARM_CHANGED");
+//        alarmChanged.putExtra("alarmSet", enabled);
+//        sendBroadcast(alarmChanged);
+//    }
 }

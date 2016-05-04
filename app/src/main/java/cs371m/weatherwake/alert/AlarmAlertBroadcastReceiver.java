@@ -34,7 +34,5 @@ public class AlarmAlertBroadcastReceiver extends BroadcastReceiver {
         alarmAlertActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
         context.startActivity(alarmAlertActivityIntent);
-        Log.d(TAG, "startActivity(alarmAlertActivityIntent)" + "TestTest");
     }
-
 }

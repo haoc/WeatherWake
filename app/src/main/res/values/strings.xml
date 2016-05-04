@@ -23,4 +23,6 @@
     <string name="add_alarm">Add Alarm</string>
     <string name="weather_setting">Weather Setting</string>
     <string name="location">Location</string>
+    <string name="delete_alarm">Delete Alarm</string>
+    <string name="save_alarm">Save Alarm</string>
 </resources>

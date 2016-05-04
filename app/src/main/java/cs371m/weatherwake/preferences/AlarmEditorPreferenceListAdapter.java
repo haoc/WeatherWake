@@ -86,6 +86,11 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
                 CheckedTextView checkedTextView = (CheckedTextView) view.findViewById(android.R.id.text1);
                 checkedTextView.setText(alarmEditorPreference.getTitle());
                 checkedTextView.setChecked((Boolean) alarmEditorPreference.getValue());
+                Log.d(TAG, "DebugCheck: " + checkedTextView.getCheckMarkTintList());
+//                checkedTextView.setCheckMarkTintList(context.getResources().getColor(R.color.blue));
+                if ((Boolean)alarmEditorPreference.getValue()) {
+                    checkedTextView.setTextColor(context.getResources().getColor(R.color.blue));
+                }
                 break;
             default:
                 view = layoutInflater.inflate(android.R.layout.simple_list_item_2, null);
@@ -116,11 +121,9 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
                     alarm.setAlarmMusic((String) alarmEditorPreference.getValue());
                     break;
                 case ALARM_SNOOZE:
-                    Log.d(TAG, "DebugSnooze: ALARM_SNOOZE");
-                    alarm.setAlarmSnooze((String) alarmEditorPreference.getValue());              // Change to String? Integer?
+                    alarm.setAlarmSnooze((String) alarmEditorPreference.getValue());                // Change to String? Integer?
                     break;
                 case ALARM_PAIRING:
-                    Log.d(TAG, "ALARM_PAIRING");
                     alarm.setAlarmPairing((Boolean) alarmEditorPreference.getValue());
                 case ALARM_VIBRATE:
                     alarm.setAlarmVibrate((Boolean) alarmEditorPreference.getValue());
@@ -176,7 +179,4 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
     public String[] getDays() {
         return days;
     }
-
-
-
 }

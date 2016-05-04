@@ -6,7 +6,9 @@ import cs371m.weatherwake.R;
 import cs371m.weatherwake.service.AlarmServiceBroadcastReceiver;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,7 +42,7 @@ import java.util.Calendar;
 /**
  * Created by KC on 4/19/2016.
  */
-public class AlarmEditorPreferenceActivity extends Activity {                                       //!!!!!!!!!!!!!!
+public class AlarmEditorPreferenceActivity extends Activity {
 
     private final static String TAG = "AlarmEditorPreferenceActivity";
     ImageButton deleteButton;
@@ -61,9 +63,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.alarm_preference);
 
         Bundle bundle = getIntent().getExtras();
@@ -95,14 +94,14 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                         ((CheckedTextView) view).setChecked(checked);
                         switch (alarmEditorPreference.getKey()) {
                             case ALARM_ACTIVE:
-                                Log.d(TAG, "ALARM_ACTIVE");
                                 alarm.setAlarmActive(checked);
                                 alarmActive = checked;
+                                checkBoxActive(alarmActive, checkedTextView);
                                 break;
                             case ALARM_PAIRING:
-                                Log.d(TAG, "ALARM_PAIRING");
                                 alarm.setAlarmPairing(checked);
                                 alarmPairing = checked;
+                                checkBoxActive(alarmPairing, checkedTextView);
                                 break;
                             case ALARM_VIBRATE:
                                 alarm.setAlarmVibrate(checked);
@@ -110,18 +109,19 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                                     Vibrator vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                                     vibrator.vibrate(1000);
                                 }
+                                checkBoxActive(checked, checkedTextView);
                                 break;
                         }
                         alarmEditorPreference.setValue(checked);
                         break;
                     case INTEGER:
                         Log.d(TAG, "DebugSnooze: CASE INTEGER");
-//                        TextView numberPickerView = (TextView) findViewById(R.id.numberPickerView);
                         final NumberPicker numberPicker = new NumberPicker(AlarmEditorPreferenceActivity.this);
                         int newAlarm2 = alarm.getAlarmId();
 
                         alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
                         alert.setView(numberPicker);
+                        alert.setTitle(alarmEditorPreference.getTitle());
 
                         numberPicker.setMaxValue(60);
                         numberPicker.setMinValue(1);
@@ -188,7 +188,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                         alert = new AlertDialog.Builder(AlarmEditorPreferenceActivity.this);
 
                         alert.setTitle(alarmEditorPreference.getTitle());
-                        // alert.setMessage(message);
 
                         CharSequence[] items = new CharSequence[alarmEditorPreference.getOptions().length];
                         for (int i = 0; i < items.length; i++)
@@ -205,12 +204,12 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                                             if (mediaPlayer == null) {
                                                 mediaPlayer = new MediaPlayer();
                                             } else {
-                                                if (mediaPlayer.isPlaying())
+                                                if (mediaPlayer.isPlaying()) {
                                                     mediaPlayer.stop();
+                                                }
                                                 mediaPlayer.reset();
                                             }
                                             try {
-                                                // mediaPlayer.setVolume(1.0f, 1.0f);
                                                 mediaPlayer.setVolume(0.2f, 0.2f);
                                                 mediaPlayer.setDataSource(AlarmEditorPreferenceActivity.this, Uri.parse(alarm.getAlarmMusic()));
                                                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
@@ -218,10 +217,9 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                                                 mediaPlayer.prepare();
                                                 mediaPlayer.start();
 
-                                                // Force the mediaPlayer to stop after 3
-                                                // seconds...
-                                                if (alarmToneTimer != null)
+                                                if (alarmToneTimer != null) {
                                                     alarmToneTimer.cancel();
+                                                }
                                                 alarmToneTimer = new CountDownTimer(3000, 3000) {
                                                     @Override
                                                     public void onTick(long millisUntilFinished) {
@@ -231,20 +229,22 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                                                     @Override
                                                     public void onFinish() {
                                                         try {
-                                                            if (mediaPlayer.isPlaying())
+                                                            if (mediaPlayer.isPlaying()) {
                                                                 mediaPlayer.stop();
+                                                            }
                                                         } catch (Exception e) {
-
+                                                            e.printStackTrace();
                                                         }
                                                     }
                                                 };
                                                 alarmToneTimer.start();
                                             } catch (Exception e) {
                                                 try {
-                                                    if (mediaPlayer.isPlaying())
+                                                    if (mediaPlayer.isPlaying()) {
                                                         mediaPlayer.stop();
+                                                    }
                                                 } catch (Exception e2) {
-
+                                                    e2.printStackTrace();
                                                 }
                                             }
                                         }
@@ -255,7 +255,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
                                 alarmEditorPreferenceListAdapter.notifyDataSetChanged();
                             }
-
                         });
                         alert.show();
                         break;
@@ -296,7 +295,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                             public void onClick(DialogInterface dialogInterface, int which) {
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
                                 alarmEditorPreferenceListAdapter.notifyDataSetChanged();
-
                             }
                         });
                         alert.show();
@@ -311,6 +309,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                             hour = 12;
                             minute = 00;
                         } else {
+                            Log.d(TAG, "DebugTime: else: HOUR_OF_DAY: " + alarm.getAlarmTime().get(Calendar.HOUR_OF_DAY) + " AM_PM: " + alarm.getAlarmTime().get(Calendar.AM_PM));
                             hour = alarm.getAlarmTime().get(Calendar.HOUR_OF_DAY);
                             minute = alarm.getAlarmTime().get(Calendar.MINUTE);
                         }
@@ -357,7 +356,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
         saveAlarm.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d(TAG, "DebugToast: saveAlarm pressed");
-//                alarmCheck2 =
                 addAlarm();
             }
         });
@@ -389,7 +387,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
                 mediaPlayer.release();
         } catch (Exception e) {
         }
-        // setListAdapter(null);
     }
 
     @Override
@@ -416,7 +413,6 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
     }
 
     public ListView getListView() {
-
         if (listView == null) {
             listView = (ListView) findViewById(R.id.list);
         }
@@ -444,6 +440,7 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
         // only display toast if alarm is active
         if (alarmActive) {
+//            AlarmManager.setAlarmCLock(AlarmManager.AlarmClockInfo, PendingIntent operation);
             Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
         }
         finish();
@@ -477,6 +474,15 @@ public class AlarmEditorPreferenceActivity extends Activity {                   
 
     protected void callAlarmScheduleService() {
         Intent alarmServiceIntent = new Intent(this, AlarmServiceBroadcastReceiver.class);
+//        AlarmManager.setAlarmCLock(AlarmManager.AlarmClockInfo, PendingIntent operation);
         sendBroadcast(alarmServiceIntent, null);
+    }
+
+    private void checkBoxActive(Boolean alarmActive, CheckedTextView checkedTextView) {
+        if (alarmActive) {
+            checkedTextView.setTextColor(getResources().getColor(R.color.blue));
+        } else {
+            checkedTextView.setTextColor(getResources().getColor(R.color.black));
+        }
     }
 }

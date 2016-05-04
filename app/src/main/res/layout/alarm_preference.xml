@@ -22,16 +22,20 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Delete Alarm" />
+            android:text="@string/delete_alarm"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            style="@style/Button" />
 
         <Button
             android:id="@+id/saveAlarm"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Save Alarm" />
-
-
+            android:text="@string/add_alarm"
+            android:layout_marginRight="10dp"
+            style="@style/Button" />
 
     </LinearLayout>
 
