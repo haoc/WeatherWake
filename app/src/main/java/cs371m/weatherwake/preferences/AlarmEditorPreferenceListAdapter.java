@@ -121,7 +121,7 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
                     alarm.setAlarmMusic((String) alarmEditorPreference.getValue());
                     break;
                 case ALARM_SNOOZE:
-                    alarm.setAlarmSnooze((String) alarmEditorPreference.getValue());                // Change to String? Integer?
+                    alarm.setAlarmSnooze((String) alarmEditorPreference.getValue());
                     break;
                 case ALARM_PAIRING:
                     alarm.setAlarmPairing((Boolean) alarmEditorPreference.getValue());

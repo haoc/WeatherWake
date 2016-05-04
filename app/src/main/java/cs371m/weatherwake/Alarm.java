@@ -302,8 +302,8 @@ public class Alarm implements Serializable {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0 , intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
 
-        AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(getAlarmTime().getTimeInMillis(), pendingIntent);
-        alarmManager.setAlarmClock(alarmClockInfo, pendingIntent);
+//        AlarmManager.AlarmClockInfo alarmClockInfo = new AlarmManager.AlarmClockInfo(getAlarmTime().getTimeInMillis(), pendingIntent);
+//        alarmManager.setAlarmClock(alarmClockInfo, pendingIntent);
 
         // RTC_WAKEUP will wake up device when time goes off
         alarmManager.set(AlarmManager.RTC_WAKEUP, getAlarmTime().getTimeInMillis(), pendingIntent);
