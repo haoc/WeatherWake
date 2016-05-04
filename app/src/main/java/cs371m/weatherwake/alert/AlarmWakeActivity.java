@@ -65,10 +65,10 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
 
         final Window window = getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
-                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        // show wake screen even when screen is locked
+        window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        // keep screen on when the alarm is going off
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         setContentView(R.layout.weather_wake_alarm_screen);
 
@@ -78,7 +78,6 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         alarm = (Alarm) bundle.getSerializable("alarm");
 
         this.setTitle(alarm.getAlarmName());
-
 
         // need to use weather api to get icon for the weather
         weatherTypeView = (TextView) findViewById(R.id.weatherType);
@@ -146,14 +145,13 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         };
         t.start();
 
-        // listen and see if phone is has incoming call or idle
+        // listen and see if phone has incoming call or idle
         PhoneStateListener phoneStateListener = new PhoneStateListener() {
             @Override
             public void onCallStateChanged(int state, String incomingNumber) {
                 switch (state) {
                     // if incoming call, pause music
                     case TelephonyManager.CALL_STATE_RINGING:
-                        Log.d(getClass().getSimpleName(), "Incoming call: " + incomingNumber);
                         try {
                             mediaPlayer.pause();
 
@@ -163,7 +161,6 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
                         break;
                     // resume music when phone state is back to idle
                     case TelephonyManager.CALL_STATE_IDLE:
-                        Log.d(getClass().getSimpleName(), "Call State Idle");
                         try {
                             mediaPlayer.start();
                         } catch (IllegalStateException e) {
@@ -176,7 +173,6 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         };
 
         telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
-
         startAlarm();
     }
 
@@ -186,8 +182,8 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
         alarmActive = true;
     }
 
+    // check if music should be playing and vibrate
     private void startAlarm() {
-
         if (alarm.getAlarmMusic() != "") {
             mediaPlayer = new MediaPlayer();
             if (alarm.getAlarmVibrate()) {
@@ -221,21 +217,32 @@ public class AlarmWakeActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onPause() {
         super.onPause();
+        // release wakelock
         StaticWakeLock.lockOff(this);
     }
 
     @Override
     protected void onDestroy() {
         try {
-            if (vibrator != null)
+            if (vibrator != null) {
                 vibrator.cancel();
-        } catch (Exception e) {}
+            }
+        } catch (Exception e) {
+            vibrator.cancel();
+            e.printStackTrace();
+        }
         try {
             mediaPlayer.stop();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            mediaPlayer.stop();
+            e.printStackTrace();
+        }
         try {
             mediaPlayer.release();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            mediaPlayer.release();
+            e.printStackTrace();
+        }
         super.onDestroy();
     }
 

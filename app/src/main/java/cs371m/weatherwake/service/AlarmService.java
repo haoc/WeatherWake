@@ -32,10 +32,10 @@ public class AlarmService extends Service {
     @Override
     public void onCreate() {
         Log.d(TAG, "DebugSnooze: onCreate");
-        Log.d(this.getClass().getSimpleName(), "onCreate()");
         super.onCreate();
     }
 
+    // get next alarm based on time difference
     private Alarm getNext(){
         Set<Alarm> alarmQueue = new TreeSet<Alarm>(new Comparator<Alarm>() {
             @Override
@@ -55,8 +55,9 @@ public class AlarmService extends Service {
         List<Alarm> alarms = database.getAllAlarms();
 
         for (Alarm alarm : alarms){
-            if(alarm.getAlarmActive())
+            if(alarm.getAlarmActive()) {
                 alarmQueue.add(alarm);
+            }
         }
         if (alarmQueue.iterator().hasNext()){
             return alarmQueue.iterator().next();
@@ -73,14 +74,13 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(this.getClass().getSimpleName(),"onStartCommand()");
         Log.d(TAG, "DebugSnooze: onStartCommand");
         Alarm alarm = getNext();
         Log.d(TAG, "DebugSnooze: alarm getNext(): " + alarm);
         if (alarm != null){
             Log.d(TAG, "DebugSnooze: alarm != null");
             alarm.schedule(getApplicationContext());
-            Log.d(this.getClass().getSimpleName(), alarm.getTimeUntilNextAlarmMessage());
+            Log.d(TAG, "DebugSnooze: timeUntilNextMsg: " + alarm.getTimeUntilNextAlarmMessage());
 
         } else {
             Log.d(TAG, "DebugSnooze: alarm == null");

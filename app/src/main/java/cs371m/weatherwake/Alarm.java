@@ -267,7 +267,6 @@ public class Alarm implements Serializable {
         this.alarmVibrate = alarmVibrate;
     }
 
-    // ?
     public String getRepeatDaysString() {
         StringBuilder daysStringBuilder = new StringBuilder();
         if (getDays().length == Day.values().length) {
@@ -279,14 +278,8 @@ public class Alarm implements Serializable {
                     return lhs.ordinal() - rhs.ordinal();
                 }
             });
-            for (Day d : getDays()) {
-                switch(d) {
-                    case TUESDAY:
-                    case THURSDAY:
-                    default:
-                        daysStringBuilder.append(d.toString().substring(0, 3));
-                        break;
-                }
+            for (Day day : getDays()) {
+                daysStringBuilder.append(day.toString().substring(0, 3));
                 daysStringBuilder.append(' ');
             }
             daysStringBuilder.setLength(daysStringBuilder.length() - 1);

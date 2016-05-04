@@ -26,21 +26,21 @@ public class AlarmEditorPreference {
     }
 
     private Key key;
-    private Object value;
+    private Object object;
     private Type type;
     private String title;
     private String summary;
     private String[] options;
 
-    public AlarmEditorPreference(Key key, Object value, Type type) {
-//        this(key, null, null, null, value, type);
-        this(key, value, type, null, null, null);
+    public AlarmEditorPreference(Key key, Object object, Type type) {
+//        this(key, null, null, null, object, type);
+        this(key, object, type, null, null, null);
     }
 
-//    public AlarmEditorPreference(Key key,String title, String summary, String[] options, Object value, Type type) {
-    public AlarmEditorPreference(Key key, Object value, Type type, String title, String summary, String[] options) {
+//    public AlarmEditorPreference(Key key,String title, String summary, String[] options, Object object, Type type) {
+    public AlarmEditorPreference(Key key, Object object, Type type, String title, String summary, String[] options) {
         setKey(key);
-        setValue(value);
+        setObject(object);
         setType(type);
         setTitle(title);
         setSummary(summary);
@@ -55,12 +55,12 @@ public class AlarmEditorPreference {
         return key;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
+    public void setObject(Object object) {
+        this.object = object;
     }
 
-    public Object getValue() {
-        return value;
+    public Object getObject() {
+        return object;
     }
 
     public void setType(Type type) {

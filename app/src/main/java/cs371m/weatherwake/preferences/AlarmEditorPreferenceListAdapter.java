@@ -85,10 +85,10 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
                 view = layoutInflater.inflate(android.R.layout.simple_list_item_checked, null);
                 CheckedTextView checkedTextView = (CheckedTextView) view.findViewById(android.R.id.text1);
                 checkedTextView.setText(alarmEditorPreference.getTitle());
-                checkedTextView.setChecked((Boolean) alarmEditorPreference.getValue());
+                checkedTextView.setChecked((Boolean) alarmEditorPreference.getObject());
                 Log.d(TAG, "DebugCheck: " + checkedTextView.getCheckMarkTintList());
 //                checkedTextView.setCheckMarkTintList(context.getResources().getColor(R.color.blue));
-                if ((Boolean)alarmEditorPreference.getValue()) {
+                if ((Boolean)alarmEditorPreference.getObject()) {
                     checkedTextView.setTextColor(context.getResources().getColor(R.color.blue));
                 }
                 break;
@@ -109,27 +109,27 @@ public class AlarmEditorPreferenceListAdapter extends BaseAdapter implements Ser
         for (AlarmEditorPreference alarmEditorPreference : alarmEditorPreferenceList) {
             switch(alarmEditorPreference.getKey()) {
                 case ALARM_ACTIVE:
-                    alarm.setAlarmActive((Boolean) alarmEditorPreference.getValue());
+                    alarm.setAlarmActive((Boolean) alarmEditorPreference.getObject());
                     break;
                 case ALARM_NAME:
-                    alarm.setAlarmName((String) alarmEditorPreference.getValue());
+                    alarm.setAlarmName((String) alarmEditorPreference.getObject());
                     break;
                 case ALARM_TIME:
-                    alarm.setAlarmTime((String) alarmEditorPreference.getValue());
+                    alarm.setAlarmTime((String) alarmEditorPreference.getObject());
                     break;
                 case ALARM_MUSIC:
-                    alarm.setAlarmMusic((String) alarmEditorPreference.getValue());
+                    alarm.setAlarmMusic((String) alarmEditorPreference.getObject());
                     break;
                 case ALARM_SNOOZE:
-                    alarm.setAlarmSnooze((String) alarmEditorPreference.getValue());
+                    alarm.setAlarmSnooze((String) alarmEditorPreference.getObject());
                     break;
                 case ALARM_PAIRING:
-                    alarm.setAlarmPairing((Boolean) alarmEditorPreference.getValue());
+                    alarm.setAlarmPairing((Boolean) alarmEditorPreference.getObject());
                 case ALARM_VIBRATE:
-                    alarm.setAlarmVibrate((Boolean) alarmEditorPreference.getValue());
+                    alarm.setAlarmVibrate((Boolean) alarmEditorPreference.getObject());
                     break;
                 case ALARM_REPEAT:
-                    alarm.setDays((Alarm.Day[]) alarmEditorPreference.getValue());
+                    alarm.setDays((Alarm.Day[]) alarmEditorPreference.getObject());
                     break;
             }
         }

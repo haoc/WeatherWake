@@ -110,7 +110,7 @@ public class AlarmEditorPreferenceActivity extends Activity {
                                 checkBoxActive(checked, checkedTextView);
                                 break;
                         }
-                        alarmEditorPreference.setValue(checked);
+                        alarmEditorPreference.setObject(checked);
                         break;
 
                     case INTEGER:
@@ -144,8 +144,8 @@ public class AlarmEditorPreferenceActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.d(TAG, "DebugSnooze: onClick:  " + numberPicker.getValue());
-                                alarmEditorPreference.setValue(numberPicker.getValue());
-                                alarm.setAlarmSnooze(alarmEditorPreference.getValue().toString());
+                                alarmEditorPreference.setObject(numberPicker.getValue());
+                                alarm.setAlarmSnooze(alarmEditorPreference.getObject().toString());
 
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
                                 alarmEditorPreferenceListAdapter.notifyDataSetChanged();
@@ -159,15 +159,15 @@ public class AlarmEditorPreferenceActivity extends Activity {
                         alert.setTitle(alarmEditorPreference.getTitle());
 
                         final EditText editText = new EditText(AlarmEditorPreferenceActivity.this);
-                        editText.setText(alarmEditorPreference.getValue().toString());
+                        editText.setText(alarmEditorPreference.getObject().toString());
                         editText.setSelection(editText.getText().length());
 
                         alert.setView(editText);
                         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogInterface, int whichButton) {
 
-                                alarmEditorPreference.setValue(editText.getText().toString());
-                                alarm.setAlarmName(alarmEditorPreference.getValue().toString());
+                                alarmEditorPreference.setObject(editText.getText().toString());
+                                alarm.setAlarmName(alarmEditorPreference.getObject().toString());
 
                                 alarmEditorPreferenceListAdapter.setAlarm(getAlarm());
                                 alarmEditorPreferenceListAdapter.notifyDataSetChanged();
