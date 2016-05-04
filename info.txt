@@ -12,7 +12,7 @@ Michael Tsang
 met2224
 
 Brief Instructions:
-As an alpha, we have yet to implement most of our application's features.  You can get to the edit alarm editor page by clicking on the edit button next to the existing default alarm. To get to the conditions page, a page where it lists a default typical day of weather in Texas, you can click on the weather settings button on the home page.  From there, you can click on the weather setting, "Hot and Sunny," to go to a page where the default ranges are set.  You can change these, but they will not be saved.  These are our core activities that we will be expanding upon for the beta.
+In order to show the current city the user is in, the device's GPS needs to be turned on and best to be tested on an actual device and not on an emulator. Start by creating alarms and set it to your preference. Alarms can be freely edit or delete by clicking on the alarms. Alarms can also be deleted using onLongClicked, click and hold the view/alarm, a window will pop asking if you want to delete the alarm. 
 
 Features Completed:
 - User can get current location to display as a city on a click of a button (GPS needs to be on)
