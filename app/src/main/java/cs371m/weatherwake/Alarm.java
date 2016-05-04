@@ -79,8 +79,8 @@ public class Alarm implements Serializable {
         return alarmId;
     }
 
-    public void setAlarmId(int id) {
-        this.alarmId = id;
+    public void setAlarmId(int alarmId) {
+        this.alarmId = alarmId;
     }
 
     // ALARM_NAME

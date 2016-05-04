@@ -100,6 +100,10 @@
         "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_part_time.xml"
     },
     {
+        "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification.xml",
+        "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\src\\main\\res\\layout\\notification.xml"
+    },
+    {
         "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
         "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_expanded_menu_layout.xml"
     },

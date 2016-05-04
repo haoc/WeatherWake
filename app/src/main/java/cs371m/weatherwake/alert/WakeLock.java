@@ -6,7 +6,7 @@ import android.os.PowerManager;
 /**
  * Created by KC on 4/19/2016.
  */
-public class StaticWakeLock {
+public class WakeLock {
 
     private static PowerManager.WakeLock wakeLock = null;
 

@@ -4,9 +4,13 @@ package cs371m.weatherwake;
 import cs371m.weatherwake.database.database;
 import cs371m.weatherwake.preferences.AlarmEditorPreferenceActivity;
 import cs371m.weatherwake.service.AlarmServiceBroadcastReceiver;
+import notifications.NotificationView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;

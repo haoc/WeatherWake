@@ -1,13 +1,17 @@
 package cs371m.weatherwake.preferences;
 
 import cs371m.weatherwake.Alarm;
+import cs371m.weatherwake.WeatherWakeMainActivity;
 import cs371m.weatherwake.database.database;
 import cs371m.weatherwake.R;
 import cs371m.weatherwake.service.AlarmServiceBroadcastReceiver;
+import notifications.NotificationView;
 
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
@@ -58,6 +62,9 @@ public class AlarmEditorPreferenceActivity extends Activity {
     private Boolean alarmActive = true;
     private Boolean alarmPairing = true;
 
+    private NotificationManager notificationManager;
+    private Notification notification;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +81,8 @@ public class AlarmEditorPreferenceActivity extends Activity {
         } else {
             setListAdapter(new AlarmEditorPreferenceListAdapter(this, getAlarm()));
         }
+
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -420,6 +429,27 @@ public class AlarmEditorPreferenceActivity extends Activity {
         this.listView = listView;
     }
 
+    public void Notify(String notificationTitle, String notificationMessage) {
+
+        Intent notificationIntent = new Intent(this, NotificationView.class);
+//        Intent intent = new Intent("com.rj.notitfications.SECACTIVITY");
+        PendingIntent pendingIntent = PendingIntent.getActivity(AlarmEditorPreferenceActivity.this, 0, notificationIntent, 0);
+
+        Notification.Builder builder = new Notification.Builder((AlarmEditorPreferenceActivity.this));
+        builder.setAutoCancel(false);
+        builder.setTicker("ticker text");
+        builder.setContentTitle(notificationTitle);
+        builder.setContentText(notificationMessage);
+//        builder.setSmallIcon(R.drawable.ic_launcher);
+        builder.setContentIntent(pendingIntent);;
+        builder.setOngoing(true);
+        builder.setNumber(100);
+        builder.build();
+
+        notification = builder.getNotification();
+        notificationManager.notify(11, notification);
+    }
+
     private void addAlarm() {
         database.init(getApplicationContext());
 
@@ -436,6 +466,7 @@ public class AlarmEditorPreferenceActivity extends Activity {
 
         // only display toast if alarm is active
         if (alarmActive) {
+            Notify("Alarm Title", "Alarm message");
 //            AlarmManager.setAlarmCLock(AlarmManager.AlarmClockInfo, PendingIntent operation);
             Toast.makeText(AlarmEditorPreferenceActivity.this, getAlarm().getTimeUntilNextAlarmMessage(), Toast.LENGTH_LONG).show();
         }

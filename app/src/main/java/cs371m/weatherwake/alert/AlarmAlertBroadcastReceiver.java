@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import cs371m.weatherwake.Alarm;
 import cs371m.weatherwake.service.AlarmServiceBroadcastReceiver;
@@ -22,7 +21,7 @@ public class AlarmAlertBroadcastReceiver extends BroadcastReceiver {
         Intent alarmServiceIntent = new Intent(context, AlarmServiceBroadcastReceiver.class);
         context.sendBroadcast(alarmServiceIntent, null);
 
-        StaticWakeLock.lockOn(context);
+        WakeLock.lockOn(context);
         Bundle bundle = intent.getExtras();
         final Alarm alarm = (Alarm) bundle.getSerializable("alarm");
 
