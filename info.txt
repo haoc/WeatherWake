@@ -17,21 +17,21 @@ As an alpha, we have yet to implement most of our application's features.  You c
 Features Completed:
 - User can get current location to display as a city on a click of a button (GPS needs to be on)
 - App shows current day and time
-- User can access the edit page of the alarms created
-- User can view the default condition on the conditions activity
-- User can adjust the default condition on the condition editor activity
+- Buttons to create and delete alarms
+- Can use longclick to delete alarms that are created
+- Working alarms with ability to edit the time, days, music, vibrate, and alarm name
+- User can access the edit page of the alarms created and update the alarms
 - Connected the activities of the app
-- Added functionality with buttons
+
 
 Features Not Completed:
 - Condition editor activity does not save edits in state
 - Cannot add condition
-- Alarm not functional, as a result, alarm screen never appears and no song added
-- Need to save in state functionality
-- Cannot edit alarm
+- Snooze doesn't work, will display the next time the alarm going off but doesn't actually go off again
 - Weather API not implemented
 
 Extra Features Added:
+- Can add vibrate option to the alarms
 
 Code from Other Sources:
 - Get Current Location Coordintaes, City Name
