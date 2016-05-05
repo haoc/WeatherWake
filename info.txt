@@ -23,7 +23,7 @@ Features Completed:
 - User can access the edit page of the alarms created and update the alarms
 - Alarms will go off at the time set and the alert screen shows the current day, time, and the music it's playing
 - Connected the activities of the app
-- Get current city temperature from openweathermap api
+- Get current city temperature from openweathermap api on homescreen and alert wake screen
 - Background changes based on the time; 8pm to a night background and 8am to a day background
 
 Features Not Completed:
