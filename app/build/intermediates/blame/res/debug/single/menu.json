@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_wearther_wake_main.xml",
+        "source": "C:\\Users\\Toth\\Documents\\GitHub\\WeatherWake\\app\\src\\main\\res\\menu\\menu_wearther_wake_main.xml"
+    },
+    {
         "merged": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\build\\intermediates\\res\\merged\\debug\\menu\\menu_wearther_wake_main.xml",
         "source": "C:\\Users\\KC\\AndroidStudioProjects\\WeatherWake\\app\\src\\main\\res\\menu\\menu_wearther_wake_main.xml"
     }
