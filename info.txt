@@ -39,6 +39,8 @@ Code from Other Sources:
 http://www.rdcworld-android.blogspot.in/2012/01/get-current-location-coordinates-city.html
 - Range seek bar widget
 https://github.com/yahoo/android-range-seek-bar
+- calling API with HTTPUrlConnect
+http://stackoverflow.com/questions/19050294/what-is-the-most-efficient-way-on-android-to-call-http-web-api-calls-that-return
 
 List of classes not written by team:
 RangeSeekBar.java
@@ -48,6 +50,7 @@ attrs.xml
 
 Code Completed:
 List of classes written by team:
+WeatherApiActivity.java
 AlarmEditorActivity.java
 AlarmScreenActivity.java
 ConditionsEditorActivity.java
